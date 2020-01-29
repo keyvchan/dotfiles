@@ -1,0 +1,57 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "settings": {
+        "udp": true,
+        "auth": "noauth"
+      },
+      "port": "1089"
+    }
+  ],
+  "outbounds": [
+    {
+      "mux": {
+        "enabled": false,
+        "concurrency": 8
+      },
+      "protocol": "vmess",
+      "streamSettings": {
+        "tlsSettings": {
+          "serverName": "www.keyv.cf",
+          "allowInsecure": true
+        },
+        "security": "tls",
+        "httpSettings": {
+          "path": "/pro",
+          "host": ["www.keyv.cf"]
+        },
+        "network": "h2"
+      },
+      "tag": "agentout",
+      "settings": {
+        "vnext": [
+          {
+            "address": "www.keyv.cf",
+            "users": [
+              {
+                "id": "1f96eb2d-8157-4902-96ac-c6a21c086dd2",
+                "alterId": 4,
+                "level": 1,
+                "security": "auto"
+              }
+            ],
+            "port": 443
+          }
+        ]
+      }
+    }
+  ],
+  "dns": {},
+  "routing": {},
+  "transport": {}
+}

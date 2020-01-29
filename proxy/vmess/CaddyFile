@@ -1,0 +1,11 @@
+https://www.keyv.cf {
+	tls keyvchan@gmail.com
+	root /var/www
+	log ./access.log
+
+	proxy /pro https://localhost:10000 {
+		header_upstream Host "www.keyv.cf"
+		header_upstream X-Forwarded-Proto "https"
+		insecure_skip_verify
+	}
+}
