@@ -109,10 +109,11 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
+    family: Monaco
     family: Hack Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    # style: Regular
 
   # Bold font face
   bold:
@@ -120,10 +121,11 @@ font:
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
+    family: Monaco
     family: Hack Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    style: Bold
+    # style: Bold
 
   # Italic font face
   italic:
@@ -131,10 +133,11 @@ font:
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
+    family: Monaco
     family: Hack Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    style: Italic
+    # style: Italic
 
   # Bold italic font face
   bold_italic:
@@ -142,10 +145,11 @@ font:
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
+    family: Monaco
     family: Hack Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    style: Bold Italic
+    # style: Bold Italic
 
   # Point size
   size: 15.0
@@ -203,7 +207,7 @@ colors:
   # the cursor color will be the inverse of the cell color.
   cursor:
     text: "0x000000"
-    cursor: "0xffffff"
+    cursor: "0x606060"
 
   # Selection colors
   #
