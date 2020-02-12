@@ -10,58 +10,7 @@ module.exports = {
    * 远程片段
    * 文档：https://surgio.royli.dev/guide/custom-config.html#remotesnippets
    */
-  remoteSnippets: [
-    {
-      name: "telegram", // 模板中对应 remoteSnippets.telegram
-      url:
-        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/Telegram.list"
-    },
-    {
-      name: "netflix", // 模板中对应 remoteSnippets.netflix
-      url:
-        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/Media/Netflix.list"
-    },
-    {
-      name: "hbo", // 模板中对应 remoteSnippets.hbo
-      url:
-        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/Media/HBO.list"
-    },
-    {
-      name: "hulu", // 模板中对应 remoteSnippets.hulu
-      url:
-        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/Media/Hulu.list"
-    },
-    {
-      name: "paypal", // 模板中对应 remoteSnippets.paypal
-      url:
-        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/PayPal.list"
-    },
-    {
-      name: "global",
-      url:
-        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/Global.list"
-    },
-    {
-      name: "China",
-      url:
-        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/China.list"
-    },
-    {
-      name: "youtube",
-      url:
-        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/Media/YouTube.list"
-    },
-    {
-      name: "google",
-      url:
-        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/Google.list"
-    },
-    {
-      name: "OneDrive",
-      url:
-        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/OneDrive.list"
-    }
-  ],
+  remoteSnippets: [],
   artifacts: [
     /**
      * Surge
@@ -69,7 +18,62 @@ module.exports = {
     {
       name: "SurgeV3.conf", // 新版 Surge
       template: "surge_v3",
+      provider: "shadowsocksr",
+      combineProviders: ["vmess"]
+    },
+
+    /**
+     * Quantumult X
+     */
+    {
+      name: "QuantumultX_rules.conf",
+      template: "quantumultx_rules",
       provider: "shadowsocksr"
+    },
+    {
+      name: "QuantumultX.conf",
+      template: "quantumultx",
+      provider: "shadowsocksr"
+    },
+    {
+      name: "QuantumultX_subscribe_us.conf",
+      template: "quantumultx_subscribe",
+      provider: "shadowsocksr",
+      customParams: {
+        magicVariable: utils.usFilter
+      }
+    },
+    {
+      name: "QuantumultX_subscribe_hk.conf",
+      template: "quantumultx_subscribe",
+      provider: "shadowsocksr",
+      customParams: {
+        magicVariable: utils.hkFilter
+      }
+    },
+    {
+      name: "QuantumultX_subscribe_jp.conf",
+      template: "quantumultx_subscribe",
+      provider: "shadowsocksr",
+      customParams: {
+        magicVariable: utils.japanFilter
+      }
+    },
+    {
+      name: "QuantumultX_subscribe_sg.conf",
+      template: "quantumultx_subscribe",
+      provider: "shadowsocksr",
+      customParams: {
+        magicVariable: utils.singaporeFilter
+      }
+    },
+    {
+      name: "QuantumultX_subscribe_tw.conf",
+      template: "quantumultx_subscribe",
+      provider: "shadowsocksr",
+      customParams: {
+        magicVariable: utils.taiwanFilter
+      }
     }
   ],
   /**
@@ -99,7 +103,8 @@ module.exports = {
     shadowsocksr: "/Users/keyv/.local/bin/ss-local"
   },
   surgeConfig: {
-    resolveHostname: false
+    resolveHostname: false,
+    v2ray: "native"
   },
   proxyTestUrl: "http://www.gstatic.com/generate_204",
   proxyTestInterval: "600"

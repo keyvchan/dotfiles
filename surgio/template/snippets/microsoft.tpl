@@ -10,5 +10,4 @@ DOMAIN-SUFFIX,windows.com,{{ rule }}
 DOMAIN-SUFFIX,windowsupdate.com,{{ rule }}
 DOMAIN,officecdn-microsoft-com.akamaized.net,{{ rule }}
 DOMAIN-SUFFIX,xboxlive.com,{{ rule }}
-
 {% endmacro %}
