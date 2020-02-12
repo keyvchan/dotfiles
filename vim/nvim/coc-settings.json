@@ -27,7 +27,6 @@
       "filetypes": ["swift"]
     }
   },
-
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
   "python.linting.mypyPath": "/usr/local/bin/mypy",
@@ -51,7 +50,7 @@
   "explorer.file.showHiddenFiles": true,
   "explorer.file.autoReveal": true,
 
-  "go.goplsPath": "/Users/keyv/go/bin/gopls",
+  "go.goplsPath": "gopls",
   "go.goplsOptions": {
     "completeUnimported": true,
     "staticcheck": true

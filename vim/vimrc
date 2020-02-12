@@ -238,6 +238,3 @@ let g:coc_snippet_prev = '<c-k>'
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " =============================================================================
-
-let g:dash_activate=0
-
