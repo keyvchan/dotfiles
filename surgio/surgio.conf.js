@@ -1,6 +1,6 @@
 "use strict";
 
-const { utils } = require("surgio");
+const { utils, categories } = require("surgio");
 
 /**
  * 使用文档：https://surgio.royli.dev/
@@ -19,7 +19,8 @@ module.exports = {
       name: "SurgeV3.conf", // 新版 Surge
       template: "surge_v3",
       provider: "shadowsocksr",
-      combineProviders: ["vmess"]
+      combineProviders: ["vmess"],
+      categories: [categories.SURGE]
     },
 
     /**
@@ -28,12 +29,14 @@ module.exports = {
     {
       name: "QuantumultX_rules.conf",
       template: "quantumultx_rules",
-      provider: "shadowsocksr"
+      provider: "shadowsocksr",
+      categories: [categories.QUANTUMULT_X_FILTER]
     },
     {
       name: "QuantumultX.conf",
       template: "quantumultx",
-      provider: "shadowsocksr"
+      provider: "shadowsocksr",
+      categories: [categories.QUANTUMULT_X]
     },
     {
       name: "QuantumultX_subscribe_us.conf",
@@ -41,7 +44,8 @@ module.exports = {
       provider: "shadowsocksr",
       customParams: {
         magicVariable: utils.usFilter
-      }
+      },
+      categories: [categories.QUANTUMULT_X_SERVER]
     },
     {
       name: "QuantumultX_subscribe_hk.conf",
@@ -49,7 +53,8 @@ module.exports = {
       provider: "shadowsocksr",
       customParams: {
         magicVariable: utils.hkFilter
-      }
+      },
+      categories: [categories.QUANTUMULT_X_SERVER]
     },
     {
       name: "QuantumultX_subscribe_jp.conf",
@@ -57,7 +62,8 @@ module.exports = {
       provider: "shadowsocksr",
       customParams: {
         magicVariable: utils.japanFilter
-      }
+      },
+      categories: [categories.QUANTUMULT_X_SERVER]
     },
     {
       name: "QuantumultX_subscribe_sg.conf",
@@ -65,7 +71,8 @@ module.exports = {
       provider: "shadowsocksr",
       customParams: {
         magicVariable: utils.singaporeFilter
-      }
+      },
+      categories: [categories.QUANTUMULT_X_SERVER]
     },
     {
       name: "QuantumultX_subscribe_tw.conf",
@@ -73,7 +80,8 @@ module.exports = {
       provider: "shadowsocksr",
       customParams: {
         magicVariable: utils.taiwanFilter
-      }
+      },
+      categories: [categories.QUANTUMULT_X_SERVER]
     }
   ],
   /**

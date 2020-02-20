@@ -27,10 +27,10 @@ available=🇯🇵 JP, {{ getNodeNames(nodeList, customFilters.JapanHighRate) }}
 available=🇸🇬 SG, {{ getNodeNames(nodeList, customFilters.SingaporeHighRate) }}, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Singapore.png
 available=🇹🇼 TW, {{ getNodeNames(nodeList, customFilters.TaiwanHighRate) }}, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Taiwan.png
 static=📺 YouTube, 🇺🇸 US, 🇭🇰 HK, 🇯🇵 JP, 🇹🇼 TW, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/YouTube.png
-static=🎬 Netflix, proxy, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Netflix.png
+static=🎬 Netflix, proxy, {{ getNodeNames(nodeList, customFilters.AmericanHighRate) }}, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Netflix.png
 static=🍎 Apple, DIRECT, 🇺🇸 US, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Apple.png
 static=🍎 Apple CDN, DIRECT, 🍎 Apple, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Apple.png
-static=📞 Telegram,   proxy, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Telegram_X.png
+static=📞 Telegram, proxy, 🇸🇬 SG, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Telegram_X.png
 static=🖥 Microsoft, DIRECT, proxy, 🇺🇸 US,  🇯🇵 JP, img-url=https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/IconSet/Microsoft.png
 static=☁️ OneDrive, DIRECT,  proxy, 🇺🇸 US, 🇯🇵 JP, 🇭🇰 HK, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/OneDrive.png
 static=🌏 Global, DIRECT, proxy, img-url=https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/IconSet/Outside.png

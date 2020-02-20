@@ -15,6 +15,10 @@
 
 {{ apple.main('proxy', '🍎 Apple', '🍎 Apple CDN', 'DIRECT', '🇺🇸 US') | quantumultx }}
 
+{{ hulu.main('🎬 Netflix') | quantumultx }}
+
+{{ netflix.main('🎬 Netflix') | quantumultx }}
+
 {{ microsoft.main('🖥 Microsoft') | quantumultx }}
 
 {{ OneDrive.main('☁️ OneDrive') | quantumultx }}

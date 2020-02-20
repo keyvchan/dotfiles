@@ -16,56 +16,44 @@
 [General]
 loglevel = notify
 skip-proxy = 127.0.0.1, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 100.64.0.0/10, 17.0.0.0/8, localhost, *.local, *.crashlytics.com
-
-# 强制使用特定的 DNS 服务器
 dns-server = 223.5.5.5, 223.6.6.6, 114.114.114.114, 1.1.1.1, 8.8.4.4
-
 bypass-system = true
-# 将特定 IP 段跳过 Surge TUN，详见 Manual
 bypass-tun = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12
-# 是否截取并保存 HTTP 流量 (启用后将对性能有较大影响) (默认值: false)
 replica = false
-# 是否启动完整的 IPv6 支持 (默认值: false)
 ipv6 = false
-
-# 以下参数仅供 macOS 版本使用（多端口监听仅 Surge 3 支持）
 http-listen = 0.0.0.0:6152
 socks5-listen = 0.0.0.0:6153
-
-# 测速地址
 internet-test-url = {{ proxyTestUrl }}
 proxy-test-url = {{ proxyTestUrl }}
-timeout = 10
-
+test-timeout = 10
 network-framework = true
-
-
-# 其它
 external-controller-access = keyv@0.0.0.0:6170
 show-primary-interface-changed-notification = true
 proxy-settings-interface = Primary Interface (Auto)
 menu-bar-show-speed = false
 allow-wifi-access = true
+show-error-page-for-reject = true
 
 [Proxy]
 {{ getSurgeNodes(nodeList) }}
 
 [Proxy Group]
 🚀 Proxy = select, {{ getNodeNames(nodeList) }}
-🎬 Netflix = select, 🚀 Proxy
-📺 YouTube = select, 🚀 Proxy, 🇭🇰 HK, 🇯🇵 JP, 🇸🇬 SG, 🇹🇼 TW
+🎬 Netflix = select, 🚀 Proxy, {{ getNodeNames(nodeList, customFilters.AmericanHighRate) }}
+📺 YouTube = select, 🚀 Proxy, 🇺🇸 US, 🇭🇰 HK, 🇯🇵 JP, 🇸🇬 SG, 🇹🇼 TW
 🌊 Google = select, 🚀 Proxy, 🇭🇰 HK, 🇺🇸 US
+📲 Telegram = select, 🚀 Proxy, 🇸🇬 SG
 🖥 Microsoft = select, DIRECT, 🚀 Proxy, 🇺🇸 US, 🇯🇵 JP
 ☁️ OneDrive = select, DIRECT,  🚀 Proxy, 🇺🇸 US, 🇯🇵 JP, 🇭🇰 HK
 🍎 Apple = select, DIRECT, 🚀 Proxy, 🇺🇸 US 
 🍎 Apple CDN = select, DIRECT, 🍎 Apple
 🌏 Global = select, DIRECT,  🚀 Proxy
 🏹 Direct = select, DIRECT,  🚀 Proxy
-🇺🇸 US = url-test, {{ getNodeNames(nodeList, customFilters.AmericanHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100
-🇭🇰 HK = url-test, {{ getNodeNames(nodeList, customFilters.HongKongHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100
-🇯🇵 JP = url-test, {{ getNodeNames(nodeList, customFilters.JapanHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100
-🇸🇬 SG = url-test, {{ getNodeNames(nodeList, customFilters.SingaporeHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100
-🇹🇼 TW = url-test, {{ getNodeNames(nodeList, customFilters.TaiwanHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100
+🇺🇸 US = url-test, {{ getNodeNames(nodeList, customFilters.AmericanHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100, timeout=5
+🇭🇰 HK = url-test, {{ getNodeNames(nodeList, customFilters.HongKongHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100, timeout=5
+🇯🇵 JP = url-test, {{ getNodeNames(nodeList, customFilters.JapanHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100, timeout=5
+🇸🇬 SG = url-test, {{ getNodeNames(nodeList, customFilters.SingaporeHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100, timeout=5
+🇹🇼 TW = url-test, {{ getNodeNames(nodeList, customFilters.TaiwanHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100, timeout=5
 
 [Rule]
 {{ custom.main('🚀 Proxy')}}
@@ -80,9 +68,9 @@ allow-wifi-access = true
 
 {{ hbo.main('🎬 Netflix') }}
 
-{{ hulu.main('🚀 Proxy') }}
+{{ hulu.main('🎬 Netflix') }}
 
-{{ telegram.main('🚀 Proxy') }}
+{{ telegram.main('📲 Telegram') }}
 
 {{ youtube.main('📺 YouTube') }}
 

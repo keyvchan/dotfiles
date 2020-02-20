@@ -1,5 +1,5 @@
 "use strict";
 
-const gateway = require("surgio/build/gateway");
+const gateway = require("@surgio/gateway");
 
 module.exports = gateway.createHttpServer();
