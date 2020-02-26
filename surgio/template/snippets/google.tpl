@@ -16,7 +16,6 @@ DOMAIN-SUFFIX,debug.com,{{ rule }}
 DOMAIN-SUFFIX,deepmind.com,{{ rule }}
 DOMAIN-SUFFIX,firebaseio.com,{{ rule }}
 DOMAIN-SUFFIX,getmdl.io,{{ rule }}
-DOMAIN-SUFFIX,ggpht.com,{{ rule }}
 DOMAIN-SUFFIX,gmail.com,{{ rule }}
 DOMAIN-SUFFIX,gmodules.com,{{ rule }}
 DOMAIN-SUFFIX,godoc.org,{{ rule }}
@@ -42,9 +41,6 @@ DOMAIN-SUFFIX,webrtc.org,{{ rule }}
 DOMAIN-SUFFIX,whatbrowser.org,{{ rule }}
 DOMAIN-SUFFIX,widevine.com,{{ rule }}
 DOMAIN-SUFFIX,x.company,{{ rule }}
-DOMAIN-SUFFIX,youtu.be,{{ rule }}
-DOMAIN-SUFFIX,yt.be,{{ rule }}
-DOMAIN-SUFFIX,ytimg.com,{{ rule }}
 # (DNS Cache Pollution Protection)
 DOMAIN-SUFFIX,ampproject.org,{{ rule }}
 DOMAIN-SUFFIX,appspot.com,{{ rule }}
