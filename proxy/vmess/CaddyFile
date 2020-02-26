@@ -1,10 +1,10 @@
-https://www.keyv.cf {
+https://domain.com {
 	tls keyvchan@gmail.com
 	root /var/www
 	log ./access.log
 
 	proxy /pro https://localhost:10000 {
-		header_upstream Host "www.keyv.cf"
+		header_upstream Host "domain.com"
 		header_upstream X-Forwarded-Proto "https"
 		insecure_skip_verify
 	}

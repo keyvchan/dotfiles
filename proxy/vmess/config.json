@@ -22,13 +22,13 @@
       "protocol": "vmess",
       "streamSettings": {
         "tlsSettings": {
-          "serverName": "www.keyv.cf",
+          "serverName": "domain.com",
           "allowInsecure": true
         },
         "security": "tls",
         "httpSettings": {
-          "path": "/pro",
-          "host": ["www.keyv.cf"]
+          "path": "/path",
+          "host": ["domain.com"]
         },
         "network": "h2"
       },
@@ -36,10 +36,10 @@
       "settings": {
         "vnext": [
           {
-            "address": "www.keyv.cf",
+            "address": "domain.com",
             "users": [
               {
-                "id": "1f96eb2d-8157-4902-96ac-c6a21c086dd2",
+                "id": "Your UUID",
                 "alterId": 4,
                 "level": 1,
                 "security": "auto"
