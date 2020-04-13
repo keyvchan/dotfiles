@@ -1,17 +1,5 @@
 {
   "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "args": ["--background-index"],
-      "rootPatterns": [
-        "compile_flags.txt",
-        "compile_commands.json",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": ["c", "cpp", "objc", "objcpp"]
-    },
     "lua": {
       "command": "lua-lsp",
       "filetypes": ["lua"]
@@ -20,6 +8,21 @@
       "command": "sourcekit-lsp",
       "filetypes": ["swift"],
       "rootPatterns": ["Package.swift"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    },
+    "julia": {
+      "command": "/usr/local/bin/julia",
+      "args": [
+        "--startup-file=no",
+        "--history-file=no",
+        "-e",
+        "using LanguageServer;\n       using Pkg;\n       import StaticLint;\n       import SymbolServer;\n       env_path = dirname(Pkg.Types.Context().env.project_file);\n       debug = false;\n       server = LanguageServer.LanguageServerInstance(stdin, stdout, debug, env_path, \"\", Dict());\n       server.runlinter = true;\n       run(server);"
+      ],
+      "filetypes": ["julia"]
     }
   },
   "python.jediEnabled": false,
@@ -29,7 +32,7 @@
   "codeLens.enable": true,
 
   "suggest.noselect": true,
-  "suggest.enablePreselect": false,
+  "suggest.enablePreselect": true,
   "suggest.maxCompleteItemCount": 1000,
 
   "list.nextKeymap": "<C-n>",
@@ -39,72 +42,23 @@
   "diagnostic.virtualText": true,
   "diagnostic.checkCurrentLine": false,
 
+  "diagnostic-languageserver.filetypes": {
+    "sh": "shellcheck",
+    "go": ["golangci-lint"],
+    "swift": ["swiftlint"],
+    "txt": ["languagetool"]
+  },
+
   "explorer.icon.enableNerdfont": true,
   "explorer.file.showHiddenFiles": true,
   "explorer.file.autoReveal": true,
-  "explorer.keyMappings": {
-    "k": "nodePrev",
-    "j": "nodeNext",
-
-    "*": "toggleSelection",
-    "<tab>": "actionMenu",
-
-    "h": "collapse",
-    "l": "expand",
-    "J": ["toggleSelection", "normal:j"],
-    "K": ["toggleSelection", "normal:k"],
-    "gl": "expandRecursive",
-    "gh": "collapseRecursive",
-    "o": "expandOrCollapse",
-    "<cr>": "open",
-    "e": "open",
-    "E": "openInVsplit",
-    "t": "openInTab",
-    "<bs>": "gotoParent",
-
-    "y": "copyFilepath",
-    "Y": "copyFilename",
-    "c": "copyFile",
-    "x": "cutFile",
-    "p": "pasteFile",
-    "d": "delete",
-    "D": "deleteForever",
-
-    "a": "addFile",
-    "A": "addDirectory",
-    "r": "rename",
-
-    ".": "toggleHidden",
-    "R": "refresh",
-
-    "?": "help",
-    "q": "quit",
-    "X": "systemExecute",
-    "gd": "listDrive",
-
-    "f": "search",
-    "F": "searchRecursive",
-
-    "gf": "gotoSource:file",
-    "gb": "gotoSource:buffer",
-
-    "[[": "sourcePrev",
-    "]]": "sourceNext",
-
-    "[d": "diagnosticPrev",
-    "]d": "diagnosticNext",
-
-    "[c": "gitPrev",
-    "]c": "gitNext",
-    "<<": "gitStage",
-    ">>": "gitUnstage"
-  },
-
   "go.goplsPath": "gopls",
   "go.goplsOptions": {
     "completeUnimported": true,
     "staticcheck": true
   },
 
-  "rust-analyzer.raLspServerPath": "/Users/keyv/.cargo/bin/rust-analyzer"
+  "rust-analyzer.serverPath": "/Users/keyv/.cargo/bin/rust-analyzer",
+
+  "clangd.arguments": ["--background-index"]
 }
