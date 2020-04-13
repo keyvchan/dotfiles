@@ -1,24 +1,24 @@
-{% macro main(default_rule, api_rule, cdn_rule, location_rule, apple_news_rule) %}
+{% macro main(Default, api_rule, cdn_rule, direct, apple_news_rule) %}
 # http://www.jjinc.com.au/announcements/apple170008services
 #
 # Apple 直连
 #
-USER-AGENT,*com.apple.mobileme.fmip1,DIRECT
-USER-AGENT,*WeatherFoundation*,DIRECT
+USER-AGENT,*com.apple.mobileme.fmip1,{{ direct }}
+USER-AGENT,*WeatherFoundation*,{{ direct }}
 # Maps
-USER-AGENT,%E5%9C%B0%E5%9B%BE*,{{ location_rule }}
+USER-AGENT,%E5%9C%B0%E5%9B%BE*,{{ direct }}
 # Settings
-USER-AGENT,%E8%AE%BE%E7%BD%AE*,DIRECT
-USER-AGENT,com.apple.geod*,{{ location_rule }}
-USER-AGENT,com.apple.Maps,{{ location_rule }}
-USER-AGENT,FindMyFriends*,DIRECT
-USER-AGENT,FindMyiPhone*,DIRECT
-USER-AGENT,FMDClient*,DIRECT
-USER-AGENT,FMFD*,DIRECT
-USER-AGENT,fmflocatord*,DIRECT
-USER-AGENT,geod*,{{ location_rule }}
-USER-AGENT,locationd*,{{ location_rule }}
-USER-AGENT,Maps*,{{ location_rule }}
+USER-AGENT,%E8%AE%BE%E7%BD%AE*,{{ direct}}
+USER-AGENT,com.apple.geod*,{{ direct }}
+USER-AGENT,com.apple.Maps,{{ direct }}
+USER-AGENT,FindMyFriends*,{{ direct}}
+USER-AGENT,FindMyiPhone*,{{ direct}}
+USER-AGENT,FMDClient*,{{ direct}}
+USER-AGENT,FMFD*,{{ direct}}
+USER-AGENT,fmflocatord*,{{ direct}}
+USER-AGENT,geod*,{{ direct }}
+USER-AGENT,locationd*,{{ direct }}
+USER-AGENT,Maps*,{{ direct }}
 
 #
 # 一些 com.apple.appstored* 会连接的 API（优先级高）
@@ -62,18 +62,18 @@ USER-AGENT,com.apple.appstored*,{{ cdn_rule }}
 # Apple Non-China CDN
 #
 # Trailer
-DOMAIN-SUFFIX,hls.itunes.apple.com,{{ default_rule }}
+DOMAIN-SUFFIX,hls.itunes.apple.com,{{ Default }}
 # Movie Stream
-DOMAIN-SUFFIX,hls-amt.itunes.apple.com,{{ default_rule }}
+DOMAIN-SUFFIX,hls-amt.itunes.apple.com,{{ Default }}
 # iTunes Music Stream
-DOMAIN-SUFFIX,audio-ssl.itunes.apple.com,{{ default_rule }}
-DOMAIN-SUFFIX,cdn-apple.com,{{ default_rule }}
-DOMAIN,cdn.apple-cloudkit.com,{{ default_rule }}
+DOMAIN-SUFFIX,audio-ssl.itunes.apple.com,{{ Default }}
+DOMAIN-SUFFIX,cdn-apple.com,{{ Default }}
+DOMAIN,cdn.apple-cloudkit.com,{{ Default }}
 # Developer
-DOMAIN,devimages-cdn.apple.com,{{ default_rule }}
+DOMAIN,devimages-cdn.apple.com,{{ Default }}
 # Developer
-DOMAIN,devstreaming-cdn.apple.com,{{ default_rule }}
-DOMAIN,js-cdn.music.apple.com,{{ default_rule }}
+DOMAIN,devstreaming-cdn.apple.com,{{ Default }}
+DOMAIN,js-cdn.music.apple.com,{{ Default }}
 
 #
 # Apple News
@@ -87,40 +87,40 @@ DOMAIN,apple.comscoreresearch.com,{{apple_news_rule}}
 #
 # Apple 其他直连
 #
-DOMAIN,api.smoot.apple.com,DIRECT
-DOMAIN,captive.apple.com,DIRECT
-DOMAIN,configuration.apple.com,DIRECT
-DOMAIN,guzzoni.apple.com,DIRECT
+DOMAIN,api.smoot.apple.com,{{ api_rule }}
+DOMAIN,captive.apple.com, {{ api_rule }}
+DOMAIN,configuration.apple.com,{{ api_rule }}
+DOMAIN,guzzoni.apple.com,{{ api_rule }}
 # Apple Pay
-DOMAIN,smp-device-content.apple.com,DIRECT
+DOMAIN,smp-device-content.apple.com,{{ direct}}
 # Apple Music Streaming
-DOMAIN,aod.itunes.apple.com,DIRECT
-DOMAIN,api.smoot.apple.cn,DIRECT
+DOMAIN,aod.itunes.apple.com,{{ api_rule}}
+DOMAIN,api.smoot.apple.cn,{{ api_rule}}
 # locationd
-DOMAIN,gs-loc.apple.com,{{ location_rule }}
+DOMAIN,gs-loc.apple.com,{{ direct }}
 # Apple Music Streaming
-DOMAIN,mvod.itunes.apple.com,DIRECT
+DOMAIN,mvod.itunes.apple.com,{{ api_rule }}
 # Apple Music Streaming
-DOMAIN,streamingaudio.itunes.apple.com,DIRECT
+DOMAIN,streamingaudio.itunes.apple.com,{{ api_rule }}
 # Reserve
-DOMAIN,reserve-prime.apple.com,DIRECT
-DOMAIN-SUFFIX,ess.apple.com,DIRECT
-DOMAIN-SUFFIX,push-apple.com.akadns.net,DIRECT
-DOMAIN-SUFFIX,push.apple.com,DIRECT
+DOMAIN,reserve-prime.apple.com,{{ direct}}
+DOMAIN-SUFFIX,ess.apple.com,{{ direct}}
+DOMAIN-SUFFIX,push-apple.com.akadns.net,{{ direct}}
+DOMAIN-SUFFIX,push.apple.com,{{ direct}}
 # Apple Music
-DOMAIN-SUFFIX,music.apple.com,DIRECT
+DOMAIN-SUFFIX,music.apple.com,{{ api_rule }}
 # GeoServices.framework
-DOMAIN-SUFFIX,ls.apple.com,{{ location_rule }}
+DOMAIN-SUFFIX,ls.apple.com,{{ direct }}
 # Asset Cache Locator Service
-DOMAIN-SUFFIX,lcdn-locator.apple.com,DIRECT
+DOMAIN-SUFFIX,lcdn-locator.apple.com,{{ api_rule }}
 # Caching Server Registration
-DOMAIN-SUFFIX,lcdn-registration.apple.com,DIRECT
+DOMAIN-SUFFIX,lcdn-registration.apple.com,{{ api_rule }}
 # Apple Pay
-DOMAIN-KEYWORD,smp-device,DIRECT
+DOMAIN-KEYWORD,smp-device,{{ direct}}
 # Apple Pay
-USER-AGENT,passd*,DIRECT
+USER-AGENT,passd*,{{ direct}}
 # Apple Pay
-USER-AGENT,Wallet*,DIRECT
+USER-AGENT,Wallet*,{{ direct}}
 
 #
 # Apple 其他自选

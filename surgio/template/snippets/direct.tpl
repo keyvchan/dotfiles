@@ -21,7 +21,7 @@ PROCESS-NAME,*Thunder*,{{ rule }}
 PROCESS-NAME,*DownloadService*,{{ rule }}
 PROCESS-NAME,*Soda*,{{ rule }}
 PROCESS-NAME,*p4pclient*,{{ rule }}
-PROCESS-NAME,aria2c,{{ rule }}
+{# PROCESS-NAME,aria2c,{{ rule }} #}
 PROCESS-NAME,fdm,{{ rule }}
 PROCESS-NAME,Folx,{{ rule }}
 PROCESS-NAME,NetTransport,{{ rule }}
@@ -30,6 +30,11 @@ PROCESS-NAME,uTorrent,{{ rule }}
 PROCESS-NAME,WebTorrent,{{ rule }}
 PROCESS-NAME,WebTorrent Helper,{{ rule }}
 DOMAIN-KEYWORD,tracker,{{ rule }}
+DOMAIN-KEYWORD,torrent,{{ rule }}
+DOMAIN-KEYWORD,sandai,{{ rule }}
+DOMAIN-KEYWORD,Thunder,{{ rule }}
+DOMAIN-KEYWORD,XLLiveUD,{{ rule }}
+DOMAIN-KEYWORD,BitTorrent,{{ rule }}
 
 # Booking
 DOMAIN-SUFFIX,booking.com,{{ rule }}
