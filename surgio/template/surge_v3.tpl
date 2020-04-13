@@ -12,11 +12,13 @@
 {% import './snippet/hbo.tpl' as hbo %}
 {% import './snippet/google.tpl' as google %}
 {% import './snippet/global.tpl' as global %}
+{% import './snippet/pornhub.tpl' as pornhub %}
+
 
 [General]
 loglevel = notify
 skip-proxy = 127.0.0.1, 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 100.64.0.0/10, 17.0.0.0/8, localhost, *.local, *.crashlytics.com
-dns-server = 223.5.5.5, 223.6.6.6, 114.114.114.114, 1.1.1.1, 8.8.4.4
+dns-server = 114.114.114.114, 1.1.1.1, 8.8.4.4, 223.5.5.5, 223.6.6.6
 bypass-system = true
 bypass-tun = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12
 replica = false
@@ -26,7 +28,8 @@ socks5-listen = 0.0.0.0:6153
 internet-test-url = {{ proxyTestUrl }}
 proxy-test-url = {{ proxyTestUrl }}
 test-timeout = 10
-network-framework = true
+tls-provider = network-framework
+exclude-simple-hostnames = true
 external-controller-access = keyv@0.0.0.0:6170
 show-primary-interface-changed-notification = true
 proxy-settings-interface = Primary Interface (Auto)
@@ -42,6 +45,7 @@ show-error-page-for-reject = true
 🎬 Netflix = select, 🚀 Proxy, {{ getNodeNames(nodeList, customFilters.AmericanHighRate) }}
 📺 YouTube = select, 🚀 Proxy, 🇺🇸 US, 🇭🇰 HK, 🇯🇵 JP, 🇸🇬 SG, 🇹🇼 TW
 🌊 Google = select, 🚀 Proxy, 🇭🇰 HK, 🇺🇸 US
+🔞 Pornhub = select, 🚀 Proxy, {{ getNodeNames(nodeList, customFilters.Korea)}}, {{ getNodeNames(nodeList, customFilters.Italy)}} 
 📲 Telegram = select, 🚀 Proxy, 🇸🇬 SG
 🖥 Microsoft = select, DIRECT, 🚀 Proxy, 🇺🇸 US, 🇯🇵 JP
 ☁️ OneDrive = select, DIRECT,  🚀 Proxy, 🇺🇸 US, 🇯🇵 JP, 🇭🇰 HK
@@ -56,27 +60,38 @@ show-error-page-for-reject = true
 🇹🇼 TW = url-test, {{ getNodeNames(nodeList, customFilters.TaiwanHighRate) }}, url = {{ proxyTestUrl }}, interval = 300, tolerance = 100, timeout=5
 
 [Rule]
-{{ custom.main('🚀 Proxy')}}
+{{ custom.main('🚀 Proxy', '🏹 Direct')}}
 
-{{ apple.main('🚀 Proxy', '🍎 Apple', '🍎 Apple CDN', 'DIRECT', '🇺🇸 US') }}
+{{ apple.main('🚀 Proxy', '🍎 Apple', '🍎 Apple CDN', '🏹 Direct', '🇺🇸 US') }}
+
+{{ remoteSnippets.OneDrive.main('☁️ OneDrive')}}
+{# {{ OneDrive.main('☁️ OneDrive')}} #}
 
 {{ microsoft.main('🖥 Microsoft')}}
 
-{{ OneDrive.main('☁️ OneDrive')}}
+{# {{ netflix.main('🎬 Netflix') }} #}
+{{ remoteSnippets.Netflix.main('🎬 Netflix') }}
 
-{{ netflix.main('🎬 Netflix') }}
+{# {{ hbo.main('🎬 Netflix') }} #}
+{{ remoteSnippets.HBO.main('🎬 Netflix') }}
 
-{{ hbo.main('🎬 Netflix') }}
+{# {{ hulu.main('🎬 Netflix') }} #}
+{{ remoteSnippets.Hulu.main('🎬 Netflix') }}
 
-{{ hulu.main('🎬 Netflix') }}
+{# {{ pornhub.main('🔞 Pornhub')}} #}
+{{ remoteSnippets.Pornhub.main('🔞 Pornhub')}}
 
-{{ telegram.main('📲 Telegram') }}
+{{ remoteSnippets.Telegram.main('📲 Telegram') }}
+{# {{ telegram.main('📲 Telegram') }} #}
 
-{{ youtube.main('📺 YouTube') }}
+{# {{ youtube.main('📺 YouTube') }} #}
+{{ remoteSnippets.YouTube.main('📺 YouTube') }}
 
-{{ google.main('🌊 Google')}}
+{# {{ google.main('🌊 Google')}} #}
+{{ remoteSnippets.Google.main('🌊 Google')}}
 
-{{ global.main('🌏 Global') }}
+{# {{ global.main('🌏 Global') }} #}
+{{ remoteSnippets.Global.main('🌏 Global') }}
 
 {{ direct.main('🏹 Direct')}}
 
@@ -87,7 +102,7 @@ RULE-SET,SYSTEM,DIRECT
 RULE-SET,LAN,DIRECT
 
 # GeoIP CN
-GEOIP,CN,DIRECT
+GEOIP,CN,🏹 Direct
 
 # Final
 FINAL,🚀 Proxy,dns-failed
