@@ -11,24 +11,41 @@
 {% import './snippet/google.tpl' as google %}
 {% import './snippet/global.tpl' as global %}
 
-{{ custom.main('proxy') | quantumultx }}
+{{ custom.main('proxy', '🏹 Direct') | quantumultx }}
 
-{{ apple.main('proxy', '🍎 Apple', '🍎 Apple CDN', 'DIRECT', '🇺🇸 US') | quantumultx }}
+{{ apple.main('proxy', '🍎 Apple', '🍎 Apple CDN', '🏹 Direct', '🇺🇸 US') | quantumultx }}
 
-{{ hulu.main('🎬 Netflix') | quantumultx }}
+{{ remoteSnippets.Hulu.main('🎬 Netflix') | quantumultx }}
 
-{{ netflix.main('🎬 Netflix') | quantumultx }}
+{{ remoteSnippets.Netflix.main('🎬 Netflix') | quantumultx }}
+
+{{ remoteSnippets.OneDrive.main('☁️ OneDrive') | quantumultx }}
+
+{{ microsoft.main('🖥 Microsoft') | quantumultx }}
+
+{{ remoteSnippets.Telegram.main('📞 Telegram') | quantumultx }}
+
+{{ remoteSnippets.YouTube.main('📺 YouTube') | quantumultx }}
+
+{{ remoteSnippets.Google.main('🌊 Google') | quantumultx }}
+
+{{ remoteSnippets.Global.main('🌏 Global') | quantumultx }}
+
+{{ direct.main('🏹 Direct') | quantumultx }}
+
+
+{# {{ netflix.main('🎬 Netflix') | quantumultx }}
 
 {{ microsoft.main('🖥 Microsoft') | quantumultx }}
 
 {{ OneDrive.main('☁️ OneDrive') | quantumultx }}
 
-{{ telegram.main('proxy') | quantumultx }}
+{{ telegram.main('📞 Telegram') | quantumultx }}
 
 {{ youtube.main('📺 YouTube') | quantumultx }}
 
-{{ google.main('🇭🇰 HK') | quantumultx }}
+{{ google.main('🌊 Google') | quantumultx }}
 
 {{ global.main('🌏 Global') | quantumultx }}
 
-{{ direct.main('🏹 Direct') | quantumultx }}
+{{ direct.main('🏹 Direct') | quantumultx }} #}
