@@ -6,6 +6,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'sbdchd/neoformat'
+Plug 'Yggdroot/indentLine'
 Plug 'keyvchan/vim-monokai'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile '}
 
@@ -31,6 +32,7 @@ let mapleader=","
 set noshowmode
 
 " set mouse clicked as 'a'
+set noexpandtab
 set mouse=a
 set backspace=2
 set path+=**
@@ -63,7 +65,6 @@ set laststatus=2
 " fix paste intend
 set nopaste
 
-set wrap
 set t_Co=256
 colorscheme monokai
 
@@ -238,3 +239,4 @@ let g:coc_snippet_prev = '<c-k>'
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " =============================================================================
+let g:indentLine_enabled=1
