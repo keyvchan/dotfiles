@@ -1,0 +1,2 @@
+{% macro main(rule) %}
+{% endmacro %}

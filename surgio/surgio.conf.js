@@ -57,6 +57,12 @@ module.exports = {
       name: "OneDrive",
     },
   ],
+  customFilters: {
+    pornsshub: utils.useProviders(["pornsshub"]),
+    ssrpass: utils.useProviders(["ssrpass"]),
+    custom: utils.useProviders(["vmess"]),
+  },
+
   artifacts: [
     /**
      * Surge
@@ -64,15 +70,15 @@ module.exports = {
     {
       name: "SurgeV3.conf", // 新版 Surge
       template: "surge_v3",
-      provider: "shadowsocksr",
-      combineProviders: ["vmess"],
+      provider: "ssrpass",
+      combineProviders: ["vmess", "pornsshub"],
       categories: [categories.SURGE],
     },
     {
       name: "SurgePolicyPath", // 新版 Surge
       template: "surgePolicyPath",
-      provider: "shadowsocksr",
-      combineProviders: ["vmess"],
+      provider: "ssrpass",
+      combineProviders: ["vmess", "pornsshub"],
       categories: [categories.SURGE],
     },
 
@@ -82,19 +88,20 @@ module.exports = {
     {
       name: "QuantumultX_rules.conf",
       template: "quantumultx_rules",
-      provider: "shadowsocksr",
+      provider: "ssrpass",
       categories: [categories.QUANTUMULT_X_FILTER],
     },
     {
       name: "QuantumultX.conf",
       template: "quantumultx",
-      provider: "shadowsocksr",
+      provider: "ssrpass",
+      combineProviders: ["vmess"],
       categories: [categories.QUANTUMULT_X],
     },
     {
       name: "QuantumultX_subscribe_us.conf",
       template: "quantumultx_subscribe",
-      provider: "shadowsocksr",
+      provider: "ssrpass",
       customParams: {
         magicVariable: utils.usFilter,
       },
@@ -103,7 +110,7 @@ module.exports = {
     {
       name: "QuantumultX_subscribe_hk.conf",
       template: "quantumultx_subscribe",
-      provider: "shadowsocksr",
+      provider: "ssrpass",
       customParams: {
         magicVariable: utils.hkFilter,
       },
@@ -112,7 +119,7 @@ module.exports = {
     {
       name: "QuantumultX_subscribe_jp.conf",
       template: "quantumultx_subscribe",
-      provider: "shadowsocksr",
+      provider: "ssrpass",
       customParams: {
         magicVariable: utils.japanFilter,
       },
@@ -121,7 +128,7 @@ module.exports = {
     {
       name: "QuantumultX_subscribe_sg.conf",
       template: "quantumultx_subscribe",
-      provider: "shadowsocksr",
+      provider: "ssrpass",
       customParams: {
         magicVariable: utils.singaporeFilter,
       },
@@ -130,7 +137,7 @@ module.exports = {
     {
       name: "QuantumultX_subscribe_tw.conf",
       template: "quantumultx_subscribe",
-      provider: "shadowsocksr",
+      provider: "ssrpass",
       customParams: {
         magicVariable: utils.taiwanFilter,
       },
@@ -139,7 +146,7 @@ module.exports = {
     {
       name: "QuantumultX_subscribe_kr.conf",
       template: "quantumultx_subscribe",
-      provider: "shadowsocksr",
+      provider: "ssrpass",
       customParams: {
         magicVariable: utils.useKeywords(["Korea"]),
       },
@@ -148,16 +155,29 @@ module.exports = {
     {
       name: "QuantumultX_subscribe_It.conf",
       template: "quantumultx_subscribe",
-      provider: "shadowsocksr",
+      provider: "ssrpass",
       customParams: {
         magicVariable: utils.useKeywords(["Italy"]),
       },
       categories: [categories.QUANTUMULT_X_SERVER],
     },
     {
+      name: "QuantumultX_subscribe_pornsshub.conf",
+      template: "quantumultx_subscribe",
+      provider: "pornsshub",
+      customParams: {
+        magicVariable: utils.useProviders(["pornsshub"]),
+      },
+      categories: [categories.QUANTUMULT_X_SERVER],
+    },
+
+    /**
+     * Clash
+     */
+    {
       name: "Clash.yaml",
       template: "clash",
-      provider: "shadowsocksr",
+      provider: "pornsshub",
       combineProviders: ["vmess"],
       categories: [categories.CLASH],
     },
@@ -166,7 +186,7 @@ module.exports = {
    * 订阅地址的前缀部分，以 / 结尾
    * 例如阿里云 OSS 的访问地址 https://xxx.oss-cn-hangzhou.aliyuncs.com/
    */
-  urlBase: "https://surgeconfiguration.keyvchan.now.sh/get-artifact/",
+  urlBase: "Your URL",
   upload: {
     // 默认保存至根目录，可以在此修改子目录名，以 / 结尾，默认为 /
     prefix: "/",
@@ -182,7 +202,7 @@ module.exports = {
 
   gateway: {
     auth: true,
-    accessToken: "Getcrayon123",
+    accessToken: "Access_token",
   },
 
   binPath: {
