@@ -2,4 +2,4 @@
 #!desc=30k rules for anti-ad.
 
 [Rule]
-RULE-SET, https://anti-ad.win/surge.txt, REJECT
+RULE-SET, https://anti-ad.win/surge.txt, REJECT-TINYGIF
