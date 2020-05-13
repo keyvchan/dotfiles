@@ -6,8 +6,7 @@
     },
     "swift": {
       "command": "sourcekit-lsp",
-      "filetypes": ["swift"],
-      "rootPatterns": ["Package.swift"]
+      "filetypes": ["swift"]
     },
     "dockerfile": {
       "command": "docker-langserver",
@@ -31,10 +30,6 @@
 
   "codeLens.enable": true,
 
-  "suggest.noselect": true,
-  "suggest.enablePreselect": true,
-  "suggest.maxCompleteItemCount": 1000,
-
   "list.nextKeymap": "<C-n>",
   "list.previousKeymap": "<C-p>",
 
@@ -46,7 +41,9 @@
     "sh": "shellcheck",
     "go": ["golangci-lint"],
     "swift": ["swiftlint"],
-    "txt": ["languagetool"]
+    "text": ["languagetool-server"],
+    "c": ["cppcheck"],
+    "cpp": ["cppcheck"]
   },
 
   "explorer.icon.enableNerdfont": true,
