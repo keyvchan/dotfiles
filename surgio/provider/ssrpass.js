@@ -47,6 +47,9 @@ module.exports = {
     if (name.indexOf("Italy") != -1) {
       return name.replace("Italy", "🇮🇹 Italy");
     }
+    if (name.indexOf("Hungary") != -1) {
+      return name.replace("Hungary", "🇭🇺 Hungary");
+    }
 
     return name;
   },
@@ -59,7 +62,7 @@ module.exports = {
     AmericanHighRate: utils.mergeFilters(
       [
         utils.usFilter,
-        utils.discardKeywords(["0.1", "vmess"]),
+        utils.discardKeywords(["0.1"]),
         utils.useProviders(["ssrpass"]),
       ],
       true
@@ -98,6 +101,7 @@ module.exports = {
     ),
     Korea: utils.useKeywords(["Korea"]),
     Italy: utils.useKeywords(["Italy"]),
+    Hungary: utils.useKeywords(["Hungary"]),
     NoStatics: utils.discardKeywords(["：", ":"]),
   },
 };

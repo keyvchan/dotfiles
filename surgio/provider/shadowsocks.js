@@ -1,15 +1,16 @@
 "use strict";
 
 const { utils } = require("surgio");
-const { test } = require("./custom");
 
 module.exports = {
   url: "Your URL",
   type: "shadowsocks_subscribe",
   udpRelay: true,
+  tfo: true,
+  tls13: true,
+  mptcp: true,
 
   renameNode: (name) => {
-    let indictor = "ss";
     if (name.indexOf("America") != -1) {
       return name.replace("America", "United States-SS");
     }
@@ -43,29 +44,4 @@ module.exports = {
 
   // Misc
   addFlag: false,
-
-  // Filters
-  customFilters: {
-    AmericanHighRate: utils.mergeFilters(
-      [utils.usFilter, utils.discardKeywords(["0.1"])],
-      true
-    ),
-    HongKongHighRate: utils.mergeFilters(
-      [utils.hkFilter, utils.discardKeywords(["0.1"])],
-      true
-    ),
-    JapanHighRate: utils.mergeFilters(
-      [utils.japanFilter, utils.discardKeywords(["0.1"])],
-      true
-    ),
-    SingaporeHighRate: utils.mergeFilters(
-      [utils.singaporeFilter, utils.discardKeywords(["0.1"])],
-      true
-    ),
-    TaiwanHighRate: utils.mergeFilters(
-      [utils.taiwanFilter, utils.discardKeywords(["0.1"])],
-      true
-    ),
-    NoStatics: utils.discardKeywords(["：", ":"]),
-  },
 };

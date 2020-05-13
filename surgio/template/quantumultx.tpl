@@ -14,13 +14,14 @@ server = 1.2.4.8
 server = 182.254.116.116
 
 [server_remote]
-{{ getDownloadUrl('QuantumultX_subscribe_kr.conf') }}, tag=🇰🇷 Korea
-{{ getDownloadUrl('QuantumultX_subscribe_us.conf') }}, tag=🇺🇸 United States
-{{ getDownloadUrl('QuantumultX_subscribe_hk.conf') }}, tag=🇭🇰 Hong Kong
-{{ getDownloadUrl('QuantumultX_subscribe_jp.conf') }}, tag=🇯🇵 Japan
-{{ getDownloadUrl('QuantumultX_subscribe_sg.conf') }}, tag=🇸🇬 Singapore
-{{ getDownloadUrl('QuantumultX_subscribe_tw.conf') }}, tag=🇹🇼 Taiwan
-{{ getDownloadUrl('QuantumultX_subscribe_pornsshub.conf') }}, tag=🚗 Pornsshub
+{{ getDownloadUrl('QuantumultX_subscribe_kr.conf') }}, tag=🇰🇷 Korea, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/ssrpass.png
+{{ getDownloadUrl('QuantumultX_subscribe_hg.conf') }}, tag=🇭🇺 Hungary, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/ssrpass.png
+{{ getDownloadUrl('QuantumultX_subscribe_us.conf') }}, tag=🇺🇸 United States, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/ssrpass.png
+{{ getDownloadUrl('QuantumultX_subscribe_hk.conf') }}, tag=🇭🇰 Hong Kong, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/ssrpass.png
+{{ getDownloadUrl('QuantumultX_subscribe_jp.conf') }}, tag=🇯🇵 Japan, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/ssrpass.png
+{{ getDownloadUrl('QuantumultX_subscribe_sg.conf') }}, tag=🇸🇬 Singapore, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/ssrpass.png
+{{ getDownloadUrl('QuantumultX_subscribe_tw.conf') }}, tag=🇹🇼 Taiwan, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/ssrpass.png
+{{ getDownloadUrl('QuantumultX_subscribe_pornsshub.conf') }}, tag=🚗 Pornsshub, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/zc.png
 
 [server_local]
 {{ getQuantumultXNodes(nodeList, customFilters.custom)}}
@@ -38,8 +39,8 @@ static=🔞 Pornhub, proxy, {{ getNodeNames(nodeList, customFilters.Korea) }}, i
 static=🍎 Apple, DIRECT, 🇺🇸 US,  img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Apple.png
 static=🍎 Apple CDN, DIRECT, 🍎 Apple, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Apple.png
 static=📞 Telegram, proxy, 🇸🇬 SG, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Telegram_X.png
-static=🖥 Microsoft, DIRECT, proxy, 🇺🇸 US,  🇯🇵 JP, img-url=https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/IconSet/Microsoft.png
-static=☁️ OneDrive, DIRECT,  proxy, 🇺🇸 US, 🇯🇵 JP, 🇭🇰 HK, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/OneDrive.png
+static=🖥 Microsoft, DIRECT, proxy, 🇺🇸 US,  🇯🇵 JP, {{ getNodeNames(nodeList, customFilters.custom) }}, img-url=https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/IconSet/Microsoft.png
+static=☁️ OneDrive, DIRECT,  proxy, 🇺🇸 US, 🇯🇵 JP, 🇭🇰 HK, {{ getNodeNames(nodeList, customFilters.custom) }}, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/OneDrive.png
 static=🌏 Global, DIRECT, proxy, img-url=https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/IconSet/Outside.png
 static=🏹 Direct, DIRECT, proxy, img-url=https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/IconSet/Mainland.png
 
@@ -58,10 +59,11 @@ final, proxy
 [rewrite_local]
 
 [rewrite_remote]
+https://raw.githubusercontent.com/ConnersHua/Profiles/master/Quantumult/X/Rewrite.conf, tag=DivineEngine Rewrite, enabled=true
 
 [mitm]
-passphrase = CA
-p12 = MITM
+passphrase = 
+p12 = 
 ;passphrase =
 ;p12 =
 ;skip_validating_cert = false

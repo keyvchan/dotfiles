@@ -21,6 +21,8 @@
 
 {{ remoteSnippets.OneDrive.main('☁️ OneDrive') | quantumultx }}
 
+{{ remoteSnippets.Pornhub.main('🔞 Pornhub') | quantumultx }}
+
 {{ microsoft.main('🖥 Microsoft') | quantumultx }}
 
 {{ remoteSnippets.Telegram.main('📞 Telegram') | quantumultx }}
