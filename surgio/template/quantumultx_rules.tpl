@@ -19,6 +19,8 @@
 
 {{ remoteSnippets.Netflix.main('🎬 Netflix') | quantumultx }}
 
+{{ remoteSnippets.Spotify.main('🎵 Spotify') | quantumultx }}
+
 {{ remoteSnippets.OneDrive.main('☁️ OneDrive') | quantumultx }}
 
 {{ remoteSnippets.Pornhub.main('🔞 Pornhub') | quantumultx }}

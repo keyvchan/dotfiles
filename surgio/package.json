@@ -6,6 +6,7 @@
     "update": "surgio generate && surgio upload"
   },
   "dependencies": {
+    "@surgio/gateway": "^0.13.0",
     "surgio": "^1.12.0"
   }
 }

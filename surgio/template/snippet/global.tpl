@@ -496,7 +496,6 @@ DOMAIN-SUFFIX,widevine.com,{{ rule }}
 DOMAIN-SUFFIX,x.company,{{ rule }}
 DOMAIN-SUFFIX,youtu.be,{{ rule }}
 DOMAIN-SUFFIX,yt.be,{{ rule }}
-DOMAIN-SUFFIX,ytimg.com,{{ rule }}
 # > Microsoft
 # >> Microsoft OneDrive
 DOMAIN-SUFFIX,1drv.com,{{ rule }}

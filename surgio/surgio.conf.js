@@ -56,10 +56,16 @@ module.exports = {
         "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/OneDrive.list",
       name: "OneDrive",
     },
+    {
+      url:
+        "https://raw.githubusercontent.com/ConnersHua/Profiles/master/Surge/Ruleset/Media/Spotify.list",
+      name: "Spotify",
+    },
   ],
   customFilters: {
     pornsshub: utils.useProviders(["pornsshub"]),
     ssrpass: utils.useProviders(["ssrpass"]),
+    shadowsocks: utils.useProviders(["shadowsocks"]),
     custom: utils.useProviders(["vmess"]),
   },
 
@@ -153,6 +159,15 @@ module.exports = {
       categories: [categories.QUANTUMULT_X_SERVER],
     },
     {
+      name: "QuantumultX_subscribe_hg.conf",
+      template: "quantumultx_subscribe",
+      provider: "ssrpass",
+      customParams: {
+        magicVariable: utils.useKeywords(["Hungary"]),
+      },
+      categories: [categories.QUANTUMULT_X_SERVER],
+    },
+    {
       name: "QuantumultX_subscribe_It.conf",
       template: "quantumultx_subscribe",
       provider: "ssrpass",
@@ -186,7 +201,7 @@ module.exports = {
    * 订阅地址的前缀部分，以 / 结尾
    * 例如阿里云 OSS 的访问地址 https://xxx.oss-cn-hangzhou.aliyuncs.com/
    */
-  urlBase: "Your URL",
+  urlBase: "https://surgeconfiguration.keyvchan.now.sh/get-artifact/",
   upload: {
     // 默认保存至根目录，可以在此修改子目录名，以 / 结尾，默认为 /
     prefix: "/",
@@ -202,7 +217,7 @@ module.exports = {
 
   gateway: {
     auth: true,
-    accessToken: "Access_token",
+    accessToken: "Getcrayon123",
   },
 
   binPath: {

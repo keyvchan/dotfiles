@@ -3,7 +3,7 @@
 const { utils } = require("surgio");
 
 module.exports = {
-  url: "Your URL",
+  url: "URL",
   type: "shadowsocksr_subscribe",
   udpRelay: true,
   tfo: true,
@@ -11,44 +11,53 @@ module.exports = {
   mptcp: true,
 
   renameNode: (name) => {
-    if (name.indexOf("America") != -1) {
+    if (name.indexOf("America") !== -1) {
       return name.replace("America", "🇺🇸 United States");
     }
-    if (name.indexOf("England") != -1) {
+    if (name.indexOf("England") !== -1) {
       return name.replace("England", "🇬🇧 United Kingdom");
     }
-    if (name.indexOf("Hong Kong") != -1) {
+    if (name.indexOf("Hong Kong") !== -1) {
       return name.replace("Hong Kong", "🇭🇰 Hong Kong");
     }
-    if (name.indexOf("India") != -1) {
+    if (name.indexOf("India") !== -1) {
       return name.replace("India", "🇮🇳 India");
     }
-    if (name.indexOf("Japan") != -1) {
+    if (name.indexOf("Japan") !== -1) {
       return name.replace("Japan", "🇯🇵 Japan");
     }
-    if (name.indexOf("Singapore") != -1) {
+    if (name.indexOf("Singapore") !== -1) {
       return name.replace("Singapore", "🇸🇬 Singapore");
     }
-    if (name.indexOf("Taiwan") != -1) {
+    if (name.indexOf("Taiwan") !== -1) {
       return name.replace("Taiwan", "🇹🇼 Taiwan");
     }
-    if (name.indexOf("German") != -1) {
+    if (name.indexOf("German") !== -1) {
       return name.replace("German", "🇩🇪 German");
     }
-    if (name.indexOf("Spain") != -1) {
+    if (name.indexOf("Spain") !== -1) {
       return name.replace("Spain", "🇪🇸 Spain");
     }
-    if (name.indexOf("Vietnam") != -1) {
+    if (name.indexOf("Vietnam") !== -1) {
       return name.replace("Vietnam", "🇻🇳 Vietnam");
     }
-    if (name.indexOf("Korea") != -1) {
+    if (name.indexOf("Korea") !== -1) {
       return name.replace("Korea", "🇰🇷 Korea");
     }
-    if (name.indexOf("Italy") != -1) {
+    if (name.indexOf("Italy") !== -1) {
       return name.replace("Italy", "🇮🇹 Italy");
     }
-    if (name.indexOf("Hungary") != -1) {
+    if (name.indexOf("Hungary") !== -1) {
       return name.replace("Hungary", "🇭🇺 Hungary");
+    }
+    if (name.indexOf("Latvia") !== -1) {
+      return name.replace("Latvia", "🇱🇻 Latvia");
+    }
+    if (name.indexOf("Norway") !== -1) {
+      return name.replace("Norway", "🇳🇴 Norway");
+    }
+    if (name.indexOf("Philippines") !== -1) {
+      return name.replace("Philippines", "🇵🇭 Philippines");
     }
 
     return name;

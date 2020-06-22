@@ -3,7 +3,7 @@
 const { utils } = require("surgio");
 
 module.exports = {
-  url: "Your URL",
+  url: "URL",
   type: "v2rayn_subscribe",
   udpRelay: true,
   tfo: true,
