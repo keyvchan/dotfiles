@@ -1,5 +1,5 @@
 "						Coniguration for MacOS vim/nvim keyvchan@gmail.com
-"									last update 2020/07/22
+"									last update 2019/10/23
 
 call plug#begin('~/.vim/plugged')
 
