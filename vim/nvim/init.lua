@@ -3,6 +3,7 @@ require('lsp')
 require('treesitter')
 require('telescope-nvim')
 require('icons')
+-- require('statusline')
 
 vim.api.nvim_set_option("termguicolors", true)
 -- vim.api.nvim_set_option("softtabstop", 2)
@@ -36,12 +37,15 @@ vim.api.nvim_command("set signcolumn=yes")
 vim.api.nvim_command("let mapleader=\",\"")
 vim.api.nvim_command("set number")
 vim.api.nvim_command("set relativenumber")
+vim.api.nvim_command("set guicursor=")
 
 -- vim.api.nvim_command("nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>")
 -- vim.api.nvim_command("nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>")
 
-vim.api.nvim_command("inoremap <expr> <Tab>   pumvisible() ? \"<C-n>\" : \"<Tab>\"")
-vim.api.nvim_command("inoremap <expr> <S-Tab> pumvisible() ? \"<C-p>\" : \"<S-Tab>\"")
+vim.api.nvim_command(
+    "inoremap <expr> <Tab>   pumvisible() ? \"<C-n>\" : \"<Tab>\"")
+vim.api.nvim_command(
+    "inoremap <expr> <S-Tab> pumvisible() ? \"<C-p>\" : \"<S-Tab>\"")
 
 vim.api.nvim_command("imap <silent> <c-space> <Plug>(completion_trigger)")
 vim.api.nvim_command("autocmd BufEnter * lua require'completion'.on_attach()")
@@ -51,8 +55,10 @@ vim.api.nvim_command("let g:completion_matching_ignore_case = 1")
 
 vim.api.nvim_command("colorscheme monokai")
 
-vim.api.nvim_command("nnoremap <leader>ff :lua require'telescope.builtin'.find_files()<CR>")
-vim.api.nvim_command("nnoremap <leader>fb :lua require'telescope.builtin'.buffers()<CR>")
+vim.api.nvim_command(
+    "nnoremap <leader>ff :lua require'telescope.builtin'.find_files()<CR>")
+vim.api.nvim_command(
+    "nnoremap <leader>fb :lua require'telescope.builtin'.buffers()<CR>")
 -- vim.api.nvim_command("augroup fmt autocmd! autocmd BufWritePre * undojoin | Neoformat augroup END")
 vim.api.nvim_exec([[
 augroup fmt
@@ -72,5 +78,11 @@ call sign_define("LspDiagnosticsSignInformation", {"text" : "‼", "texthl" : "L
 call sign_define("LspDiagnosticsSignHint", {"text" : "ﯧ", "texthl" : "LspDiagnosticsVirtualTextHint"})
 ]], true)
 
-
-
+vim.api.nvim_exec([[
+au VimEnter * ++once lua statusline = require('statusline')
+" augroup statusline_updates
+"   au!
+"   au BufWinEnter,WinEnter,BufEnter,BufDelete,SessionLoadPost,FileChangedShellPost * lua require('statusline').update()
+" augroup END
+au VimEnter * ++once lua vim.o.statusline = '%!v:lua.statusline.status()'
+]], true)
