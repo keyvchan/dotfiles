@@ -26,11 +26,15 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
         -- and on, using buffer local variables
         -- Disable a feature
         update_in_insert = true
+
     })
 
 local chain_complete_list = {
     default = {
-        default = {{complete_items = {'lsp', 'snippet', 'buffers'}}},
+        default = {
+            {complete_items = {'lsp', 'snippet'}},
+            {complete_items = {'buffers'}}
+        },
         string = {{complete_items = {'path', 'buffers'}}},
         comment = {{completion_items = {'buffers'}}}
     }
@@ -42,8 +46,7 @@ local on_attach = function(client)
     -- passing in a table with on_attach function
     completion.on_attach({
         sorting = 'alphabet',
-        matching_strategy_list = {'exact', 'substring', 'fuzzy'},
-        completion_auto_change_source = 1,
+        matching_strategy_list = {'exact', 'substring', 'fuzzy', 'all'},
         chain_complete_list = chain_complete_list
         -- completion_enable_auto_hover = 0
         -- completion_enbale_auto_signature = 0
@@ -163,5 +166,12 @@ nvim_lsp.tsserver.setup {
 nvim_lsp.denols.setup {on_attach = on_attach}
 nvim_lsp.texlab.setup {
     filetypes = {'tex', 'bib', 'plaintex'},
+    settings = {
+        forwardSearch = {args = {"%l", "%p", "%f"}},
+        chktex = {onEdit = true, onOpenAndSave = true},
+        lint = {onChange = true}
+    },
     on_attach = on_attach
 }
+
+nvim_lsp.yamlls.setup {}

@@ -4,11 +4,13 @@ require('treesitter')
 require('telescope-nvim')
 require('icons')
 -- require('statusline')
+--
 
 vim.api.nvim_set_option("termguicolors", true)
 -- vim.api.nvim_set_option("softtabstop", 2)
 -- vim.api.nvim_set_option("tabstop", 2)
 -- vim.api.nvim_set_option("shiftwidth", 2)
+
 vim.api.nvim_set_option("scrolloff", 5)
 vim.api.nvim_set_option("splitbelow", true)
 vim.api.nvim_set_option("splitright", true)
@@ -24,12 +26,6 @@ vim.api.nvim_set_option("backup", false)
 vim.api.nvim_set_option("updatetime", 100)
 vim.api.nvim_set_option("expandtab", true)
 vim.api.nvim_set_option("smartindent", true)
-
--- vim.api.nvim_set_option("showtabline", 2)
-
--- vim.api.nvim_command("set number")
--- vim.api.nvim_win_set_option(0, "number", true)
-
 vim.api.nvim_command("set tabstop=2")
 vim.api.nvim_command("set softtabstop=2")
 vim.api.nvim_command("set shiftwidth=2")
@@ -37,10 +33,6 @@ vim.api.nvim_command("set signcolumn=yes")
 vim.api.nvim_command("let mapleader=\",\"")
 vim.api.nvim_command("set number")
 vim.api.nvim_command("set relativenumber")
-vim.api.nvim_command("set guicursor=")
-
--- vim.api.nvim_command("nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>")
--- vim.api.nvim_command("nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>")
 
 vim.api.nvim_command(
     "inoremap <expr> <Tab>   pumvisible() ? \"<C-n>\" : \"<Tab>\"")
@@ -52,14 +44,19 @@ vim.api.nvim_command("autocmd BufEnter * lua require'completion'.on_attach()")
 vim.api.nvim_command("let g:completion_trigger_on_delete = 1")
 vim.api.nvim_command("set completeopt=menuone,noinsert,noselect")
 vim.api.nvim_command("let g:completion_matching_ignore_case = 1")
+vim.api.nvim_command("let g:completion_auto_change_source = 1")
+vim.api.nvim_command("set shortmess+=c")
 
 vim.api.nvim_command("colorscheme monokai")
 
-vim.api.nvim_command(
-    "nnoremap <leader>ff :lua require'telescope.builtin'.find_files()<CR>")
-vim.api.nvim_command(
-    "nnoremap <leader>fb :lua require'telescope.builtin'.buffers()<CR>")
--- vim.api.nvim_command("augroup fmt autocmd! autocmd BufWritePre * undojoin | Neoformat augroup END")
+-- telescope
+vim.api.nvim_set_keymap('n', '<leader>ff',
+                        '<CMD>lua require("telescope.builtin").find_files()<CR>',
+                        {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>fb',
+                        '<CMD>lua require("telescope.builtin").buffers()<CR>',
+                        {noremap = true, silent = true})
+
 vim.api.nvim_exec([[
 augroup fmt
   autocmd!
@@ -86,3 +83,17 @@ au VimEnter * ++once lua statusline = require('statusline')
 " augroup END
 au VimEnter * ++once lua vim.o.statusline = '%!v:lua.statusline.status()'
 ]], true)
+
+-- setup diagnostic jump
+vim.api.nvim_set_keymap('n', '<C-p>',
+                        '<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>',
+                        {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<C-n>',
+                        '<CMD>lua vim.lsp.diagnostic.goto_next()<CR>',
+                        {noremap = true, silent = true})
+-- Closer to the metal
+vim.api.nvim_set_keymap('n', '<C-[>', '<CMD>lua require("FTerm").toggle()<CR>',
+                        {noremap = true, silent = true})
+vim.api.nvim_set_keymap('t', '<C-[>',
+                        '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>',
+                        {noremap = true, silent = true})
