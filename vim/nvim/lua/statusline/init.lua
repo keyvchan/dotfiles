@@ -1,144 +1,205 @@
--- local utils = require('statusline/utils')
--- local git = require('git')
--- local ts = require('nvim-treesitter')
-local lsp_status = require('lsp-status')
-local icons = require('nvim-web-devicons')
+local gl = require "galaxyline"
+local gls = gl.section
+gl.short_line_list = { "NvimTree", "packer" }
 
-local function lint_lsp(buf)
-    local result = ''
-    if #vim.lsp.buf_get_clients(buf) > 0 then
-        result = result .. lsp_status.status()
-    end
-    return result
+local colors = {
+  bg = "#282c34",
+  cyan = "#008080",
+  darkblue = "#081633",
+  magenta = "#d16d9e",
+  blue = "#0087d7",
+  white = "#FFFFFF",
+  black = "#272822",
+  lightblack = "#2D2E27",
+  lightblack2 = "#383a3e",
+  arkblack = "#211F1C",
+  grey = "#8F908A",
+  lightgrey = "#575b61",
+  darkgrey = "#64645e",
+  warmgrey = "#75715E",
+  pink = "#F93C80",
+  green = "#84F57D",
+  aqua = "#66d9ef",
+  darkaqua = "#4EADE5",
+  yellow = "#FFFF43",
+  orange = "#FFBD37",
+  deepOrange = "#FF8C00",
+  purple = "#ae81ff",
+  darkpurple = "#855dcf",
+  red = "#FF1919",
+  darkred = "#F44747",
+  addfg = "#d7ffaf",
+  addbg = "#5f875f",
+  delbg = "#f75f5f",
+  changefg = "#d7d7ff",
+  changebg = "#5f5f87",
+}
+-- local colors = {
+-- }
+
+local buffer_not_empty = function()
+  if vim.fn.empty(vim.fn.expand "%:t") ~= 1 then
+    return true
+  end
+  return false
 end
 
-local mode_table = {
-    n = 'Normal',
-    no = 'N·Operator Pending',
-    v = 'Visual',
-    V = 'V·Line',
-    ['^V'] = 'V·Block',
-    s = 'Select',
-    S = 'S·Line',
-    ['^S'] = 'S·Block',
-    i = 'Insert',
-    R = 'Replace',
-    Rv = 'V·Replace',
-    c = 'Command',
-    cv = 'Vim Ex',
-    ce = 'Ex',
-    r = 'Prompt',
-    rm = 'More',
-    ['r?'] = 'Confirm',
-    ['!'] = 'Shell',
-    t = 'Terminal'
+gls.left[1] = {
+  FirstElement = {
+    provider = function()
+      return "▋"
+    end,
+    highlight = { colors.blue, colors.darkaqua },
+  },
+}
+gls.left[2] = {
+  ViMode = {
+    provider = function()
+      local alias = {
+        n = "NORMAL",
+        no = "N·Operator Pending",
+        v = "Visual",
+        V = "V·Line",
+        ["^V"] = "V·Block",
+        s = "Select",
+        S = "S·Line",
+        ["^S"] = "S·Block",
+        i = "Insert",
+        R = "Replace",
+        Rv = "V·Replace",
+        c = "Command",
+        cv = "Vim Ex",
+        ce = "Ex",
+        r = "Prompt",
+        rm = "More",
+        ["r?"] = "Confirm",
+        ["!"] = "Shell",
+        t = "Terminal",
+      }
+
+      return "  " .. string.upper(alias[vim.fn.mode()] or "V-Block") .. " "
+    end,
+    separator = "\u{e0b0}" .. " ",
+    separator_highlight = {
+      colors.purple,
+      function()
+        if not buffer_not_empty() then
+          return colors.purple
+        end
+        return colors.darkblue
+      end,
+    },
+    highlight = { colors.darkblue, colors.purple, "bold" },
+  },
+}
+gls.left[3] = {
+  FileIcon = {
+    provider = "FileIcon",
+    condition = buffer_not_empty,
+    highlight = { require("galaxyline.provider_fileinfo").get_file_icon_color, colors.darkblue },
+  },
+}
+gls.left[4] = {
+  FileName = {
+    provider = { "FileName" },
+    condition = buffer_not_empty,
+    -- separator = "\u{e0b0}",
+    -- separator_highlight = { colors.darkblue },
+    highlight = { colors.magenta, colors.darkblue },
+  },
+}
+gls.left[5] = {
+  GitBranch = {
+    provider = "GitBranch",
+    icon = "  " .. "  ",
+    -- separator = "\u{e0b0}",
+    -- separator_highlight = { colors.purple },
+    condition = function()
+      return buffer_not_empty and require("galaxyline.condition").check_git_workspace()
+    end,
+    highlight = { colors.black, colors.purple },
+  },
 }
 
-local function get_mode(mode) return string.upper(mode_table[mode] or 'V-Block') end
-
-local function filename(buf_name, win_id)
-    local base_name = vim.fn.fnamemodify(buf_name, [[:~:.]])
-    local space = math.min(60, math.floor(0.6 * vim.fn.winwidth(win_id)))
-    if string.len(base_name) <= space then
-        return base_name
-    else
-        return vim.fn.pathshorten(base_name)
-    end
+local checkwidth = function()
+  local squeeze_width = vim.fn.winwidth(0) / 2
+  if squeeze_width > 40 then
+    return true
+  end
+  return false
 end
 
-local function update_colors(mode)
-    if mode == 'n' then
-        vim.cmd [[hi StatuslineAccent guibg=#98C379 gui=bold guifg=#272822]]
-        vim.cmd [[hi StatuslineModePowerlineSymbol guifg=#98C379 gui=bold guibg=none]]
-    elseif mode == 'i' then
-        vim.cmd [[hi StatuslineAccent guibg=#61AFEF gui=bold guifg=#272822]]
-        vim.cmd [[hi StatuslineModePowerlineSymbol guifg=#61AFEF gui=bold guibg=none]]
-    elseif mode == 'R' then
-        vim.cmd [[hi StatuslineAccent guibg=#c678dd gui=bold guifg=#272822]]
-        vim.cmd [[hi StatuslineModePowerlineSymbol guifg=#c678dd gui=bold guibg=none]]
-    elseif mode == 'c' then
-        vim.cmd [[hi StatuslineAccent guibg=#61afef gui=bold guifg=#272822]]
-        vim.cmd [[hi StatuslineModePowerlineSymbol guifg=#61AFEF gui=bold guibg=none]]
-    elseif mode == 't' then
-        vim.cmd [[hi StatuslineAccent guibg=#e9e9e9 gui=bold guifg=#272822]]
-        vim.cmd [[hi StatuslineModePowerlineSymbol guifg=#e9e9e9 gui=bold guibg=none]]
-    else
-        vim.cmd [[hi StatuslineAccent guibg=#e9e9e9 gui=bold guifg=#272822]]
-        vim.cmd [[hi StatuslineModePowerlineSymbol guifg=#e9e9e9 gui=bold guibg=none]]
-    end
+gls.left[6] = {
+  DiffAdd = {
+    provider = "DiffAdd",
+    condition = checkwidth,
+    icon = " ",
+    highlight = { colors.green, colors.purple },
+  },
+}
+gls.left[7] = {
+  DiffModified = {
+    provider = "DiffModified",
+    condition = checkwidth,
+    icon = " ",
+    highlight = { colors.orange, colors.purple },
+  },
+}
+gls.left[8] = {
+  DiffRemove = {
+    provider = "DiffRemove",
+    condition = checkwidth,
+    icon = " ",
+    highlight = { colors.red, colors.purple },
+  },
+}
+gls.left[9] = {
+  LeftEnd = {
+    provider = function()
+      return require("lsp-status").status()
+    end,
+    separator = "\u{e0b0}",
+    separator_highlight = { colors.purple, "NONE" },
+    highlight = { colors.black, colors.purple },
+  },
+}
+gls.right[1] = {
+  FileFormat = {
+    provider = "FileFormat",
+    separator = "\u{e0b2}",
+    separator_highlight = { colors.purple, "NONE" },
+    highlight = { colors.black, colors.purple },
+  },
+}
+gls.right[2] = {
+  LineInfo = {
+    provider = "LineColumn",
+    separator = " " .. "\u{e0b2}" .. " ",
+    separator_highlight = { colors.purple, colors.purple },
+    highlight = { colors.black, colors.purple },
+  },
+}
+gls.right[3] = {
+  ScrollBar = {
+    provider = "ScrollBar",
+    highlight = { colors.black, colors.purple },
+  },
+}
 
-    if vim.bo.modified then
-        vim.cmd [[hi StatuslineFilename guifg=#d75f5f gui=bold guibg=none]]
-    else
-        vim.cmd [[hi StatuslineFilename guifg=#e9e9e9 gui=bold guibg=none]]
-    end
+gls.short_line_left[1] = {
+  BufferType = {
+    provider = "FileTypeName",
+    separator = "\u{e0b0}",
+    separator_highlight = { colors.purple, "NONE" },
+    highlight = { colors.black, colors.purple, "bold" },
+  },
+}
 
-    -- vim.cmd [[hi StatuslineFileType guifg=#e9e9e9 gui=bold guibg=#8F908A]]
-    vim.cmd [[hi StatuslineFileType guifg=#e9e9e9 gui=bold guibg=none]]
-    vim.cmd [[hi StatuslineLint guifg=#272822 gui=bold guibg=#ff8c00]]
-    vim.cmd [[hi StatuslineLineCol guifg=#272822 gui=bold guibg=#98c379]]
-
-    vim.cmd [[hi StatuslineLSPPowerlineSymbol guifg=#ff8c00 gui=bold guibg=none]]
-
-end
-
-local function set_modified_symbol(modified)
-    if modified then
-        vim.cmd [[hi StatuslineModified guibg=none gui=bold guifg=#d75f5f]]
-        return '  ●'
-    else
-        vim.cmd [[ hi StatuslineModified guibg=none gui=bold guifg=#afaf00]]
-        return ''
-    end
-end
-
-local function get_paste() return vim.o.paste and 'PASTE ' or '' end
-
-local function get_readonly_space()
-    return ((vim.o.paste and vim.bo.readonly) and ' ' or '') and '%r' ..
-               (vim.bo.readonly and ' ' or '')
-end
-
-local function get_powerline_symbol_right() return '\u{e0b0}' end
-
-local function status()
-    local mode = vim.fn.mode()
-    local win_id = vim.fn.win_getid()
-    local buf_nr = vim.fn.winbufnr(win_id)
-    local buf_name = vim.fn.bufname(buf_nr)
-    local file_name = vim.api.nvim_buf_get_name(buf_name)
-    file_name = vim.api.nvim_call_function('fnamemodify', {file_name, ":p:t"})
-    local extension = vim.fn.resolve(vim.fn.fnamemodify(file_name, ":e"))
-
-    update_colors(mode)
-    local line_components = {}
-    table.insert(line_components,
-                 '%#StatuslineAccent# ' .. get_mode(mode) .. ' ')
-    table.insert(line_components, '%#StatuslineModePowerlineSymbol#' ..
-                     get_powerline_symbol_right() .. ' ')
-    table.insert(line_components,
-                 '%#StatuslineFiletype# ' .. icons.get_icon(extension) .. " ")
-    table.insert(line_components, '%#StatuslineModified#' ..
-                     set_modified_symbol(vim.bo.modified))
-    table.insert(line_components, '%#StatuslineFilename# ' ..
-                     filename(buf_name, win_id) .. ' %<')
-    table.insert(line_components, '%#StatuslineFilename# ' .. get_paste())
-    table.insert(line_components, get_readonly_space())
-    -- local ts_component = ts.statusline(60)
-    -- if ts_component ~= nil then
-    --   table.insert(line_components, ts_component .. ' ')
-    -- end
-    table.insert(line_components, '%#StatuslineLint#' .. lint_lsp(buf_nr))
-    table.insert(line_components, '%#StatuslineLSPPowerlineSymbol#' ..
-                     get_powerline_symbol_right() .. ' ')
-    table.insert(line_components, '%#StatuslineFiletype#' .. '%=')
-    table.insert(line_components,
-                 '%#StatuslineLineCol# (%l/%L, %#StatuslineLineCol# %c) %<')
-    return table.concat(line_components, '')
-end
-
-local function update()
-    for i = 1, vim.fn.winnr('$') do vim.wo.statusline = status() end
-end
-
-return {status = status, update = update}
+gls.short_line_right[1] = {
+  BufferIcon = {
+    provider = "BufferIcon",
+    separator = "\u{e0b2}",
+    separator_highlight = { colors.purple },
+    highlight = { colors.black, colors.purple },
+  },
+}
