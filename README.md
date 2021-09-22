@@ -1,2 +1,3 @@
 # dotfiles
-Configuration for utils
+
+Configurations of my daily utils.
