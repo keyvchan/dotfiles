@@ -1,5 +1,0 @@
-#!name= Real IP for all domains
-#!desc= let surge return a real IP address instead of a fake IP address when Surge VIF handles a DNS question for all domains.
-
-[General]
-always-real-ip = *
