@@ -25,7 +25,6 @@ vim.opt.backup = false
 vim.opt.updatetime = 100
 vim.opt.expandtab = true
 vim.opt.smartindent = true
-vim.opt.spell = false
 vim.opt.pumblend = 30
 vim.opt.undofile = true
 
@@ -38,42 +37,14 @@ vim.opt.relativenumber = true
 vim.opt.completeopt = "menu,preview,noinsert"
 
 vim.api.nvim_command "colorscheme monokai"
+vim.api.nvim_command "set nospell"
 
--- vim.api.nvim_command "set number"
--- vim.api.nvim_command "set relativenumber"
--- vim.api.nvim_command "set completeopt=menu,preview,noinsert"
--- vim.api.nvim_set_option("scrolloff", 5)
--- vim.api.nvim_set_option("splitbelow", true)
--- vim.api.nvim_set_option("splitright", true)
--- vim.api.nvim_set_option("ignorecase", true)
--- vim.api.nvim_set_option("conceallevel", 2)
--- vim.api.nvim_set_option("mouse", "a")
--- vim.api.nvim_set_option("wildmenu", true)
--- vim.api.nvim_set_option("hidden", true)
--- vim.api.nvim_set_option("pumheight", 10)
--- vim.api.nvim_set_option("cmdheight", 2)
--- vim.api.nvim_set_option("laststatus", 2)
--- vim.api.nvim_set_option("backup", false)
--- vim.api.nvim_set_option("updatetime", 100)
--- vim.api.nvim_set_option("expandtab", true)
--- vim.api.nvim_set_option("smartindent", true)
--- vim.api.nvim_set_option("spell", false)
--- vim.api.nvim_set_option("pumblend", 30)
--- vim.api.nvim_command "set tabstop=2"
--- vim.api.nvim_command "set softtabstop=2"
--- vim.api.nvim_command "set shiftwidth=2"
--- vim.api.nvim_command "set signcolumn=yes"
 vim.g.mapleader = ","
 vim.g.loaded_node_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
--- vim.api.nvim_command 'let mapleader=","'
--- vim.api.nvim_command "let g:loaded_ruby_provider=0"
--- vim.api.nvim_command "let g:loaded_node_provider=0"
--- vim.api.nvim_command "let g:loaded_python_provider=0"
--- vim.api.nvim_command "let g:loaded_python3_provider=0"
--- vim.api.nvim_command "let g:loaded_perl_provider=0"
+vim.g.loaded_perl_provider = 0
 
 -- telescope
 vim.api.nvim_set_keymap(
@@ -113,15 +84,10 @@ augroup END
 vim.g.diagnostic_enable_virtual_text = 1
 vim.g.diagnostic_enable_underline = 1
 
-vim.api.nvim_exec(
-  [[
-call sign_define("LspDiagnosticsSignError", {"text" : "✗", "texthl" : "LspDiagnosticsVirtualTextError"})
-call sign_define("LspDiagnosticsSignWarning", {"text" : "", "texthl" : "LspDiagnosticsVirtualtextWarning"})
-call sign_define("LspDiagnosticsSignInformation", {"text" : "‼", "texthl" : "LspDiagnosticsVirtualtextInformation"})
-call sign_define("LspDiagnosticsSignHint", {"text" : "ﯧ", "texthl" : "LspDiagnosticsVirtualTextHint"})
-]],
-  true
-)
+vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "LspDiagnosticsVirtualTextError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "LspDiagnosticsVirtualtextWarning" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "‼", texthl = "LspDiagnosticsVirtualtextInformation" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "ﯧ", texthl = "LspDiagnosticsVirtualTextHint" })
 
 -- setup diagnostic jump
 vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>", { noremap = true, silent = true })
