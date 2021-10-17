@@ -1,4 +1,5 @@
 local gl = require "galaxyline"
+local path = require "plenary.path"
 local gls = gl.section
 gl.short_line_list = { "NvimTree", "packer" }
 
@@ -99,9 +100,23 @@ gls.left[3] = {
     highlight = { require("galaxyline.provider_fileinfo").get_file_icon_color, colors.darkblue },
   },
 }
+
+local function filename()
+  local win_id = vim.fn.win_getid()
+  local buf_nr = vim.fn.winbufnr(win_id)
+  local buf_name = vim.fn.bufname(buf_nr)
+  local base_name = vim.fn.fnamemodify(buf_name, [[:~:.]])
+  local space = math.min(60, math.floor(0.6 * vim.fn.winwidth(win_id)))
+  if string.len(base_name) <= space then
+    return base_name .. " "
+  else
+    return vim.fn.pathshorten(base_name) .. " "
+  end
+end
+
 gls.left[4] = {
   FileName = {
-    provider = { "FileName" },
+    provider = filename,
     condition = buffer_not_empty,
     -- separator = "\u{e0b0}",
     -- separator_highlight = { colors.darkblue },
@@ -156,7 +171,7 @@ gls.left[8] = {
 gls.left[9] = {
   LeftEnd = {
     provider = function()
-      return require("lsp-status").status()
+      return " " .. require("lsp-status").status() .. " "
     end,
     separator = "\u{e0b0}",
     separator_highlight = { colors.purple, "NONE" },

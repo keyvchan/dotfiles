@@ -21,7 +21,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
   -- Enable underline, use default values
   underline = true,
   -- Enable virtual text, override spacing to 4
-  virtual_text = { spacing = 4 },
+  virtual_text = { spacing = 4, source = "always" },
   -- Use a function to dynamically turn signs off
   -- and on, using buffer local variables
   -- Disable a feature
@@ -208,7 +208,24 @@ nvim_lsp.sourcekit.setup {
 nvim_lsp.gopls.setup {
   on_attach = on_attach,
 }
-nvim_lsp.rust_analyzer.setup { on_attach = on_attach }
+nvim_lsp.rust_analyzer.setup {
+  on_attach = on_attach,
+  settings = {
+    ["rust-analyzer"] = {
+      assist = {
+        importGranularity = "module",
+        importPrefix = "by_self",
+      },
+      cargo = {
+        loadOutDirsFromCheck = true,
+        allFeatures = true,
+      },
+      procMacro = {
+        enable = true,
+      },
+    },
+  },
+}
 nvim_lsp.clangd.setup {
   cmd = { "clangd", "--background-index", "--clang-tidy" },
   init_options = { clangdFileStatus = true },
@@ -221,32 +238,29 @@ nvim_lsp.dockerls.setup {
 }
 
 nvim_lsp.cmake.setup {
-  cmd = { "node", "cmake-language-server", "--stdio" },
+  cmd = {
+    "node",
+    "cmake-language-server",
+    "--stdio",
+  },
   on_attach = on_attach,
 }
 
 nvim_lsp.bashls.setup { on_attach = on_attach }
 
--- python
--- nvim_lsp.pyls_ms.setup {
---    cmd = {
---        "dotnet", "exec",
---        "/Users/keyv/Unsync/codebase/RiderProjects/python-language-server/output/bin/Debug/Microsoft.Python.LanguageServer.dll"
---    },
---    init_options = {analysisUpdates = true, asyncStartup = true},
---    settings = {python = {workspaceSymbols = {enabled = true}}},
---    on_attach = on_attach
--- }
 nvim_lsp.pyright.setup {
-  settings = { python = { pythonPath = "python3" } },
+  settings = {
+    python = {
+      pythonPath = "python3",
+      analysis = {
+        disableOrganizeImports = false,
+      },
+    },
+  },
   on_attach = on_attach,
 }
 
 nvim_lsp.vimls.setup { on_attach = on_attach }
-nvim_lsp.tsserver.setup {
-  cmd = { "node", "typescript-language-server", "--stdio" },
-  on_attach = on_attach,
-}
 nvim_lsp.denols.setup { on_attach = on_attach }
 nvim_lsp.texlab.setup {
   filetypes = { "tex", "bib", "plaintex" },
@@ -259,8 +273,8 @@ nvim_lsp.texlab.setup {
 }
 
 nvim_lsp.yamlls.setup {}
--- nvim_lsp.zeta_note.setup {cmd = {'/Users/keyv/.cargo/bin/zeta-note'}}
 nvim_lsp.diagnosticls.setup {}
+nvim_lsp.tsserver.setup {}
 nvim_lsp.zeta_note.setup {
   cmd = { "/Users/keyv/.local/bin/zeta-note" },
 }

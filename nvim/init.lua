@@ -5,8 +5,8 @@ require "telescope-nvim"
 require "icons"
 require "statusline"
 require "lsp-kind"
-require "scroll"
 require "ui"
+require "pairs"
 
 -- vim.api.nvim_set_option("termguicolors", true)
 vim.opt.termguicolors = true
@@ -24,7 +24,7 @@ vim.opt.laststatus = 2
 vim.opt.backup = false
 vim.opt.updatetime = 100
 vim.opt.expandtab = true
-vim.opt.smartindent = true
+-- vim.opt.smartindent = true
 vim.opt.pumblend = 30
 vim.opt.undofile = true
 
@@ -79,27 +79,22 @@ augroup END
   true
 )
 
--- vim.api.nvim_command("au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
-
 vim.g.diagnostic_enable_virtual_text = 1
 vim.g.diagnostic_enable_underline = 1
 
-vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "LspDiagnosticsVirtualTextError" })
-vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "LspDiagnosticsVirtualtextWarning" })
-vim.fn.sign_define("DiagnosticSignInfo", { text = "‼", texthl = "LspDiagnosticsVirtualtextInformation" })
-vim.fn.sign_define("DiagnosticSignHint", { text = "ﯧ", texthl = "LspDiagnosticsVirtualTextHint" })
+vim.fn.sign_define("LspDiagnosticsSignError", { text = "✗", texthl = "LspDiagnosticsVirtualTextError" })
+vim.fn.sign_define("LspDiagnosticsSignWarning", { text = "", texthl = "LspDiagnosticsVirtualtextWarning" })
+vim.fn.sign_define("LspDiagnosticsSignInformation", { text = "‼", texthl = "LspDiagnosticsVirtualtextInformation" })
+vim.fn.sign_define("LspDiagnosticsSignHint", { text = "ﯧ", texthl = "LspDiagnosticsVirtualTextHint" })
+
+vim.fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticVirtualTextError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticVirtualtextWarning" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "‼", texthl = "DiagnosticVirtualtextInformation" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "ﯧ", texthl = "DiagnosticVirtualTextHint" })
 
 -- setup diagnostic jump
 vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-n>", "<CMD>lua vim.lsp.diagnostic.goto_next()<CR>", { noremap = true, silent = true })
--- Closer to the metal
-vim.api.nvim_set_keymap("n", "<C-[>", '<CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap(
-  "t",
-  "<C-[>",
-  '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>',
-  { noremap = true, silent = true }
-)
 
 -- treesitter
 -- vim.api.foldmethod = "expr"
