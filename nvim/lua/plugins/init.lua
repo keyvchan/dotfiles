@@ -9,61 +9,130 @@ return require("packer").startup({
 		-- Packer can manage itself as an optional plugin
 		use({ "wbthomason/packer.nvim", opt = true })
 
-		-- use "jiangmiao/auto-pairs"
-		use("windwp/nvim-autopairs")
-		use("sbdchd/neoformat")
-		use("Yggdroot/indentLine")
-
+		-- -- use "jiangmiao/auto-pairs"
 		use({
-			"nvim-lua/telescope.nvim",
-			requires = { { "nvim-lua/popup.nvim" }, { "nvim-lua/plenary.nvim" } },
+			"windwp/nvim-autopairs",
+			config = function()
+				require("pairs")
+			end,
+		})
+		use("sbdchd/neoformat")
+		-- -- use("Yggdroot/indentLine")
+		use({
+			"lukas-reineke/indent-blankline.nvim",
+			config = function()
+				require("indent")
+			end,
 		})
 
-		-- nvim-lsp
-		use("neovim/nvim-lspconfig")
-		-- use("hrsh7th/nvim-compe")
-
 		use({
-			"hrsh7th/nvim-cmp",
+			"nvim-telescope/telescope.nvim",
 			requires = {
 				{
-					"hrsh7th/cmp-nvim-lsp",
+					"nvim-lua/popup.nvim",
 				},
 				{
-					"hrsh7th/cmp-buffer",
+					"nvim-lua/plenary.nvim",
 				},
 				{
-					"hrsh7th/cmp-path",
+					"nvim-telescope/telescope-file-browser.nvim",
 				},
 				{
-					"hrsh7th/cmp-cmdline",
+					"nvim-telescope/telescope-symbols.nvim",
 				},
 			},
+			config = function()
+				require("telescope-nvim")
+			end,
 		})
 
-		use("nvim-lua/lsp-status.nvim")
+		-- -- nvim-lsp
+		use({
+			"neovim/nvim-lspconfig",
+			requires = {
+				{
+					"onsails/lspkind-nvim",
+					config = function()
+						require("lsp-kind")
+					end,
+				},
+				"ray-x/lsp_signature.nvim",
+				"nvim-lua/lsp-status.nvim",
+				{
+					"hrsh7th/nvim-cmp",
+					requires = {
+						{
+							"hrsh7th/cmp-nvim-lsp",
+						},
+						{
+							"hrsh7th/cmp-buffer",
+						},
+						{
+							"hrsh7th/cmp-path",
+						},
+						{
+							"hrsh7th/cmp-cmdline",
+						},
+						{
+							"hrsh7th/cmp-copilot",
+						},
+						{
+							"hrsh7th/cmp-nvim-lua",
+						},
+					},
+				},
+			},
+			config = function()
+				require("lsp")
+			end,
+		}) -- -- use("hrsh7th/nvim-compe")
 
 		-- icons
-		use("kyazdani42/nvim-web-devicons")
+		use({
+			"kyazdani42/nvim-web-devicons",
+			config = function()
+				require("icons")
+			end,
+		})
 
 		use("keyvchan/vim-monokai")
-		use("nvim-treesitter/nvim-treesitter")
-		use("nvim-treesitter/playground")
+		use({
+			"nvim-treesitter/nvim-treesitter",
+			requires = {
+				"nvim-treesitter/nvim-treesitter-refactor",
+				"nvim-treesitter/nvim-treesitter-textobjects",
+				"nvim-treesitter/playground",
+			},
+			config = function()
+				require("treesitter")
+			end,
+		})
 		-- use { "numtostr/FTerm.nvim" }
-
-		use("mjlbach/neovim-ui")
 
 		use({
 			"glepnir/galaxyline.nvim",
 			branch = "main",
-		})
-		use({
-			"onsails/lspkind-nvim",
+			config = function()
+				require("statusline")
+			end,
 		})
 
-		-- use "karb94/neoscroll.nvim"
+		-- -- use "karb94/neoscroll.nvim"
 		use({
-			"ray-x/lsp_signature.nvim",
+			"github/copilot.vim",
+			config = function()
+				require("copilot")
+			end,
+		})
+		use({
+			"nvim-neorg/neorg",
+			requires = {
+				"nvim-lua/plenary.nvim",
+				"nvim-neorg/neorg-telescope",
+			},
+			config = function()
+				require("org")
+			end,
 		})
 	end,
 	config = { display = { open_fn = require("packer.util").float } },

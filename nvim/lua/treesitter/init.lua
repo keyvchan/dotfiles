@@ -1,9 +1,7 @@
 require("nvim-treesitter.configs").setup({
 	highlight = {
 		enable = true, -- false will disable the whole extension
-		custom_captures = { -- mapping of user defined captures to highlight groups
-			-- ["foo.bar"] = "Identifier"   -- highlight own capture @foo.bar with highlight group "Identifier", see :h nvim-treesitter-query-extensions
-		},
+
 		additional_vim_regex_highlighting = false,
 	},
 	incremental_selection = {
@@ -35,31 +33,62 @@ require("nvim-treesitter.configs").setup({
 	},
 	indent = { enable = true },
 	textobjects = { -- syntax-aware textobjects
-		enable = true,
-		disable = {},
-		keymaps = {
-			["iL"] = { -- you can define your own textobjects directly here
-				python = "(function_definition) @function",
-				cpp = "(function_definition) @function",
-				c = "(function_definition) @function",
-				java = "(method_declaration) @function",
+		select = {
+			enable = true,
+			disable = {},
+			keymaps = {
+				["iL"] = { -- you can define your own textobjects directly here
+					python = "(function_definition) @function",
+					cpp = "(function_definition) @function",
+					c = "(function_definition) @function",
+					java = "(method_declaration) @function",
+				},
+				-- or you use the queries from supported languages with textobjects.scm
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["aC"] = "@class.outer",
+				["iC"] = "@class.inner",
+				["ac"] = "@conditional.outer",
+				["ic"] = "@conditional.inner",
+				["ae"] = "@block.outer",
+				["ie"] = "@block.inner",
+				["al"] = "@loop.outer",
+				["il"] = "@loop.inner",
+				["is"] = "@statement.inner",
+				["as"] = "@statement.outer",
+				["ad"] = "@comment.outer",
+				["am"] = "@call.outer",
+				["im"] = "@call.inner",
 			},
-			-- or you use the queries from supported languages with textobjects.scm
-			["af"] = "@function.outer",
-			["if"] = "@function.inner",
-			["aC"] = "@class.outer",
-			["iC"] = "@class.inner",
-			["ac"] = "@conditional.outer",
-			["ic"] = "@conditional.inner",
-			["ae"] = "@block.outer",
-			["ie"] = "@block.inner",
-			["al"] = "@loop.outer",
-			["il"] = "@loop.inner",
-			["is"] = "@statement.inner",
-			["as"] = "@statement.outer",
-			["ad"] = "@comment.outer",
-			["am"] = "@call.outer",
-			["im"] = "@call.inner",
+		},
+		swap = {
+			enable = true,
+			swap_next = {
+				["<leader>a"] = "@parameter.inner",
+			},
+			swap_previous = {
+				["<leader>A"] = "@parameter.inner",
+			},
+		},
+		move = {
+			enable = true,
+			set_jumps = true, -- whether to set jumps in the jumplist
+			goto_next_start = {
+				["]m"] = "@function.outer",
+				["]]"] = "@class.outer",
+			},
+			goto_next_end = {
+				["]M"] = "@function.outer",
+				["]["] = "@class.outer",
+			},
+			goto_previous_start = {
+				["[m"] = "@function.outer",
+				["[["] = "@class.outer",
+			},
+			goto_previous_end = {
+				["[M"] = "@function.outer",
+				["[]"] = "@class.outer",
+			},
 		},
 	},
 	-- ensure_installed = "all" -- one of "all", "language", or a list of languages
@@ -84,3 +113,4 @@ require("nvim-treesitter.configs").setup({
 })
 
 -- in case of haskell issue
+require("nvim-treesitter.install").compilers = { "gcc-11" }
