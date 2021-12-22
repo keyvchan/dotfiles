@@ -9,20 +9,26 @@ return require("packer").startup({
 		-- Packer can manage itself as an optional plugin
 		use({ "wbthomason/packer.nvim", opt = true })
 
-		-- -- use "jiangmiao/auto-pairs"
 		use({
 			"windwp/nvim-autopairs",
 			config = function()
 				require("pairs")
 			end,
+			event = { "InsertEnter *" },
 		})
-		use("sbdchd/neoformat")
-		-- -- use("Yggdroot/indentLine")
+
+		use({
+			"sbdchd/neoformat",
+			event = { "InsertEnter" },
+		})
+		-- use("Yggdroot/indentLine")
+
 		use({
 			"lukas-reineke/indent-blankline.nvim",
 			config = function()
 				require("indent")
 			end,
+			event = { "VimEnter" },
 		})
 
 		use({
@@ -40,13 +46,17 @@ return require("packer").startup({
 				{
 					"nvim-telescope/telescope-symbols.nvim",
 				},
+				{
+					"nvim-telescope/telescope-fzy-native.nvim",
+				},
 			},
 			config = function()
 				require("telescope-nvim")
 			end,
+			event = "VimEnter",
 		})
 
-		-- -- nvim-lsp
+		-- nvim-lsp
 		use({
 			"neovim/nvim-lspconfig",
 			requires = {
@@ -56,36 +66,54 @@ return require("packer").startup({
 						require("lsp-kind")
 					end,
 				},
-				"ray-x/lsp_signature.nvim",
-				"nvim-lua/lsp-status.nvim",
 				{
-					"hrsh7th/nvim-cmp",
-					requires = {
-						{
-							"hrsh7th/cmp-nvim-lsp",
-						},
-						{
-							"hrsh7th/cmp-buffer",
-						},
-						{
-							"hrsh7th/cmp-path",
-						},
-						{
-							"hrsh7th/cmp-cmdline",
-						},
-						{
-							"hrsh7th/cmp-copilot",
-						},
-						{
-							"hrsh7th/cmp-nvim-lua",
-						},
-					},
+					"ray-x/lsp_signature.nvim",
+				},
+				{
+					"nvim-lua/lsp-status.nvim",
 				},
 			},
 			config = function()
 				require("lsp")
 			end,
-		}) -- -- use("hrsh7th/nvim-compe")
+			event = "VimEnter",
+			after = {
+				"lsp-status.nvim",
+				"lspkind-nvim",
+			},
+		})
+
+		use({
+			"hrsh7th/nvim-cmp",
+			requires = {
+				{
+					"hrsh7th/cmp-nvim-lsp",
+				},
+				{
+					"hrsh7th/cmp-buffer",
+					after = "nvim-cmp",
+				},
+				{
+					"hrsh7th/cmp-path",
+					after = "nvim-cmp",
+				},
+				{
+					"hrsh7th/cmp-cmdline",
+					after = "nvim-cmp",
+				},
+				{
+					"hrsh7th/cmp-nvim-lua",
+					after = "nvim-cmp",
+				},
+			},
+			config = function()
+				require("lsp.nvim_cmp")
+			end,
+			event = {
+				"InsertEnter *",
+				"CmdlineEnter *",
+			},
+		})
 
 		-- icons
 		use({
@@ -99,15 +127,15 @@ return require("packer").startup({
 		use({
 			"nvim-treesitter/nvim-treesitter",
 			requires = {
-				"nvim-treesitter/nvim-treesitter-refactor",
-				"nvim-treesitter/nvim-treesitter-textobjects",
-				"nvim-treesitter/playground",
+				{ "nvim-treesitter/nvim-treesitter-refactor", after = "nvim-treesitter" },
+				-- "nvim-treesitter/nvim-treesitter-textobjects",
+				{ "nvim-treesitter/playground", after = "nvim-treesitter" },
 			},
 			config = function()
 				require("treesitter")
 			end,
+			event = "BufRead",
 		})
-		-- use { "numtostr/FTerm.nvim" }
 
 		use({
 			"glepnir/galaxyline.nvim",
@@ -117,7 +145,6 @@ return require("packer").startup({
 			end,
 		})
 
-		-- -- use "karb94/neoscroll.nvim"
 		use({
 			"github/copilot.vim",
 			config = function()
@@ -132,6 +159,14 @@ return require("packer").startup({
 			},
 			config = function()
 				require("org")
+			end,
+			after = "nvim-treesitter",
+		})
+
+		use({
+			"rcarriga/nvim-notify",
+			config = function()
+				require("nvim-notify")
 			end,
 		})
 	end,

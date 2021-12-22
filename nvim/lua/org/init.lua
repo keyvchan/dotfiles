@@ -16,10 +16,31 @@ require("neorg").setup({
 		}, -- Allows for use of completion
 		["core.norg.dirman"] = {
 			config = {
-				workspace = "~/Workspace/org",
-				learning = "~/Documents/learning",
+				workspaces = {
+					my_workspace = "~/Workspace/org",
+					learning = "~/Documents/learning",
+					journal = "~/Documents/journal",
+				},
+				-- autochdir = false,
 			},
 		},
+		["core.norg.journal"] = {
+			config = {
+				workspace = "journal",
+				use_folder = true,
+			},
+		},
+		["core.gtd.base"] = {
+			config = {
+				displayers = {
+					projects = {
+						show_completed_projects = true,
+						show_projects_without_tasks = false,
+					},
+				},
+			},
+		},
+		["core.gtd.ui"] = {},
 		["core.integrations.telescope"] = {},
 	},
 })

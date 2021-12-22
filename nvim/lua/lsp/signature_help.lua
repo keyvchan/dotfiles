@@ -21,7 +21,7 @@ signature_help.on_attach({
 	max_width = 120, -- max_width of signature floating_window, line will be wrapped if exceed max_width
 	transpancy = 10, -- set this value if you want the floating windows to be transpant (100 fully transpant), nil to disable(default)
 	handler_opts = {
-		border = "shadow", -- double, single, shadow, none
+		border = "rounded", -- double, single, shadow, none
 	},
 
 	trigger_on_newline = false, -- set to true if you need multiple line parameter, sometime show signature on new line can be confusing, set it to false for #58

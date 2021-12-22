@@ -24,6 +24,7 @@ cmp.setup({
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-d>"] = cmp.mapping.close(),
 		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+		["<C-e>"] = cmp.config.disable,
 	},
 
 	sources = {

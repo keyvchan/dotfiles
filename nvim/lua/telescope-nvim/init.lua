@@ -11,7 +11,8 @@ require("telescope").setup({
 		-- path_display = {
 		-- 	"shorten",
 		-- },
-		dynamic_preview_window = true,
+		-- dynamic_preview_window = true,
+		initial_mode = "insert",
 	},
 	pickers = {
 		-- lsp stuff
@@ -49,6 +50,16 @@ require("telescope").setup({
 			theme = "cursor",
 		},
 	},
+	extensions = {
+		fzy_native = {
+			override_generic_picker = true,
+			override_file_sorter = true,
+		},
+	},
 })
-require("telescope").load_extension("file_browser")
+-- require("telescope").load_extension("file_browser")
+-- require("telescope").load_extension("fzy_native")
+--
+
+require("telescope").setup()
 require("telescope-nvim.keymap")

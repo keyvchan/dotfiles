@@ -1,9 +1,10 @@
 local nvim_lsp = require("lspconfig")
-local lsp_status = require("lsp-status")
 -- local signature_help = require("lsp_signature")
+local lsp_status = require("lsp-status")
 
-require("lsp.nvim_cmp")
+-- require("lsp.nvim_cmp")
 require("lsp.keymap")
+require("lsp.appearance")
 
 lsp_status.config({
 	status_symbol = " ",
@@ -14,12 +15,9 @@ lsp_status.config({
 })
 lsp_status.register_progress()
 
-nvim_lsp.util.default_config.capabilities = vim.tbl_extend(
-	"keep",
-	nvim_lsp.util.default_config.capabilities or {},
-	lsp_status.capabilities,
-	require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-)
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	-- Enable underline, use default values
@@ -32,29 +30,15 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	update_in_insert = true,
 })
 
-require("lsp.appearence")
-
 local on_attach = function(client)
 	lsp_status.on_attach(client)
 	require("lsp.signature_help")
 end
 
-local system_name
-if vim.fn.has("mac") == 1 then
-	system_name = "macOS"
-elseif vim.fn.has("unix") == 1 then
-	system_name = "Linux"
-elseif vim.fn.has("win32") == 1 then
-	system_name = "Windows"
-else
-	print("Unsupported system for sumneko")
-end
-
 -- lua
 local sumneko_root_path = "/Users/keyv/Codebases/ClionProjects/lua-language-server"
-local sumneko_binary = sumneko_root_path .. "/bin/" .. system_name .. "/lua-language-server"
 nvim_lsp.sumneko_lua.setup({
-	cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
+	cmd = { "lua-language-server", "-E", sumneko_root_path .. "/main.lua" },
 	on_attach = on_attach,
 	settings = {
 		Lua = {
@@ -86,6 +70,7 @@ nvim_lsp.sumneko_lua.setup({
 			},
 		},
 	},
+	capabilities = capabilities,
 })
 
 nvim_lsp.sourcekit.setup({
@@ -93,23 +78,28 @@ nvim_lsp.sourcekit.setup({
 	on_attach = on_attach,
 	cmd = { "xcrun", "sourcekit-lsp" },
 	filetypes = { "swift" },
+	capabilities = capabilities,
 })
 nvim_lsp.gopls.setup({
 	on_attach = on_attach,
+	capabilities = capabilities,
 })
 nvim_lsp.rust_analyzer.setup({
 	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
 nvim_lsp.clangd.setup({
 	cmd = { "clangd", "--background-index", "--clang-tidy" },
 	init_options = { clangdFileStatus = true },
 	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
 nvim_lsp.dockerls.setup({
 	cmd = { "node", "docker-language-server", "--stdio" },
 	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
 nvim_lsp.cmake.setup({
@@ -119,6 +109,7 @@ nvim_lsp.cmake.setup({
 		"--stdio",
 	},
 	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
 nvim_lsp.bashls.setup({ on_attach = on_attach })
@@ -129,14 +120,21 @@ nvim_lsp.pyright.setup({
 			pythonPath = "/usr/local/opt/python@3.10/bin/python3",
 			analysis = {
 				disableOrganizeImports = false,
+				useLibraryCodeForTypes = true,
 			},
 		},
 	},
 	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
-nvim_lsp.vimls.setup({ on_attach = on_attach })
-nvim_lsp.denols.setup({ on_attach = on_attach })
+-- nvim_lsp.pylsp.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- })
+
+nvim_lsp.vimls.setup({ on_attach = on_attach, capabilities = capabilities })
+nvim_lsp.denols.setup({ on_attach = on_attach, capabilities = capabilities })
 nvim_lsp.texlab.setup({
 	filetypes = { "tex", "bib", "plaintex" },
 	settings = {
@@ -145,18 +143,9 @@ nvim_lsp.texlab.setup({
 		lint = { onChange = true },
 	},
 	on_attach = on_attach,
+	capabilities = capabilities,
 })
 
-nvim_lsp.yamlls.setup({})
-nvim_lsp.diagnosticls.setup({
-	filetypes = { "go", "python" },
-})
-nvim_lsp.tsserver.setup({})
-
-nvim_lsp.ltex.setup({
-	cmd = { "/Users/keyv/.local/bin/ltex-ls/bin/ltex-ls" },
-	filetypes = { "tex", "bib", "markdown", "text" },
-	settings = {
-		completionEnabled = true,
-	},
+nvim_lsp.yamlls.setup({
+	capabilities = capabilities,
 })

@@ -12,7 +12,7 @@ vim.api.nvim_set_keymap(
 )
 vim.api.nvim_set_keymap(
 	"n",
-	"lg",
+	"<leader>lg",
 	'<CMD>lua require("telescope.builtin").live_grep()<CR>',
 	{ noremap = true, silent = true }
 )
@@ -60,7 +60,12 @@ vim.api.nvim_set_keymap("n", "gws", '<cmd>lua require("telescope.builtin").lsp_w
 	silent = true,
 })
 
-vim.api.nvim_set_keymap("n", "<leader><leader>", '<cmd>lua require("telescope.builtin").builtin()<CR>', {
-	noremap = true,
-	silent = true,
-})
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader><leader>",
+	'<cmd>lua require("telescope.builtin").builtin({initial_mode="insert"})<CR>',
+	{
+		noremap = true,
+		silent = true,
+	}
+)
