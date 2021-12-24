@@ -63,7 +63,7 @@ vim.api.nvim_set_keymap("n", "gws", '<cmd>lua require("telescope.builtin").lsp_w
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader><leader>",
-	'<cmd>lua require("telescope.builtin").builtin({initial_mode="insert"})<CR>',
+	"<CMD>lua require 'telescope'.extensions.find_pickers.find_pickers()<CR>",
 	{
 		noremap = true,
 		silent = true,

@@ -8,7 +8,12 @@ require("neorg").setup({
 				neorg_leader = "<Leader>o",
 			},
 		},
-		["core.norg.concealer"] = {}, -- Allows for use of icons
+		["core.norg.concealer"] = {
+			config = {
+				markup_enabled = true,
+				markup_preset = "brave",
+			},
+		}, -- Allows for use of icons
 		["core.norg.completion"] = {
 			config = {
 				engine = "nvim-cmp",

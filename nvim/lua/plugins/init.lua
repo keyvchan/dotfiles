@@ -12,21 +12,20 @@ return require("packer").startup({
 		use({
 			"windwp/nvim-autopairs",
 			config = function()
-				require("pairs")
+				require("configs.pairs")
 			end,
 			event = { "InsertEnter *" },
 		})
 
 		use({
 			"sbdchd/neoformat",
-			event = { "InsertEnter" },
+			event = { "VimEnter" },
 		})
-		-- use("Yggdroot/indentLine")
 
 		use({
 			"lukas-reineke/indent-blankline.nvim",
 			config = function()
-				require("indent")
+				require("configs.indent")
 			end,
 			event = { "VimEnter" },
 		})
@@ -47,6 +46,9 @@ return require("packer").startup({
 					"nvim-telescope/telescope-symbols.nvim",
 				},
 				{
+					"keyvchan/telescope-find-pickers.nvim",
+				},
+				{
 					"nvim-telescope/telescope-fzy-native.nvim",
 				},
 			},
@@ -63,7 +65,7 @@ return require("packer").startup({
 				{
 					"onsails/lspkind-nvim",
 					config = function()
-						require("lsp-kind")
+						require("lsp.lsp-kind")
 					end,
 				},
 				{
@@ -119,7 +121,7 @@ return require("packer").startup({
 		use({
 			"kyazdani42/nvim-web-devicons",
 			config = function()
-				require("icons")
+				require("configs.icons")
 			end,
 		})
 
@@ -141,14 +143,14 @@ return require("packer").startup({
 			"glepnir/galaxyline.nvim",
 			branch = "main",
 			config = function()
-				require("statusline")
+				require("configs.statusline")
 			end,
 		})
 
 		use({
 			"github/copilot.vim",
 			config = function()
-				require("copilot")
+				require("configs.copilot")
 			end,
 		})
 		use({
@@ -160,15 +162,29 @@ return require("packer").startup({
 			config = function()
 				require("org")
 			end,
-			after = "nvim-treesitter",
+			after = {
+				"nvim-treesitter",
+				"telescope.nvim",
+			},
 		})
 
 		use({
 			"rcarriga/nvim-notify",
 			config = function()
-				require("nvim-notify")
+				require("configs.nvim-notify")
 			end,
 		})
+
+		-- git stuff
+		use({
+			"TimUntersberger/neogit",
+			requires = "nvim-lua/plenary.nvim",
+			config = function()
+				require("configs.git")
+			end,
+			event = "VimEnter",
+		})
 	end,
+
 	config = { display = { open_fn = require("packer.util").float } },
 })
