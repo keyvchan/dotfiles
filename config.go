@@ -2,7 +2,6 @@ package main
 
 import (
 	"embed"
-	"fmt"
 	"io"
 	"io/fs"
 	"log"
@@ -11,17 +10,30 @@ import (
 )
 
 //go:embed nvim/*
-//go:embed iterm2/*
 var configs embed.FS
+var dryrun = false
 
 func main() {
 
+	if len(os.Args) > 1 {
+		flag := os.Args[1]
+		if flag == "--dryrun" {
+			dryrun = true
+		}
+	}
+
 	var path = "nvim"
+	// homeDir, _ := os.UserHomeDir()
+	// var basePath = filepath.Join(homeDir, ".config")
 	var basePath = "/tmp/testconfig"
 
-	err := os.Mkdir(filepath.Join(basePath, path), 0755)
-	if err != nil {
-		log.Println(err)
+	if dryrun {
+		log.Println("Mkdir", basePath, path)
+	} else {
+		err := os.Mkdir(filepath.Join(basePath, path), 0755)
+		if err != nil {
+			log.Println(err)
+		}
 	}
 	writeFiles(basePath, path)
 
@@ -33,22 +45,29 @@ func writeFiles(basePath string, path string) {
 		finalPath := filepath.Join(basePath, path, entry.Name())
 
 		if entry.IsDir() {
-			log.Println("Creating dir: ", finalPath)
 			path := filepath.Join(path, entry.Name())
-			err := os.Mkdir(finalPath, 0755)
-			if err != nil {
-				log.Println(err)
+			if dryrun {
+				log.Println("Creating dir: ", finalPath)
+			} else {
+				err := os.Mkdir(finalPath, 0755)
+				if err != nil {
+					log.Println(err)
+				}
 			}
 			writeFiles(basePath, path)
 		} else {
 
 			file, _ := configs.Open(filepath.Join(path, entry.Name()))
+			defer file.Close()
 
-			log.Println(finalPath)
 			content, _ := io.ReadAll(file)
-			err := os.WriteFile(finalPath, content, 0755)
-			if err != nil {
-				fmt.Println(err)
+			if dryrun {
+				log.Println("Write", finalPath)
+			} else {
+				err := os.WriteFile(finalPath, content, 0755)
+				if err != nil {
+					log.Println(err)
+				}
 			}
 		}
 
