@@ -23,9 +23,8 @@ func main() {
 	}
 
 	var path = "nvim"
-	// homeDir, _ := os.UserHomeDir()
-	// var basePath = filepath.Join(homeDir, ".config")
-	var basePath = "/tmp/testconfig"
+	homeDir, _ := os.UserHomeDir()
+	var basePath = filepath.Join(homeDir, ".config")
 
 	if dryrun {
 		log.Println("Mkdir", basePath, path)
