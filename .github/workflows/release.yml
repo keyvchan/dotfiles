@@ -18,7 +18,7 @@ jobs:
           go-version: 1.17
 
       - name: Build
-        run: go build configs.go
+        run: go build config.go
 
   macOS:
     runs-on: macos-latest
@@ -31,7 +31,7 @@ jobs:
           go-version: 1.17
 
       - name: Build
-        run: go build configs.go
+        run: go build config.go
   publish:
     needs: [linux, macOS]
     runs-on: ubuntu-latest
