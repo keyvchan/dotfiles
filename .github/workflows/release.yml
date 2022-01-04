@@ -32,6 +32,7 @@ jobs:
 
       - name: Build
         run: go build config.go
+  
   publish:
     needs: [linux, macOS]
     runs-on: ubuntu-latest
@@ -48,7 +49,8 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            ${{ GITHUB_WORKSPACE }}/config
+            README.md
+            config
 
 
 
