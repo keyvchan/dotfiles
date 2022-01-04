@@ -19,6 +19,11 @@ jobs:
 
       - name: Build
         run: go build config.go
+      - uses: actions/upload-artifact@v2
+        with:
+          name: config
+          path: build/config-linux
+          retention-days: 1
 
   macOS:
     runs-on: macos-latest
@@ -32,6 +37,11 @@ jobs:
 
       - name: Build
         run: go build config.go
+      - uses: actions/upload-artifact@v2
+        with:
+          name: config
+          path: build/config-macos
+          retention-days: 1
   
   publish:
     needs: [linux, macOS]
@@ -51,7 +61,8 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            config
+            build/config-macos
+            build/config-linux
 
 
 
