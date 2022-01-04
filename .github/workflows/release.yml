@@ -47,7 +47,7 @@ jobs:
         id: get_tag
       - name: Create tag in dotfiles
         run: |
-          cd ${{github.workspace}}/dotfiles
+          cd ${{github.workspace}}
           git tag ${{ steps.get_tag.outputs.tag }}
           git push --tags --porcelain
       - name: Create Release
