@@ -61,8 +61,8 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            build/config-macos
-            build/config-linux
+            config-macos
+            config-linux
 
 
 
