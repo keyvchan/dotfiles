@@ -21,8 +21,8 @@ jobs:
         run: go build config.go
       - uses: actions/upload-artifact@v2
         with:
-          name: config
-          path: build/config-linux
+          name: config-linux
+          path: config
           retention-days: 1
 
   macOS:
@@ -39,8 +39,8 @@ jobs:
         run: go build config.go
       - uses: actions/upload-artifact@v2
         with:
-          name: config
-          path: build/config-macos
+          name: config-macos
+          path: config
           retention-days: 1
   
   publish:
