@@ -1,71 +1,14 @@
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>ff",
-	'<CMD>lua require("telescope.builtin").find_files()<CR>',
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>fb",
-	'<CMD>lua require("telescope.builtin").buffers()<CR>',
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>lg",
-	'<CMD>lua require("telescope.builtin").live_grep()<CR>',
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>qf",
-	'<CMD>lua require("telescope.builtin").quickfix()<CR>',
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader>ca",
-	'<CMD>lua require("telescope.builtin").lsp_code_actions()<CR>',
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"gd",
-	'<cmd>lua require("telescope.builtin").lsp_definitions()<CR>',
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"gi",
-	'<CMD>lua require("telescope.builtin").lsp_implementations()<CR>',
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap("n", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "gtd", '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', {
-	noremap = true,
-	silent = true,
-})
-vim.api.nvim_set_keymap(
-	"n",
-	"gr",
-	'<cmd>lua require("telescope.builtin").lsp_references()<CR>',
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap("n", "gds", '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>', {
-	noremap = true,
-	silent = true,
-})
-vim.api.nvim_set_keymap("n", "gws", '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>', {
-	noremap = true,
-	silent = true,
-})
+vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files)
+vim.keymap.set("n", "<leader>lg", require("telescope.builtin").live_grep)
 
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader><leader>",
-	"<CMD>lua require 'telescope'.extensions.find_pickers.find_pickers()<CR>",
-	{
-		noremap = true,
-		silent = true,
-	}
-)
+-- lsp stuff
+vim.keymap.set("n", "<leader>qf", require("telescope.builtin").quickfix)
+vim.keymap.set("n", "<leader>lca", require("telescope.builtin").lsp_code_actions)
+vim.keymap.set("n", "<leader>gd", require("telescope.builtin").lsp_definitions)
+vim.keymap.set("n", "<leader>gi", require("telescope.builtin").lsp_implementations)
+vim.keymap.set("n", "<leader>td", require("telescope.builtin").lsp_type_definitions)
+vim.keymap.set("n", "<leader>gr", require("telescope.builtin").lsp_references)
+
+-- extensions
+vim.keymap.set("n", "<leader><leader>", require("telescope").extensions.find_pickers.find_pickers)
+vim.keymap.set("n", "<leader>fb", require("telescope").extensions.file_browser.file_browser)

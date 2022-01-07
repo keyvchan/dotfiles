@@ -1,16 +1,10 @@
 -- diagnostic
-vim.api.nvim_set_keymap(
-	"n",
-	"<C-p>",
-	"<CMD>lua vim.diagnostic.goto_prev{float = {show_header = true}}<CR>",
-	{ noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-	"n",
-	"<C-n>",
-	"<CMD>lua vim.diagnostic.goto_next{float = {show_header = true}}<CR>",
-	{ noremap = true, silent = true }
-)
+vim.keymap.set("n", "<C-p>", function()
+	vim.diagnostic.goto_prev({ float = { show_header = true } })
+end)
+vim.keymap.set("n", "<C-n>", function()
+	vim.diagnostic.goto_next({ float = { show_header = true } })
+end)
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
-vim.api.nvim_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "K", vim.lsp.buf.hover)
