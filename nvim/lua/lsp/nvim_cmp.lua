@@ -7,7 +7,7 @@ cmp.setup({
 			direction = "above",
 		},
 	},
-	snippet = false,
+	snippet = cmp.config.disable,
 
 	preselect = cmp.PreselectMode.None,
 	completion = {

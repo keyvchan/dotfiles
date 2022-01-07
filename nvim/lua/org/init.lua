@@ -1,4 +1,5 @@
-require("neorg").setup({
+local neorg = require("neorg")
+neorg.setup({
 	-- Tell Neorg what modules to load
 	load = {
 		["core.defaults"] = {}, -- Load all the default modules
@@ -10,8 +11,8 @@ require("neorg").setup({
 		},
 		["core.norg.concealer"] = {
 			config = {
-				markup_enabled = true,
-				markup_preset = "brave",
+				icon_preset = "diamond",
+				markup_preset = "dimmed",
 			},
 		}, -- Allows for use of icons
 		["core.norg.completion"] = {
@@ -19,6 +20,7 @@ require("neorg").setup({
 				engine = "nvim-cmp",
 			},
 		}, -- Allows for use of completion
+		["core.norg.qol.toc"] = {},
 		["core.norg.dirman"] = {
 			config = {
 				workspaces = {

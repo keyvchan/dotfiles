@@ -85,12 +85,30 @@ nvim_lsp.gopls.setup({
 	capabilities = capabilities,
 })
 nvim_lsp.rust_analyzer.setup({
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true,
+			},
+			checkOnSave = {
+				allFeatures = true,
+				overrideCommand = {
+					"cargo",
+					"clippy",
+					"--workspace",
+					"--message-format=json",
+					"--all-targets",
+					"--all-features",
+				},
+			},
+		},
+	},
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
 
 nvim_lsp.clangd.setup({
-	cmd = { "clangd", "--background-index", "--clang-tidy" },
+	cmd = { "clangd", "--clang-tidy" },
 	init_options = { clangdFileStatus = true },
 	on_attach = on_attach,
 	capabilities = capabilities,
@@ -128,21 +146,13 @@ nvim_lsp.pyright.setup({
 	capabilities = capabilities,
 })
 
--- nvim_lsp.pylsp.setup({
--- 	on_attach = on_attach,
--- 	capabilities = capabilities,
--- })
-
 nvim_lsp.vimls.setup({ on_attach = on_attach, capabilities = capabilities })
-nvim_lsp.denols.setup({ on_attach = on_attach, capabilities = capabilities })
-nvim_lsp.texlab.setup({
-	filetypes = { "tex", "bib", "plaintex" },
-	settings = {
-		forwardSearch = { args = { "%l", "%p", "%f" } },
-		chktex = { onEdit = true, onOpenAndSave = true },
-		lint = { onChange = true },
-	},
+
+nvim_lsp.denols.setup({
 	on_attach = on_attach,
+	init_options = {
+		lint = true,
+	},
 	capabilities = capabilities,
 })
 

@@ -19,7 +19,7 @@ return require("packer").startup({
 
 		use({
 			"sbdchd/neoformat",
-			event = { "VimEnter" },
+			event = { "InsertEnter *" },
 		})
 
 		use({
@@ -78,7 +78,7 @@ return require("packer").startup({
 			config = function()
 				require("lsp")
 			end,
-			event = "VimEnter",
+			-- event = "VimEnter",
 			after = {
 				"lsp-status.nvim",
 				"lspkind-nvim",
@@ -129,9 +129,18 @@ return require("packer").startup({
 		use({
 			"nvim-treesitter/nvim-treesitter",
 			requires = {
-				{ "nvim-treesitter/nvim-treesitter-refactor", after = "nvim-treesitter" },
-				-- "nvim-treesitter/nvim-treesitter-textobjects",
-				{ "nvim-treesitter/playground", after = "nvim-treesitter" },
+				{
+					"nvim-treesitter/nvim-treesitter-refactor",
+					after = "nvim-treesitter",
+				},
+				{
+					"nvim-treesitter/nvim-treesitter-textobjects",
+					after = "nvim-treesitter",
+				},
+				{
+					"nvim-treesitter/playground",
+					after = "nvim-treesitter",
+				},
 			},
 			config = function()
 				require("treesitter")
@@ -157,7 +166,7 @@ return require("packer").startup({
 			"nvim-neorg/neorg",
 			requires = {
 				"nvim-lua/plenary.nvim",
-				"nvim-neorg/neorg-telescope",
+				{ "nvim-neorg/neorg-telescope", after = "neorg" },
 			},
 			config = function()
 				require("org")

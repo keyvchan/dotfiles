@@ -5,17 +5,13 @@ vim.opt.splitright = true
 vim.opt.ignorecase = true
 vim.opt.conceallevel = 2
 vim.opt.mouse = "a"
-vim.opt.wildmenu = true
-vim.opt.hidden = true
 vim.opt.pumheight = 10
 vim.opt.cmdheight = 2
-vim.opt.laststatus = 2
 vim.opt.backup = false
-vim.opt.updatetime = 100
+vim.opt.updatetime = 250
 vim.opt.expandtab = true
--- vim.opt.smartindent = true
 vim.opt.pumblend = 30
--- vim.opt.winblend = 30
+vim.opt.winblend = 0
 vim.opt.undofile = true
 
 vim.opt.tabstop = 2
@@ -26,7 +22,6 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.api.nvim_command("colorscheme monokai")
-vim.api.nvim_command("set nospell")
 
 vim.g.mapleader = ","
 vim.g.loaded_node_provider = 0
@@ -35,7 +30,8 @@ vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 
--- telescope
+vim.g.do_filetype_lua = 1
+-- vim.g.did_load_filetypes = 0
 
 vim.api.nvim_exec(
 	[[
@@ -54,4 +50,3 @@ augroup END
 -- vim.api.nvim_command "set foldexpr=nvim_treesitter#foldexpr()"
 
 require("plugins")
-require("floatline")
