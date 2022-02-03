@@ -14,12 +14,12 @@ return require("packer").startup({
 			config = function()
 				require("configs.pairs")
 			end,
-			event = { "InsertEnter *" },
+			event = { "InsertEnter" },
 		})
 
 		use({
 			"sbdchd/neoformat",
-			event = { "InsertEnter *" },
+			event = { "VimEnter" },
 		})
 
 		use({
@@ -58,7 +58,7 @@ return require("packer").startup({
 			event = "VimEnter",
 		})
 
-		-- nvim-lsp
+		-- -- nvim-lsp
 		use({
 			"neovim/nvim-lspconfig",
 			requires = {
@@ -112,8 +112,8 @@ return require("packer").startup({
 				require("lsp.nvim_cmp")
 			end,
 			event = {
-				"InsertEnter *",
-				"CmdlineEnter *",
+				"InsertEnter",
+				"CmdlineEnter",
 			},
 		})
 
@@ -183,15 +183,15 @@ return require("packer").startup({
 				require("configs.nvim-notify")
 			end,
 		})
-
-		-- git stuff
 		use({
-			"TimUntersberger/neogit",
-			requires = "nvim-lua/plenary.nvim",
+			"lewis6991/gitsigns.nvim",
+			requires = {
+				"nvim-lua/plenary.nvim",
+			},
 			config = function()
 				require("configs.git")
 			end,
-			event = "VimEnter",
+			-- tag = 'release' -- To use the latest release
 		})
 	end,
 

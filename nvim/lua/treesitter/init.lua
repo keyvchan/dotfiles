@@ -1,8 +1,6 @@
 require("nvim-treesitter.configs").setup({
 	highlight = {
 		enable = true, -- false will disable the whole extension
-
-		additional_vim_regex_highlighting = false,
 	},
 	incremental_selection = {
 		enable = true,
@@ -37,12 +35,6 @@ require("nvim-treesitter.configs").setup({
 			enable = true,
 			disable = {},
 			keymaps = {
-				["iL"] = { -- you can define your own textobjects directly here
-					python = "(function_definition) @function",
-					cpp = "(function_definition) @function",
-					c = "(function_definition) @function",
-					java = "(method_declaration) @function",
-				},
 				-- or you use the queries from supported languages with textobjects.scm
 				["af"] = "@function.outer",
 				["if"] = "@function.inner",
@@ -116,6 +108,3 @@ require("nvim-treesitter.configs").setup({
 		lint_events = { "BufWrite", "CursorHold" },
 	},
 })
-
--- in case of haskell issue
-require("nvim-treesitter.install").compilers = { "gcc-11" }

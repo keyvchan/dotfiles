@@ -15,15 +15,23 @@ require("telescope").setup({
 		initial_mode = "insert",
 	},
 	pickers = {
+		buffers = {
+			show_all_buffers = true,
+			mappings = {
+				i = {
+					["<c-d>"] = "delete_buffer",
+				},
+			},
+		},
 		-- lsp stuff
 		lsp_references = {
 			theme = "cursor",
 		},
 		lsp_document_symbols = {
-			theme = "cursor",
+			theme = "dropdown",
 		},
 		lsp_workspace_symbols = {
-			theme = "ivy",
+			theme = "dropdown",
 		},
 		lsp_dynamic_workspace_symbols = {
 			theme = "ivy",
@@ -63,5 +71,4 @@ require("telescope").load_extension("fzy_native")
 require("telescope").load_extension("find_pickers")
 --
 
-require("telescope").setup()
 require("telescope-nvim.keymap")

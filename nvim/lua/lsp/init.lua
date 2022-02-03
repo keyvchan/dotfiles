@@ -20,13 +20,8 @@ capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	-- Enable underline, use default values
 	underline = true,
-	-- Enable virtual text, override spacing to 4
 	virtual_text = { spacing = 4, source = "always" },
-	-- Use a function to dynamically turn signs off
-	-- and on, using buffer local variables
-	-- Disable a feature
 	update_in_insert = true,
 })
 

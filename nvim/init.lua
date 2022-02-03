@@ -35,6 +35,7 @@ vim.g.do_filetype_lua = 1
 
 vim.api.nvim_exec(
 	[[
+augroup FormatAutogroup
 augroup fmt
   autocmd!
   autocmd BufWritePre * undojoin | Neoformat

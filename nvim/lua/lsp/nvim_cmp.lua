@@ -36,12 +36,13 @@ cmp.setup({
 	},
 	sorting = {
 		comparators = {
+			compare.score,
 			function(...)
 				return require("cmp_buffer"):compare_locality(...)
 			end,
-			compare.score,
-			compare.exact,
 			compare.recent_used,
+			compare.offset,
+			compare.order,
 			compare.length,
 		},
 	},
@@ -49,13 +50,7 @@ cmp.setup({
 	formatting = {
 		format = require("lspkind").cmp_format({
 			with_text = false,
-			menu = {
-				-- buffer = "[B]",
-				-- nvim_lsp = "[LSP]",
-				-- luasnip = "[LuaSnip]",
-				-- nvim_lua = "[Lua]",
-				-- latex_symbols = "[Latex]",
-			},
+			menu = {},
 		}),
 		fields = {
 			"kind",

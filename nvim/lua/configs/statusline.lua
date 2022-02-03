@@ -1,7 +1,7 @@
 local gl = require("galaxyline")
-local path = require("plenary.path")
+-- local path = require("plenary.path")
 local gls = gl.section
-gl.short_line_list = { "NvimTree", "packer" }
+gl.short_line_list = { "TelescopeResults", "packer", "TelescopePrompt" }
 
 local colors = {
 	bg = "#282c34",
@@ -48,7 +48,7 @@ end
 gls.left[1] = {
 	FirstElement = {
 		provider = function()
-			return "▋"
+			return "\u{258b}"
 		end,
 		highlight = { colors.blue, colors.darkaqua },
 	},
@@ -126,45 +126,53 @@ gls.left[4] = {
 gls.left[5] = {
 	GitBranch = {
 		provider = "GitBranch",
-		icon = "  " .. "  ",
+		icon = "  " .. "\u{f7a1}" .. " ",
 		-- separator = "\u{e0b0}",
 		-- separator_highlight = { colors.purple },
 		condition = function()
 			return buffer_not_empty and require("galaxyline.condition").check_git_workspace()
 		end,
+		separator = "\u{e0b0}",
+		separator_highlight = { colors.purple, colors.purple },
 		highlight = { colors.black, colors.purple },
 	},
 }
 
-local checkwidth = function()
-	local squeeze_width = vim.fn.winwidth(0) / 2
-	if squeeze_width > 40 then
-		return true
-	end
-	return false
-end
+-- local checkwidth = function()
+-- 	local squeeze_width = vim.fn.winwidth(0) / 2
+-- 	if squeeze_width > 40 then
+-- 		return true
+-- 	end
+-- 	return false
+-- end
 
 gls.left[6] = {
 	DiffAdd = {
 		provider = "DiffAdd",
-		condition = checkwidth,
-		icon = " ",
+		condition = function()
+			return buffer_not_empty and require("galaxyline.condition").check_git_workspace()
+		end,
+		icon = " " .. "\u{f457}" .. " ",
 		highlight = { colors.green, colors.purple },
 	},
 }
 gls.left[7] = {
 	DiffModified = {
 		provider = "DiffModified",
-		condition = checkwidth,
-		icon = " ",
+		condition = function()
+			return buffer_not_empty and require("galaxyline.condition").check_git_workspace()
+		end,
+		icon = " " .. "\u{f459}" .. " ",
 		highlight = { colors.orange, colors.purple },
 	},
 }
 gls.left[8] = {
 	DiffRemove = {
 		provider = "DiffRemove",
-		condition = checkwidth,
-		icon = " ",
+		icon = " " .. "\u{f458}" .. " ",
+		condition = function()
+			return buffer_not_empty and require("galaxyline.condition").check_git_workspace()
+		end,
 		highlight = { colors.red, colors.purple },
 	},
 }
