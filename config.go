@@ -56,13 +56,14 @@ func writeFiles(basePath string, path string) {
 			writeFiles(basePath, path)
 		} else {
 
-			if entry.Name() == "nvim" {
-				// write to /usr/local/bin
+			if entry.Name() == "nvim.tar.gz" {
+				// write to /home/user
+				homeDir, _ := os.UserHomeDir()
 				if dryrun {
-					log.Println("Copying to /usr/local/bin")
+					log.Println("Copying to", homeDir)
 					continue
 				} else {
-					finalPath = filepath.Join("/usr/local/bin", entry.Name())
+					finalPath = filepath.Join(homeDir, entry.Name())
 				}
 			}
 

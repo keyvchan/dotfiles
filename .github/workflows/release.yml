@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Download neovim
-        run: wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -O ./nvim/nvim
+        run: wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz -O ./nvim/nvim.tar.gz
 
       - name: Set up Go
         uses: actions/setup-go@v2
