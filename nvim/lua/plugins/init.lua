@@ -125,7 +125,7 @@ return require("packer").startup({
 			end,
 		})
 
-		use("keyvchan/vim-monokai")
+		use("keyvchan/monokai.nvim")
 		use({
 			"nvim-treesitter/nvim-treesitter",
 			requires = {

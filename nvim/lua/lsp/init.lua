@@ -110,7 +110,6 @@ nvim_lsp.clangd.setup({
 })
 
 nvim_lsp.dockerls.setup({
-	cmd = { "node", "docker-language-server", "--stdio" },
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
@@ -134,6 +133,7 @@ nvim_lsp.pyright.setup({
 			analysis = {
 				disableOrganizeImports = false,
 				useLibraryCodeForTypes = true,
+				autoImportCompletions = false,
 			},
 		},
 	},

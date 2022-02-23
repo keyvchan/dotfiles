@@ -1,13 +1,16 @@
-vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files)
-vim.keymap.set("n", "<leader>lg", require("telescope.builtin").live_grep)
+local builtin = require("telescope.builtin")
+
+vim.keymap.set("n", "<leader>ff", builtin.find_files)
+vim.keymap.set("n", "<leader>fg", builtin.git_files)
+vim.keymap.set("n", "<leader>lg", builtin.live_grep)
 
 -- lsp stuff
-vim.keymap.set("n", "<leader>qf", require("telescope.builtin").quickfix)
-vim.keymap.set("n", "<leader>lca", require("telescope.builtin").lsp_code_actions)
-vim.keymap.set("n", "gd", require("telescope.builtin").lsp_definitions)
-vim.keymap.set("n", "gi", require("telescope.builtin").lsp_implementations)
-vim.keymap.set("n", "td", require("telescope.builtin").lsp_type_definitions)
-vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references)
+vim.keymap.set("n", "<leader>qf", builtin.quickfix)
+vim.keymap.set("n", "<leader>lca", builtin.lsp_code_actions)
+vim.keymap.set("n", "gd", builtin.lsp_definitions)
+vim.keymap.set("n", "gi", builtin.lsp_implementations)
+vim.keymap.set("n", "td", builtin.lsp_type_definitions)
+vim.keymap.set("n", "gr", builtin.lsp_references)
 
 -- extensions
 vim.keymap.set("n", "<leader><leader>", require("telescope").extensions.find_pickers.find_pickers)

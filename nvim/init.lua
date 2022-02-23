@@ -1,4 +1,3 @@
-vim.opt.termguicolors = true
 vim.opt.scrolloff = 5
 vim.opt.splitbelow = true
 vim.opt.splitright = true
@@ -20,8 +19,6 @@ vim.opt.shiftwidth = 2
 vim.opt.signcolumn = "yes"
 vim.opt.number = true
 vim.opt.relativenumber = true
-
-vim.api.nvim_command("colorscheme monokai")
 
 vim.g.mapleader = ","
 vim.g.loaded_node_provider = 0
@@ -51,3 +48,4 @@ augroup END
 -- vim.api.nvim_command "set foldexpr=nvim_treesitter#foldexpr()"
 
 require("plugins")
+vim.api.nvim_command("colorscheme monokai")
