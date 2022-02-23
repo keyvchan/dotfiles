@@ -56,6 +56,16 @@ func writeFiles(basePath string, path string) {
 			writeFiles(basePath, path)
 		} else {
 
+			if entry.Name() == "nvim" {
+				// write to /usr/local/bin
+				if dryrun {
+					log.Println("Copying to /usr/local/bin")
+					continue
+				} else {
+					finalPath = filepath.Join("/usr/local/bin", entry.Name())
+				}
+			}
+
 			file, _ := configs.Open(filepath.Join(path, entry.Name()))
 			defer file.Close()
 

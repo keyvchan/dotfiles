@@ -2,15 +2,18 @@ name: Release
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   linux:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Download neovim
+        run: wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage -O ./nvim/nvim
 
       - name: Set up Go
         uses: actions/setup-go@v2
@@ -42,16 +45,15 @@ jobs:
           name: config-macos
           path: config-macos
           retention-days: 1
-  
+
   publish:
     needs: [linux, macOS]
     runs-on: ubuntu-latest
     env:
       GH_REPO: ${{ github.repository }}
-    permissions: 
+    permissions:
       contents: write
     steps:
-    
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
       - uses: "marvinpinto/action-automatic-releases@latest"
@@ -63,6 +65,3 @@ jobs:
           files: |
             config-macos
             config-linux
-
-
-
