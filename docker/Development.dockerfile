@@ -16,5 +16,8 @@ WORKDIR /home/keyv
 RUN git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
 RUN yay -S neovim-git --noconfirm
 
-RUN wget https://github.com/keyvchan/dotfiles/releases/download/latest/config-linux -O config-linux && chmod a+x config-linux && ./config-linux
+
+ENV APPIMAGE_EXTRACT_AND_RUN=1
+
+RUN wget https://github.com/keyvchan/dotfiles/releases/download/latest/config-linux -O config-linux && sudo chmod a+w /usr/local/bin && chmod a+x config-linux && ./config-linux
 RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim && nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
