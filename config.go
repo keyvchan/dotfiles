@@ -29,7 +29,11 @@ func main() {
 	if dryrun {
 		log.Println("Mkdir", basePath, path)
 	} else {
-		err := os.Mkdir(filepath.Join(basePath, path), 0755)
+		err := os.Mkdir(basePath, 0755)
+		if err != nil {
+			log.Println(err)
+		}
+		err = os.Mkdir(filepath.Join(basePath, path), 0755)
 		if err != nil {
 			log.Println(err)
 		}
