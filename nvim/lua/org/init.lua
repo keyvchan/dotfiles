@@ -50,6 +50,7 @@ neorg.setup({
 		},
 		["core.gtd.ui"] = {},
 		["core.integrations.telescope"] = {},
+		["core.queries.native"] = {},
 	},
 })
 

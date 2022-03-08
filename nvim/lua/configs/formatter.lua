@@ -1,25 +1,2 @@
-require("formatter").setup({
-	filetype = {
-		lua = {
-			function()
-				return {
-					exe = "stylua",
-					args = {
-						"-",
-					},
-					stdin = true,
-				}
-			end,
-		},
-		rust = {
-			-- Rustfmt
-			function()
-				return {
-					exe = "rustfmt",
-					args = { "--emit=stdout" },
-					stdin = true,
-				}
-			end,
-		},
-	},
-})
+vim.api.nvim_create_augroup("fmt", { clear = true })
+vim.api.nvim_create_autocmd("BufWritePre", { group = "fmt", command = "undojoin | Neoformat" })

@@ -27,41 +27,33 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 
 local on_attach = function(client)
 	lsp_status.on_attach(client)
-	require("lsp.signature_help")
 end
 
 -- lua
-local sumneko_root_path = "/Users/keyv/Codebases/ClionProjects/lua-language-server"
-nvim_lsp.sumneko_lua.setup({
-	cmd = { "lua-language-server", "-E", sumneko_root_path .. "/main.lua" },
-	on_attach = on_attach,
+local runtime_path = vim.split(package.path, ";")
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require("lspconfig").sumneko_lua.setup({
 	settings = {
 		Lua = {
-			completion = {
-				-- keywordSnippet = "Disable";
+			runtime = {
+				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+				version = "LuaJIT",
+				-- Setup your lua path
+				path = runtime_path,
 			},
-			runtime = { version = "LuaJIT" },
 			diagnostics = {
-				enable = true,
-				globals = {
-					"vim",
-					"Color",
-					"c",
-					"Group",
-					"g",
-					"s",
-					"describe",
-					"it",
-					"before_each",
-					"after_each",
-				},
+				-- Get the language server to recognize the `vim` global
+				globals = { "vim" },
 			},
 			workspace = {
 				-- Make the server aware of Neovim runtime files
-				library = {
-					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-				},
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			-- Do not send telemetry data containing a randomized but unique identifier
+			telemetry = {
+				enable = false,
 			},
 		},
 	},
@@ -102,9 +94,15 @@ nvim_lsp.rust_analyzer.setup({
 	capabilities = capabilities,
 })
 
+-- nvim_lsp.clangd.setup({
+-- 	cmd = { "clangd", "--clang-tidy" },
+-- 	init_options = { clangdFileStatus = true },
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- })
+
 nvim_lsp.clangd.setup({
-	cmd = { "clangd", "--clang-tidy" },
-	init_options = { clangdFileStatus = true },
+	cmd = { "/Users/keyv/Codebases/ClionProjects/tsls/target/debug/tsls" },
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
@@ -140,6 +138,11 @@ nvim_lsp.pyright.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
+
+-- nvim_lsp.pylsp.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- })
 
 nvim_lsp.vimls.setup({ on_attach = on_attach, capabilities = capabilities })
 

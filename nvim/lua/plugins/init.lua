@@ -20,6 +20,9 @@ return require("packer").startup({
 		use({
 			"sbdchd/neoformat",
 			event = { "VimEnter" },
+			config = function()
+				require("configs.formatter")
+			end,
 		})
 
 		use({
@@ -69,10 +72,13 @@ return require("packer").startup({
 					end,
 				},
 				{
-					"ray-x/lsp_signature.nvim",
+					"nvim-lua/lsp-status.nvim",
 				},
 				{
-					"nvim-lua/lsp-status.nvim",
+					"tami5/lspsaga.nvim",
+					config = function()
+						require("lsp.saga")
+					end,
 				},
 			},
 			config = function()
@@ -149,7 +155,7 @@ return require("packer").startup({
 		})
 
 		use({
-			"glepnir/galaxyline.nvim",
+			"NTBBloodbath/galaxyline.nvim",
 			branch = "main",
 			config = function()
 				require("configs.statusline")

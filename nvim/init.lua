@@ -28,24 +28,6 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 
 vim.g.do_filetype_lua = 1
--- vim.g.did_load_filetypes = 0
-
-vim.api.nvim_exec(
-	[[
-augroup FormatAutogroup
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
-augroup END
-]],
-	true
-)
-
--- treesitter
--- vim.api.foldmethod = "expr"
--- vim.api.foldexpr = "nvim_treesitter#foldexpr()"
--- vim.api.nvim_command "set foldmethod=expr"
--- vim.api.nvim_command "set foldexpr=nvim_treesitter#foldexpr()"
 
 require("plugins")
 vim.api.nvim_command("colorscheme monokai")
