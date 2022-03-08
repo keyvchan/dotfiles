@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"errors"
 	"io"
 	"io/fs"
 	"log"
@@ -30,11 +31,16 @@ func main() {
 		log.Println("Mkdir", basePath, path)
 	} else {
 		err := os.Mkdir(basePath, 0755)
-		if err != nil {
+		if errors.Is(err, os.ErrExist) {
+			log.Println(err, "Directory already exists, skip it")
+		} else {
 			log.Println(err)
 		}
+
 		err = os.Mkdir(filepath.Join(basePath, path), 0755)
-		if err != nil {
+		if errors.Is(err, os.ErrExist) {
+			log.Println(err, "Directory already exists, skip it")
+		} else {
 			log.Println(err)
 		}
 	}
@@ -53,7 +59,9 @@ func writeFiles(basePath string, path string) {
 				log.Println("Creating dir: ", finalPath)
 			} else {
 				err := os.Mkdir(finalPath, 0755)
-				if err != nil {
+				if errors.Is(err, os.ErrExist) {
+					log.Println(err, "Directory already exists, skip it")
+				} else {
 					log.Println(err)
 				}
 			}
