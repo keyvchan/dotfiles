@@ -18,14 +18,6 @@ return require("packer").startup({
 		})
 
 		use({
-			"sbdchd/neoformat",
-			event = { "VimEnter" },
-			config = function()
-				require("configs.formatter")
-			end,
-		})
-
-		use({
 			"lukas-reineke/indent-blankline.nvim",
 			config = function()
 				require("configs.indent")
@@ -61,7 +53,7 @@ return require("packer").startup({
 			event = "VimEnter",
 		})
 
-		-- -- nvim-lsp
+		-- nvim-lsp
 		use({
 			"neovim/nvim-lspconfig",
 			requires = {
@@ -80,11 +72,17 @@ return require("packer").startup({
 						require("lsp.saga")
 					end,
 				},
+				{
+					"jose-elias-alvarez/null-ls.nvim",
+					config = function()
+						require("lsp.null-ls")
+					end,
+					event = "VimEnter",
+				},
 			},
 			config = function()
 				require("lsp")
 			end,
-			-- event = "VimEnter",
 			after = {
 				"lsp-status.nvim",
 				"lspkind-nvim",
@@ -155,13 +153,12 @@ return require("packer").startup({
 		})
 
 		use({
-			"NTBBloodbath/galaxyline.nvim",
-			branch = "main",
+			"feline-nvim/feline.nvim",
+			branch = "develop",
 			config = function()
-				require("configs.statusline")
+				require("statusline")
 			end,
 		})
-
 		use({
 			"github/copilot.vim",
 			config = function()
@@ -197,7 +194,7 @@ return require("packer").startup({
 			config = function()
 				require("configs.git")
 			end,
-			-- tag = 'release' -- To use the latest release
+			event = "VimEnter",
 		})
 	end,
 

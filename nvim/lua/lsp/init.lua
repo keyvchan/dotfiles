@@ -27,6 +27,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 
 local on_attach = function(client)
 	lsp_status.on_attach(client)
+	client.resolved_capabilities.document_formatting = false
+	client.resolved_capabilities.document_range_formatting = false
 end
 
 -- lua
@@ -94,18 +96,20 @@ nvim_lsp.rust_analyzer.setup({
 	capabilities = capabilities,
 })
 
+local clangd_capabilities = capabilities
+clangd_capabilities.offsetEncoding = { "utf-16" }
+nvim_lsp.clangd.setup({
+	cmd = { "clangd", "--clang-tidy" },
+	init_options = { clangdFileStatus = true },
+	on_attach = on_attach,
+	capabilities = clangd_capabilities,
+})
+
 -- nvim_lsp.clangd.setup({
--- 	cmd = { "clangd", "--clang-tidy" },
--- 	init_options = { clangdFileStatus = true },
+-- 	cmd = { "/Users/keyv/Codebases/ClionProjects/tsls/target/debug/tsls" },
 -- 	on_attach = on_attach,
 -- 	capabilities = capabilities,
 -- })
-
-nvim_lsp.clangd.setup({
-	cmd = { "/Users/keyv/Codebases/ClionProjects/tsls/target/debug/tsls" },
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
 
 nvim_lsp.dockerls.setup({
 	on_attach = on_attach,
@@ -128,6 +132,7 @@ nvim_lsp.pyright.setup({
 	settings = {
 		python = {
 			pythonPath = "/usr/local/opt/python@3.10/bin/python3",
+			-- pythonPath = "/usr/local/opt/python@3.10/bin/python3",
 			analysis = {
 				disableOrganizeImports = false,
 				useLibraryCodeForTypes = true,
@@ -150,6 +155,7 @@ nvim_lsp.denols.setup({
 	on_attach = on_attach,
 	init_options = {
 		lint = true,
+		unstable = true,
 	},
 	capabilities = capabilities,
 })
