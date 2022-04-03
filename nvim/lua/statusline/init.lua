@@ -27,7 +27,7 @@ local c = {
 	},
 	gitbranch = {
 		provider = "git_branch",
-		icon = " \u{e0a0} ",
+		icon = " \u{e702} ",
 		hl = {
 			fg = u.colors.darkblue,
 			bg = u.colors.purple,
@@ -38,7 +38,7 @@ local c = {
 	},
 	git_add = {
 		provider = "git_diff_added",
-		icon = " +",
+		icon = " \u{f457} ",
 		hl = {
 			fg = u.colors.green,
 			bg = u.colors.purple,
@@ -49,7 +49,7 @@ local c = {
 	},
 	git_removed = {
 		provider = "git_diff_removed",
-		icon = " -",
+		icon = " \u{f458} ",
 		hl = {
 			fg = u.colors.pink,
 			bg = u.colors.purple,
@@ -60,7 +60,7 @@ local c = {
 	},
 	git_changed = {
 		provider = "git_diff_changed",
-		icon = " ~",
+		icon = " \u{f459} ",
 		hl = {
 			fg = u.colors.yellow,
 			bg = u.colors.purple,

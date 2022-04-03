@@ -9,5 +9,4 @@ end)
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 
-vim.keymap.set("n", "<leader>rn", require("lspsaga.rename").rename)
 -- vim.keymap.set("n", "K", require("lspsaga.hover").render_hover_doc)

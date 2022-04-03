@@ -36,23 +36,31 @@ return require("packer").startup({
 				},
 				{
 					"nvim-telescope/telescope-file-browser.nvim",
+					event = "VimEnter",
 				},
 				{
 					"nvim-telescope/telescope-symbols.nvim",
+					event = "VimEnter",
 				},
 				{
 					"keyvchan/telescope-find-pickers.nvim",
+					event = "VimEnter",
 				},
 				{
 					"nvim-telescope/telescope-fzy-native.nvim",
+					event = "VimEnter",
 				},
 			},
 			config = function()
 				require("telescope-nvim")
 			end,
-			event = "VimEnter",
+			after = {
+				"telescope-fzy-native.nvim",
+				"telescope-file-browser.nvim",
+				"telescope-symbols.nvim",
+				"telescope-find-pickers.nvim",
+			},
 		})
-
 		-- nvim-lsp
 		use({
 			"neovim/nvim-lspconfig",
@@ -62,15 +70,11 @@ return require("packer").startup({
 					config = function()
 						require("lsp.lsp-kind")
 					end,
+					event = { "VimEnter" },
 				},
 				{
 					"nvim-lua/lsp-status.nvim",
-				},
-				{
-					"tami5/lspsaga.nvim",
-					config = function()
-						require("lsp.saga")
-					end,
+					event = "VimEnter",
 				},
 				{
 					"jose-elias-alvarez/null-ls.nvim",
@@ -109,6 +113,10 @@ return require("packer").startup({
 				},
 				{
 					"hrsh7th/cmp-nvim-lua",
+					after = "nvim-cmp",
+				},
+				{
+					"hrsh7th/cmp-nvim-lsp-signature-help",
 					after = "nvim-cmp",
 				},
 			},
@@ -164,19 +172,24 @@ return require("packer").startup({
 			config = function()
 				require("configs.copilot")
 			end,
+			event = "InsertEnter",
 		})
 		use({
 			"nvim-neorg/neorg",
 			requires = {
-				"nvim-lua/plenary.nvim",
-				{ "nvim-neorg/neorg-telescope", after = "neorg" },
+				-- 	"nvim-lua/plenary.nvim",
+				{
+					"nvim-neorg/neorg-telescope",
+					event = "VimEnter",
+					after = "telescope.nvim",
+				},
 			},
 			config = function()
 				require("org")
 			end,
 			after = {
 				"nvim-treesitter",
-				"telescope.nvim",
+				"nvim-cmp",
 			},
 		})
 
