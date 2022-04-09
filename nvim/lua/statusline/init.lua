@@ -69,6 +69,16 @@ local c = {
 			return require("feline.providers.git").git_info_exists()
 		end,
 	},
+	solid = {
+		provider = " ",
+		hl = {
+			fg = u.colors.purple,
+			bg = u.colors.purple,
+		},
+		enabled = function()
+			return require("feline.providers.git").git_info_exists()
+		end,
+	},
 	left_arrow_file_type = {
 		provider = function()
 			return "\u{e0b2}"
@@ -171,10 +181,50 @@ local c = {
 			},
 		},
 	},
-	lsp_status = {
-		provider = function()
-			return require("lsp-status").status()
-		end,
+	lsp_errors = {
+		provider = "diagnostic_errors",
+		hl = {
+			fg = u.colors.black,
+			bg = u.colors.purple,
+		},
+		right_sep = {
+			str = " ",
+			hl = {
+				fg = u.colors.purple,
+				bg = u.colors.purple,
+			},
+		},
+	},
+	lsp_warnings = {
+		provider = "diagnostic_warnings",
+		hl = {
+			fg = u.colors.black,
+			bg = u.colors.purple,
+		},
+		right_sep = {
+			str = " ",
+			hl = {
+				fg = u.colors.purple,
+				bg = u.colors.purple,
+			},
+		},
+	},
+	lsp_hints = {
+		provider = "diagnostic_hints",
+		hl = {
+			fg = u.colors.black,
+			bg = u.colors.purple,
+		},
+		right_sep = {
+			str = " ",
+			hl = {
+				fg = u.colors.purple,
+				bg = u.colors.purple,
+			},
+		},
+	},
+	lsp_info = {
+		provider = "diagnostic_info",
 		hl = {
 			fg = u.colors.black,
 			bg = u.colors.purple,
@@ -223,7 +273,11 @@ local active = {
 		c.git_add,
 		c.git_removed,
 		c.git_changed,
-		c.lsp_status,
+		c.solid,
+		c.lsp_errors,
+		c.lsp_warnings,
+		c.lsp_info,
+		c.lsp_hints,
 		c.right_arrow_lsp_status,
 		c.empty,
 	},
@@ -239,16 +293,6 @@ local active = {
 		c.cur_percent,
 	},
 }
-
--- local inactive = {
--- 	{
--- 		c.FirstElement,
--- 		c.fileinfo,
--- 		c.right_arrow_file_info,
--- 		c.empty,
--- 	}, -- left
--- 	{ c.in_position }, -- right
--- }
 
 require("feline").setup({
 	components = { active = active, inactive = active },

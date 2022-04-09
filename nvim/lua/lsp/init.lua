@@ -1,22 +1,22 @@
 local nvim_lsp = require("lspconfig")
 -- local signature_help = require("lsp_signature")
-local lsp_status = require("lsp-status")
+-- local lsp_status = require("lsp-status")
 
 -- require("lsp.nvim_cmp")
 require("lsp.keymap")
 require("lsp.appearance")
 
-lsp_status.config({
-	status_symbol = " ",
-	indicator_info = "‼ ",
-	indicator_errors = "✗",
-	indicator_hint = "ﯧ ",
-	indicator_warnings = " ",
-})
-lsp_status.register_progress()
+-- lsp_status.config({
+-- 	status_symbol = " ",
+-- 	indicator_info = "‼ ",
+-- 	indicator_errors = "✗",
+-- 	indicator_hint = "ﯧ ",
+-- 	indicator_warnings = " ",
+-- })
+-- lsp_status.register_progress()
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
+-- capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -26,7 +26,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 })
 
 local on_attach = function(client)
-	lsp_status.on_attach(client)
+	-- lsp_status.on_attach(client)
 	client.resolved_capabilities.document_formatting = false
 	client.resolved_capabilities.document_range_formatting = false
 end
@@ -161,5 +161,14 @@ nvim_lsp.denols.setup({
 })
 
 nvim_lsp.yamlls.setup({
+	capabilities = capabilities,
+})
+
+nvim_lsp.jdtls.setup({
+	capabilities = capabilities,
+})
+
+nvim_lsp.ltex.setup({
+	on_attach = on_attach,
 	capabilities = capabilities,
 })

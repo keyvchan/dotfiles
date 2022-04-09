@@ -47,6 +47,10 @@ return require("packer").startup({
 					event = "VimEnter",
 				},
 				{
+					"keyvchan/telescope-running-commands.nvim",
+					event = "VimEnter",
+				},
+				{
 					"nvim-telescope/telescope-fzy-native.nvim",
 					event = "VimEnter",
 				},
@@ -59,6 +63,7 @@ return require("packer").startup({
 				"telescope-file-browser.nvim",
 				"telescope-symbols.nvim",
 				"telescope-find-pickers.nvim",
+				"telescope-running-commands.nvim",
 			},
 		})
 		-- nvim-lsp
@@ -73,7 +78,10 @@ return require("packer").startup({
 					event = { "VimEnter" },
 				},
 				{
-					"nvim-lua/lsp-status.nvim",
+					"j-hui/fidget.nvim",
+					config = function()
+						require("lsp.status")
+					end,
 					event = "VimEnter",
 				},
 				{
@@ -88,7 +96,7 @@ return require("packer").startup({
 				require("lsp")
 			end,
 			after = {
-				"lsp-status.nvim",
+				-- "lsp-status.nvim",
 				"lspkind-nvim",
 			},
 		})
@@ -172,12 +180,10 @@ return require("packer").startup({
 			config = function()
 				require("configs.copilot")
 			end,
-			event = "InsertEnter",
 		})
 		use({
 			"nvim-neorg/neorg",
 			requires = {
-				-- 	"nvim-lua/plenary.nvim",
 				{
 					"nvim-neorg/neorg-telescope",
 					event = "VimEnter",

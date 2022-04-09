@@ -1,9 +1,3 @@
--- vim.api.nvim_exec(
--- 	[[
--- imap <silent><script><expr> <C-e> copilot#Accept()
--- ]],
--- 	true
--- )
 vim.api.nvim_set_keymap("i", "<C-e>", "copilot#Accept()", {
 	noremap = true,
 	silent = true,
