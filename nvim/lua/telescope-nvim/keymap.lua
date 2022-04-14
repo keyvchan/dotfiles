@@ -15,3 +15,4 @@ vim.keymap.set("n", "gr", builtin.lsp_references)
 -- extensions
 vim.keymap.set("n", "<leader><leader>", require("telescope").extensions.find_pickers.find_pickers)
 vim.keymap.set("n", "<leader>fb", require("telescope").extensions.file_browser.file_browser)
+-- vim.keymap.set("n", ":", require("telescope").extensions.running_commands.running_commands)

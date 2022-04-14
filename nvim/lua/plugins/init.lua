@@ -49,6 +49,7 @@ return require("packer").startup({
 				{
 					"keyvchan/telescope-running-commands.nvim",
 					event = "VimEnter",
+					branch = "fuzzy-search",
 				},
 				{
 					"nvim-telescope/telescope-fzy-native.nvim",
@@ -90,6 +91,18 @@ return require("packer").startup({
 						require("lsp.null-ls")
 					end,
 					event = "VimEnter",
+				},
+				{
+					"williamboman/nvim-lsp-installer",
+					config = function()
+						require("lsp.installer")
+					end,
+					event = "VimEnter",
+				},
+				{
+					"folke/lua-dev.nvim",
+					event = "VimEnter",
+					after = "nvim-lspconfig",
 				},
 			},
 			config = function()
@@ -160,6 +173,13 @@ return require("packer").startup({
 				{
 					"nvim-treesitter/playground",
 					after = "nvim-treesitter",
+				},
+				{
+					"keyvchan/virt_context.nvim",
+					after = "nvim-treesitter",
+					config = function()
+						require("treesitter.context")
+					end,
 				},
 			},
 			config = function()

@@ -13,7 +13,7 @@ cmp.setup({
 	completion = {
 		completeopt = "menu,menuone,noselect",
 	},
-	mapping = {
+	mapping = cmp.mapping.preset.insert({
 		["<C-p>"] = cmp.mapping.select_prev_item({
 			behavior = cmp.SelectBehavior.Insert,
 		}),
@@ -22,30 +22,24 @@ cmp.setup({
 		}),
 
 		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-d>"] = cmp.mapping.close(),
-		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
-		["<C-e>"] = cmp.config.disable,
-	},
+		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
+	}),
 
 	sources = {
 		{ name = "nvim_lsp", priority = 100 },
+		{ name = "neorg" },
 		{ name = "buffer" },
 		{ name = "path" },
-		{ name = "neorg" },
-		{ name = "nvim_lua" },
 		{ name = "nvim_lsp_signature_help" },
 	},
 	sorting = {
 		comparators = {
 			compare.score,
-			-- function(...)
-			-- 	return require("cmp_buffer"):compare_locality(...)
-			-- end,
 			compare.locality,
+			compare.sort_text,
+			compare.socpe,
 			compare.recent_used,
 			compare.offset,
-			compare.order,
-			compare.length,
 		},
 	},
 

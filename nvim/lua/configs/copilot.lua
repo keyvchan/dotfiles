@@ -1,5 +1,4 @@
-vim.api.nvim_set_keymap("i", "<C-e>", "copilot#Accept()", {
-	noremap = true,
+vim.keymap.set("i", "<C-e>", "copilot#Accept()", {
 	silent = true,
 	expr = true,
 })

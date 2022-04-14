@@ -12,5 +12,6 @@ require("indent_blankline").setup({
 		"help",
 		"startup",
 		"packer",
+		"lsp-installer",
 	},
 })

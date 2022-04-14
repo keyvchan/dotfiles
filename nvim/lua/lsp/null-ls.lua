@@ -16,7 +16,10 @@ require("null-ls").setup({
 		null_ls.builtins.diagnostics.shellcheck,
 
 		-- code actions
+		null_ls.builtins.hover.dictionary.with({
+			extra_filetypes = { "norg" },
+		}),
 	},
 })
 
-require("lsp.formatter")
+-- require("lsp.formatter")

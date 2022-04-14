@@ -66,10 +66,10 @@ require("telescope").setup({
 	},
 })
 
+require("telescope").load_extension("find_pickers")
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("fzy_native")
 require("telescope").load_extension("running_commands")
-require("telescope").load_extension("find_pickers")
 --
 
 require("telescope-nvim.keymap")
