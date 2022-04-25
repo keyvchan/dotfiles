@@ -49,7 +49,6 @@ return require("packer").startup({
 				{
 					"keyvchan/telescope-running-commands.nvim",
 					event = "VimEnter",
-					branch = "fuzzy-search",
 				},
 				{
 					"nvim-telescope/telescope-fzy-native.nvim",
@@ -65,19 +64,31 @@ return require("packer").startup({
 				"telescope-symbols.nvim",
 				"telescope-find-pickers.nvim",
 				"telescope-running-commands.nvim",
+				"refactoring.nvim",
 			},
+		})
+		use({
+			"ThePrimeagen/refactoring.nvim",
+			after = {
+				"nvim-treesitter",
+			},
+			config = function()
+				require("telescope-nvim.refactor")
+			end,
+		})
+		use({
+			"stevearc/dressing.nvim",
+			after = {
+				"telescope.nvim",
+			},
+			config = function()
+				require("configs.dressing")
+			end,
 		})
 		-- nvim-lsp
 		use({
 			"neovim/nvim-lspconfig",
 			requires = {
-				{
-					"onsails/lspkind-nvim",
-					config = function()
-						require("lsp.lsp-kind")
-					end,
-					event = { "VimEnter" },
-				},
 				{
 					"j-hui/fidget.nvim",
 					config = function()
@@ -99,19 +110,10 @@ return require("packer").startup({
 					end,
 					event = "VimEnter",
 				},
-				{
-					"folke/lua-dev.nvim",
-					event = "VimEnter",
-					after = "nvim-lspconfig",
-				},
 			},
 			config = function()
 				require("lsp")
 			end,
-			after = {
-				-- "lsp-status.nvim",
-				"lspkind-nvim",
-			},
 		})
 
 		use({
@@ -139,6 +141,10 @@ return require("packer").startup({
 				{
 					"hrsh7th/cmp-nvim-lsp-signature-help",
 					after = "nvim-cmp",
+				},
+				{
+					"onsails/lspkind.nvim",
+					event = { "VimEnter" },
 				},
 			},
 			config = function()
@@ -185,7 +191,7 @@ return require("packer").startup({
 			config = function()
 				require("treesitter")
 			end,
-			event = "BufRead",
+			event = "VimEnter",
 		})
 
 		use({

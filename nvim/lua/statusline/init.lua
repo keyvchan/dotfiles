@@ -1,6 +1,9 @@
 local u = require("statusline.colors")
 local fmt = string.format
 
+local file_info = require("statusline.file_name")
+-- vim.notify(vim.inspect(file_info.filename()))
+
 local c = {
 	FirstElement = {
 		provider = function()
@@ -97,13 +100,49 @@ local c = {
 			bg = u.colors.purple,
 		},
 	},
-	fileinfo = {
-		provider = {
-			name = "file_info",
-			opts = {
-				type = "relative-short",
+
+	read_only = {
+		provider = function()
+			return ""
+		end,
+		hl = {
+			fg = u.colors.magenta,
+			bg = u.colors.darkblue,
+		},
+		left_sep = {
+			str = " ",
+			hl = {
+				fg = u.colors.darkblue,
+				bg = u.colors.darkblue,
 			},
 		},
+		enabled = file_info.file_readonly,
+	},
+
+	file_icon = {
+		provider = function()
+			local file = file_info.get_base_file_name()
+			return file_info.file_icon(file)
+		end,
+		hl = function()
+			local file = file_info.get_base_file_name()
+			local _, color = require("nvim-web-devicons").get_icon_color(file)
+			return {
+				fg = color,
+				bg = u.colors.darkblue,
+			}
+		end,
+		left_sep = {
+			str = " ",
+			hl = {
+				fg = u.colors.darkblue,
+				bg = u.colors.darkblue,
+			},
+		},
+	},
+
+	fileinfo = {
+		provider = file_info.filename,
 		hl = {
 			fg = u.colors.magenta,
 			bg = u.colors.darkblue,
@@ -267,6 +306,8 @@ local active = {
 	{ -- left
 		c.FirstElement,
 		c.vimode,
+		c.read_only,
+		c.file_icon,
 		c.fileinfo,
 		c.right_arrow_file_info,
 		c.gitbranch,

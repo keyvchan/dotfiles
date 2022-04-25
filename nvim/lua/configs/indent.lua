@@ -13,5 +13,6 @@ require("indent_blankline").setup({
 		"startup",
 		"packer",
 		"lsp-installer",
+		"text",
 	},
 })

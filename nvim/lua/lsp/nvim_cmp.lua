@@ -8,21 +8,32 @@ cmp.setup({
 		},
 	},
 	snippet = cmp.config.disable,
+	window = {
+		-- completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
 
 	preselect = cmp.PreselectMode.None,
 	completion = {
 		completeopt = "menu,menuone,noselect",
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-p>"] = cmp.mapping.select_prev_item({
-			behavior = cmp.SelectBehavior.Insert,
-		}),
-		["<C-n>"] = cmp.mapping.select_next_item({
-			behavior = cmp.SelectBehavior.Insert,
-		}),
+		["<C-p>"] = cmp.mapping(
+			cmp.mapping.select_prev_item({
+				behavior = cmp.SelectBehavior.Insert,
+			}),
+			{ "i", "s", "c" }
+		),
+		["<C-n>"] = cmp.mapping(
+			cmp.mapping.select_next_item({
+				behavior = cmp.SelectBehavior.Insert,
+			}),
+			{ "i", "s", "c" }
+		),
 
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
+		["<C-e>"] = cmp.config.disable,
 	}),
 
 	sources = {
@@ -45,7 +56,9 @@ cmp.setup({
 
 	formatting = {
 		format = require("lspkind").cmp_format({
-			with_text = false,
+			mode = "symbol",
+			-- symbols = "codicons",
+			preset = "codicons",
 			menu = {},
 		}),
 		fields = {

@@ -6,7 +6,7 @@ vim.keymap.set("n", "<leader>lg", builtin.live_grep)
 
 -- lsp stuff
 vim.keymap.set("n", "<leader>qf", builtin.quickfix)
-vim.keymap.set("n", "<leader>lca", builtin.lsp_code_actions)
+vim.keymap.set("n", "<leader>lca", require("vim.lsp.buf").code_action)
 vim.keymap.set("n", "gd", builtin.lsp_definitions)
 vim.keymap.set("n", "gi", builtin.lsp_implementations)
 vim.keymap.set("n", "td", builtin.lsp_type_definitions)
@@ -15,4 +15,5 @@ vim.keymap.set("n", "gr", builtin.lsp_references)
 -- extensions
 vim.keymap.set("n", "<leader><leader>", require("telescope").extensions.find_pickers.find_pickers)
 vim.keymap.set("n", "<leader>fb", require("telescope").extensions.file_browser.file_browser)
+vim.keymap.set("v", "<leader>rr", require("telescope").extensions.refactoring.refactors)
 -- vim.keymap.set("n", ":", require("telescope").extensions.running_commands.running_commands)
