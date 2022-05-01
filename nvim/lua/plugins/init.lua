@@ -209,11 +209,11 @@ return require("packer").startup({
 		})
 		use({
 			"nvim-neorg/neorg",
+      ft = "norg",
 			requires = {
 				{
 					"nvim-neorg/neorg-telescope",
-					event = "VimEnter",
-					after = "telescope.nvim",
+					-- after = "telescope.nvim",
 				},
 			},
 			config = function()
@@ -222,6 +222,7 @@ return require("packer").startup({
 			after = {
 				"nvim-treesitter",
 				"nvim-cmp",
+				"telescope.nvim",
 			},
 		})
 
