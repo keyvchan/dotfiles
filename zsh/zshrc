@@ -4,19 +4,25 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+fpath=(~/.zmodules/zsh-completions/src $fpath)
 
 # Created by newuser for 5.8.1
 alias vim="nvim"
 alias ls="lsd"
 
+setopt autocd
+setopt INC_APPEND_HISTORY_TIME
+
 source ~/.zmodules/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source ~/.p10k.zsh
 
 source ~/.zmodules/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zmodules/F-Sy-H/F-Sy-H.plugin.zsh
 
 source ~/.zmodules/custom/completion.zsh
+source "${HOME}/.iterm2_shell_integration.zsh"
 
-fpath=(~/.zmodules/zsh-completions/src $fpath)
+
+
