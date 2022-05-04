@@ -1,26 +1,20 @@
 require("lsp.keymap")
 require("lsp.appearance")
 
-require("lspconfig").rust_analyzer.setup({
-	settings = {
-		["rust-analyzer"] = {
-			cargo = {
-				allFeatures = true,
-			},
-			checkOnSave = {
-				allFeatures = true,
-				overrideCommand = {
-					"cargo",
-					"clippy",
-					"--workspace",
-					"--message-format=json",
-					"--all-targets",
-					"--all-features",
-				},
-			},
-		},
-	},
-	on_attach = require("lsp.capabilities").on_attach,
-	capabilities = require("lsp.capabilities").capabilities,
-})
+require("lsp.formatter")
+
+local util = require("lspconfig.util")
+local configs = require("lspconfig.configs")
+
+configs.tsls = {
+  default_config = {
+    cmd = { "/Users/keyv/Codebases/ClionProjects/tsls/target/debug/tsls" },
+    filetypes = { "c" },
+    root_dir = util.find_git_ancestor,
+
+    single_file_support = true,
+  },
+}
+require("lspconfig").tsls.setup({})
+
 require("lsp.formatter")

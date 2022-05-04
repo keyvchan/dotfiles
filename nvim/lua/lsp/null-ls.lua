@@ -5,12 +5,17 @@ require("null-ls").setup({
 		-- formatting
 		null_ls.builtins.formatting.rustfmt,
 		null_ls.builtins.formatting.black,
-		null_ls.builtins.formatting.clang_format,
+		null_ls.builtins.formatting.clang_format.with({
+			filetypes = { "cpp" },
+		}),
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.prettier.with({
 			extra_filetypes = { "markdown" },
 		}),
-		null_ls.builtins.formatting.shfmt,
+		null_ls.builtins.formatting.shfmt.with({
+			extra_filetypes = { "zsh" },
+		}),
+
 		null_ls.builtins.formatting.goimports,
 
 		-- diagnostics
