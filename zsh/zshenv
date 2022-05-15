@@ -18,4 +18,9 @@ export PATH=/usr/local/sbin:${PATH}
 export PATH=${HOME}/.ghcup/bin:${PATH}
 export CC=/usr/local/opt/llvm/bin/clang
 
-export ZSH_MODULES_DIR=${HOME}/.zmodules
+export ZSH_MODULES_ROOT=${HOME}/.zmodules
+export ZSH_PLUGINS_DIR=${ZSH_MODULES_ROOT}/plugins
+
+# history
+export HISTSIZE=50000
+export SAVEHIST=10000

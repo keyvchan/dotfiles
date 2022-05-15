@@ -6,12 +6,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 setopt auto_cd
+
+
 setopt inc_append_history_time
 setopt extended_history
 setopt hist_expire_dups_first
 setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt hist_verify
+setopt share_history
 
 setopt auto_pushd
 setopt pushd_ignore_dups
@@ -30,19 +33,18 @@ alias ~~="~"
 alias vim="nvim"
 alias ls="lsd"
 
-source "${ZSH_MODULES_DIR}/powerlevel10k/powerlevel10k.zsh-theme"
+source "${ZSH_MODULES_ROOT}/plugins/powerlevel10k/powerlevel10k.zsh-theme"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source ~/.p10k.zsh
 
-fpath=(${ZSH_MODULES_DIR}/completions/zsh-completions/src $fpath)
+fpath=(${ZSH_MODULES_ROOT}/completions/zsh-completions/src $fpath)
 fpath=(${ZSH_MODULES_DIR}/completions/custom, $fpath)
 
-source "${ZSH_MODULES_DIR}/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "${ZSH_MODULES_DIR}/F-Sy-H/F-Sy-H.plugin.zsh"
+source "${ZSH_MODULES_ROOT}/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "${ZSH_MODULES_ROOT}/plugins/F-Sy-H/F-Sy-H.plugin.zsh"
 
-source "${ZSH_MODULES_DIR}/custom/completion.zsh"
-source "${ZSH_MODULES_DIR}/custom/upgrade.zsh"
+source "${ZSH_MODULES_ROOT}/custom/completion.zsh"
+source "${ZSH_MODULES_ROOT}/custom/upgrade.zsh"
 
 
 source "${HOME}/.iterm2_shell_integration.zsh"
