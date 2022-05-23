@@ -6,7 +6,7 @@ neorg.setup({
     ["core.keybinds"] = {
       config = {
         default_keybinds = true,
-        neorg_leader = "<Leader>o",
+        neorg_leader = "<leader>o",
       },
     },
     ["core.norg.concealer"] = {
@@ -52,5 +52,11 @@ neorg.setup({
     ["core.integrations.telescope"] = {},
     ["core.queries.native"] = {},
     ["external.context"] = {},
+    ["core.export"] = {},
+    ["core.export.markdown"] = {
+      --   config = {
+      --     extensions = "todo-items-basic",
+      --   },
+    },
   },
 })

@@ -44,6 +44,7 @@ return require("packer").startup({
         },
         {
           "keyvchan/telescope-find-pickers.nvim",
+          branch = "nested_pickers",
           event = "VimEnter",
         },
         {
@@ -196,7 +197,6 @@ return require("packer").startup({
 
     use({
       "feline-nvim/feline.nvim",
-      branch = "develop",
       config = function()
         require("statusline")
       end,
