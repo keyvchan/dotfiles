@@ -10,7 +10,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	update_in_insert = true,
 })
 
-M.on_attach = function(client)
+M.on_attach = function(client, bufnr)
+	require("aerial").on_attach(client, bufnr)
 	-- client.resolved_capabilities.document_formatting = false
 	-- client.resolved_capabilities.document_range_formatting = false
 end
