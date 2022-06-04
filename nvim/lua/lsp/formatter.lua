@@ -8,10 +8,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		end
 		vim.lsp.buf.format({
 			timeout_ms = 4000,
-			filter = function(clients)
-				return vim.tbl_filter(function(client)
-					return client.name == "null-ls"
-				end, clients)
+			filter = function(client)
+				return client.name == "null-ls"
 			end,
 		})
 	end,

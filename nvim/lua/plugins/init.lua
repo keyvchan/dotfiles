@@ -260,6 +260,14 @@ return require("packer").startup({
 			end,
 			event = "VimEnter",
 		})
+
+		use({
+			"numToStr/FTerm.nvim",
+			config = function()
+				require("configs.terminal")
+			end,
+			event = "VimEnter",
+		})
 	end,
 
 	config = { display = { open_fn = require("packer.util").float } },
