@@ -225,14 +225,6 @@ return require("packer").startup({
 					"max397574/neorg-contexts",
 				},
 			},
-			setup = function()
-				vim.api.nvim_create_autocmd({ "BufRead, BufNewFile" }, {
-					pattern = { "*.norg" },
-					callback = function()
-						vim.opt_local.filetype = "norg"
-					end,
-				})
-			end,
 			config = function()
 				require("org")
 			end,

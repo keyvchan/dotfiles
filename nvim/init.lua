@@ -5,12 +5,10 @@ vim.opt.ignorecase = true
 vim.opt.conceallevel = 2
 vim.opt.mouse = "a"
 vim.opt.pumheight = 10
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 0
 vim.opt.backup = false
 vim.opt.updatetime = 250
 vim.opt.expandtab = true
-vim.opt.pumblend = 0
-vim.opt.winblend = 0
 vim.opt.undofile = true
 
 vim.opt.tabstop = 2
@@ -29,10 +27,8 @@ vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 
-vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
-
 require("plugins")
 vim.api.nvim_command("colorscheme monokai")
 
 require("configs.show_languagetree")
+require("gui")

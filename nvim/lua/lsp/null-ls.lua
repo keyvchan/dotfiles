@@ -15,6 +15,7 @@ require("null-ls").setup({
 		null_ls.builtins.formatting.shfmt.with({
 			extra_filetypes = { "zsh" },
 		}),
+		null_ls.builtins.formatting.swiftformat,
 
 		null_ls.builtins.formatting.goimports,
 

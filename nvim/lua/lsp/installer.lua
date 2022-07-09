@@ -67,10 +67,8 @@ lspconfig.pyright.setup({
 	capabilities = require("lsp.capabilities").capabilities,
 })
 lspconfig.sourcekit.setup({
-	settings = {
-		serverArguments = { "--completion-server-side-filtering" },
-	},
-	cmd = { "xcrun", "sourcekit-lsp" },
+	settings = {},
+	cmd = { "sourcekit-lsp" },
 	filetypes = { "swift" },
 	on_attach = require("lsp.capabilities").on_attach,
 	capabilities = require("lsp.capabilities").capabilities,

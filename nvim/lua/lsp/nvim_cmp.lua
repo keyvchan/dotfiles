@@ -12,6 +12,10 @@ cmp.setup({
 		-- completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
+	performance = {
+		debounce = 20,
+		throttle = 50,
+	},
 
 	preselect = cmp.PreselectMode.None,
 	completion = {
