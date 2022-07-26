@@ -2,25 +2,11 @@ local cmp = require("cmp")
 local compare = require("cmp.config.compare")
 
 cmp.setup({
-	appearence = {
-		menu = {
-			direction = "above",
-		},
-	},
-	snippet = cmp.config.disable,
-	window = {
-		-- completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
-	},
 	performance = {
 		debounce = 20,
 		throttle = 50,
 	},
-
 	preselect = cmp.PreselectMode.None,
-	completion = {
-		completeopt = "menu,menuone,noselect",
-	},
 	mapping = cmp.mapping.preset.insert({
 		["<C-p>"] = cmp.mapping(
 			cmp.mapping.select_prev_item({
@@ -35,10 +21,15 @@ cmp.setup({
 			{ "i", "s", "c" }
 		),
 
-		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-Space>"] = cmp.mapping.complete({}),
 		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
 		["<C-e>"] = cmp.config.disable,
 	}),
+	snippet = cmp.config.disable,
+	window = {
+		-- completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
 
 	sources = {
 		{ name = "nvim_lsp", priority = 100 },

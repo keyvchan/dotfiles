@@ -105,11 +105,16 @@ return require("packer").startup({
 					event = "VimEnter",
 				},
 				{
-					"williamboman/nvim-lsp-installer",
+					"williamboman/mason.nvim",
 					config = function()
 						require("lsp.installer")
 					end,
 					event = "VimEnter",
+					requires = {
+						{
+							"williamboman/mason-lspconfig.nvim",
+						},
+					},
 				},
 			},
 			config = function()

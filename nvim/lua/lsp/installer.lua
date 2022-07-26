@@ -1,15 +1,10 @@
-local lsp_installer = require("nvim-lsp-installer")
+local mason = require("mason")
+local mason_lspconfig = require("mason-lspconfig")
 local lspconfig = require("lspconfig")
 
-lsp_installer.setup({
-	ui = {
-		icons = {
-			server_installed = "\u{fb3c}",
-			server_pending = "\u{fb3c}",
-			server_uninstalled = "\u{fb3c}",
-		},
-	},
-})
+mason.setup({})
+mason_lspconfig.setup({})
+
 lspconfig.rust_analyzer.setup({
 	settings = {
 		["rust-analyzer"] = {
@@ -106,6 +101,10 @@ lspconfig.denols.setup({
 	capabilities = require("lsp.capabilities").capabilities,
 })
 lspconfig.yamlls.setup({
+	on_attach = require("lsp.capabilities").on_attach,
+	capabilities = require("lsp.capabilities").capabilities,
+})
+lspconfig.jsonls.setup({
 	on_attach = require("lsp.capabilities").on_attach,
 	capabilities = require("lsp.capabilities").capabilities,
 })
