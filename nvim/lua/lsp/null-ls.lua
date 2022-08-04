@@ -10,7 +10,7 @@ require("null-ls").setup({
 		}),
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.prettier.with({
-			extra_filetypes = { "markdown" },
+			extra_filetypes = { "markdown", "toml" },
 		}),
 		null_ls.builtins.formatting.shfmt.with({
 			extra_filetypes = { "zsh" },

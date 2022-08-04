@@ -7,7 +7,7 @@ cmp.setup({
 		throttle = 50,
 	},
 	preselect = cmp.PreselectMode.None,
-	mapping = cmp.mapping.preset.insert({
+	mapping = {
 		["<C-p>"] = cmp.mapping(
 			cmp.mapping.select_prev_item({
 				behavior = cmp.SelectBehavior.Insert,
@@ -23,8 +23,7 @@ cmp.setup({
 
 		["<C-Space>"] = cmp.mapping.complete({}),
 		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
-		["<C-e>"] = cmp.config.disable,
-	}),
+	},
 	snippet = cmp.config.disable,
 	window = {
 		-- completion = cmp.config.window.bordered(),
