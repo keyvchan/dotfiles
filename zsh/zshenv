@@ -1,9 +1,3 @@
-. "$HOME/.cargo/env"
-
-export HISTSIZE=10000
-export SAVEHIST=10000
-
-export PATH=$HOME/bin:/usr/local/bin:$PATH
 export EDITOR='nvim'
 export PAGER='bat'
 
@@ -11,12 +5,7 @@ export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
 #
 export GOPATH=${HOME}/go
 export GOBIN=${GOPATH}/bin
-export PATH=${GOBIN}:${PATH}
 export JAVA_HOME=/usr/local/opt/java
-
-export PATH=/usr/local/sbin:${PATH}
-export PATH=${HOME}/.ghcup/bin:${PATH}
-export CC=/usr/local/opt/llvm/bin/clang
 
 export ZSH_MODULES_ROOT=${HOME}/.zmodules
 export ZSH_PLUGINS_DIR=${ZSH_MODULES_ROOT}/plugins

@@ -7,6 +7,11 @@ fi
 
 setopt auto_cd
 
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=${GOBIN}:${PATH}
+export PATH=/usr/local/sbin:${PATH}
+export PATH=${HOME}/.ghcup/bin:${PATH}
+. "$HOME/.cargo/env"
 
 setopt inc_append_history_time
 setopt extended_history
@@ -32,6 +37,7 @@ alias ~~="~"
 
 alias vim="nvim"
 alias ls="lsd"
+alias history="history 1"
 
 source "${ZSH_MODULES_ROOT}/plugins/powerlevel10k/powerlevel10k.zsh-theme"
 
@@ -49,3 +55,4 @@ source "${ZSH_MODULES_ROOT}/custom/upgrade.zsh"
 
 source "${HOME}/.iterm2_shell_integration.zsh"
 
+alias interviews="cd ~/OneDrive/Documents/Interviews"
