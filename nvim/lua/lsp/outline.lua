@@ -1,6 +1,5 @@
 require("aerial").setup({
 	backends = { "lsp", "treesitter" },
-	close_behavior = "global",
 	width = "0.3",
 	open_automatic = false,
 	show_guides = true,

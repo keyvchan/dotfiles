@@ -6,7 +6,7 @@ require("null-ls").setup({
 		null_ls.builtins.formatting.rustfmt,
 		null_ls.builtins.formatting.black,
 		null_ls.builtins.formatting.clang_format.with({
-			filetypes = { "cpp" },
+			filetypes = { "cpp", "c" },
 		}),
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.prettier.with({
@@ -22,6 +22,7 @@ require("null-ls").setup({
 		-- diagnostics
 		null_ls.builtins.diagnostics.golangci_lint,
 		null_ls.builtins.diagnostics.shellcheck,
+		null_ls.builtins.diagnostics.checkmake,
 		-- null_ls.builtins.diagnostics.luacheck,
 
 		-- code actions

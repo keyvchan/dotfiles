@@ -2,7 +2,13 @@ local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 local lspconfig = require("lspconfig")
 
-mason.setup({})
+mason.setup({
+	ui = {
+		keymaps = {
+			apply_language_filter = "/",
+		},
+	},
+})
 mason_lspconfig.setup({})
 
 lspconfig.rust_analyzer.setup({
@@ -55,7 +61,7 @@ lspconfig.sumneko_lua.setup({
 lspconfig.pyright.setup({
 	settings = {
 		python = {
-			pythonPath = "/usr/local/opt/python@3.10/bin/python3",
+			pythonPath = "/usr/local/opt/python@3.11/bin/python3.11",
 		},
 	},
 	on_attach = require("lsp.capabilities").on_attach,
@@ -63,28 +69,21 @@ lspconfig.pyright.setup({
 })
 lspconfig.sourcekit.setup({
 	settings = {},
-	cmd = { "sourcekit-lsp" },
+	cmd = { "/Users/keyv/Codebases/AppcodeProjects/sourcekit-lsp/.build/debug/sourcekit-lsp" },
 	filetypes = { "swift" },
 	on_attach = require("lsp.capabilities").on_attach,
 	capabilities = require("lsp.capabilities").capabilities,
 })
 lspconfig.clangd.setup({
 	cmd = { "clangd", "--clang-tidy", "--offset-encoding=utf-16" },
-	filetypes = { "cpp" },
+	filetypes = { "c", "cpp" },
 	on_attach = require("lsp.capabilities").on_attach,
 	capabilities = require("lsp.capabilities").capabilities,
 })
 lspconfig.gopls.setup({
-	init_options = {
-		usePlaceholders = false,
-	},
 	settings = {
 		gopls = {
-			experimentalPostfixCompletions = true,
-			analyses = {
-				unusedparams = true,
-				shadow = true,
-			},
+			allExperiments = true,
 			staticcheck = true,
 		},
 	},
@@ -105,6 +104,19 @@ lspconfig.yamlls.setup({
 	capabilities = require("lsp.capabilities").capabilities,
 })
 lspconfig.jsonls.setup({
+	on_attach = require("lsp.capabilities").on_attach,
+	capabilities = require("lsp.capabilities").capabilities,
+})
+lspconfig.cmake.setup({
+	on_attach = require("lsp.capabilities").on_attach,
+	capabilities = require("lsp.capabilities").capabilities,
+})
+lspconfig.jdtls.setup({
+	on_attach = require("lsp.capabilities").on_attach,
+	capabilities = require("lsp.capabilities").capabilities,
+})
+lspconfig.ltex.setup({
+	filetypes = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex" },
 	on_attach = require("lsp.capabilities").on_attach,
 	capabilities = require("lsp.capabilities").capabilities,
 })

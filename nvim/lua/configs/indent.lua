@@ -7,7 +7,6 @@ require("indent_blankline").setup({
 	show_current_context = true,
 	use_treesitter = true,
 	filetype_exclude = {
-		"norg",
 		"markdown",
 		"help",
 		"startup",

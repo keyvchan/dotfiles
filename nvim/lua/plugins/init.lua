@@ -52,7 +52,8 @@ return require("packer").startup({
 					event = "VimEnter",
 				},
 				{
-					"nvim-telescope/telescope-fzy-native.nvim",
+					"nvim-telescope/telescope-fzf-native.nvim",
+					run = "make",
 					event = "VimEnter",
 				},
 			},
@@ -60,7 +61,7 @@ return require("packer").startup({
 				require("telescope-nvim")
 			end,
 			after = {
-				"telescope-fzy-native.nvim",
+				"telescope-fzf-native.nvim",
 				"telescope-file-browser.nvim",
 				"telescope-symbols.nvim",
 				"telescope-find-pickers.nvim",
@@ -119,6 +120,19 @@ return require("packer").startup({
 			},
 			config = function()
 				require("lsp")
+			end,
+		})
+		-- dap
+		use({
+			"rcarriga/nvim-dap-ui",
+			requires = {
+				"mfussenegger/nvim-dap",
+				config = function()
+					require("nvim-dap")
+				end,
+			},
+			config = function()
+				require("nvim-dap.ui")
 			end,
 		})
 
@@ -219,15 +233,14 @@ return require("packer").startup({
 			config = function()
 				require("configs.copilot")
 			end,
+			-- commit = "c2e75a3a7519c126c6fdb35984976df9ae13f564",
+			-- lock = true,
 		})
 		use({
 			"nvim-neorg/neorg",
 			requires = {
 				{
 					"nvim-neorg/neorg-telescope",
-				},
-				{
-					"max397574/neorg-contexts",
 				},
 			},
 			config = function()
@@ -237,7 +250,6 @@ return require("packer").startup({
 				"nvim-treesitter",
 				"nvim-cmp",
 				"telescope.nvim",
-				"neorg-contexts",
 			},
 		})
 

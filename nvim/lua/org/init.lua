@@ -1,5 +1,6 @@
 local neorg = require("neorg")
 neorg.setup({
+	-- lazy_loading = false,
 	-- Tell Neorg what modules to load
 	load = {
 		["core.defaults"] = {}, -- Load all the default modules
@@ -19,17 +20,16 @@ neorg.setup({
 				engine = "nvim-cmp",
 			},
 		}, -- Allows for use of completion
-		["core.norg.qol.toc"] = {},
 		["core.norg.dirman"] = {
 			config = {
 				workspaces = {
-					my_workspace = "~/Workspace/org",
 					learning = "~/Documents/learning",
 					journal = "~/Documents/journal",
 					gtd = "~/Workspace/gtd",
 					leetcode = "~/Codebases/GolandProjects/leetcode",
+					memo = "~/Documents/memo",
 				},
-				-- autochdir = false,
+				autochdir = false,
 			},
 		},
 		["core.norg.journal"] = {
@@ -52,7 +52,6 @@ neorg.setup({
 		["core.gtd.ui"] = {},
 		["core.integrations.telescope"] = {},
 		["core.queries.native"] = {},
-		["external.context"] = {},
 		["core.export"] = {},
 		["core.export.markdown"] = {
 			--   config = {
