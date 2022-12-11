@@ -29,6 +29,8 @@ vim.g.loaded_perl_provider = 0
 
 require("plugins")
 vim.api.nvim_command("colorscheme monokai")
+-- Lua
+-- require("configs.theme")
 
 require("configs.show_languagetree")
 require("gui")

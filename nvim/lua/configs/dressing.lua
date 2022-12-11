@@ -7,7 +7,7 @@ require("dressing").setup({
 			relative = "cursor",
 		},
 	},
-	input = {
+	win_options = {
 		winblend = 0,
 		winhighlight = "NormalFloat:Normal",
 	},

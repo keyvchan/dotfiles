@@ -14,7 +14,7 @@ return require("packer").startup({
 			config = function()
 				require("configs.pairs")
 			end,
-			event = { "InsertEnter" },
+			event = "InsertEnter",
 		})
 
 		use({
@@ -22,7 +22,6 @@ return require("packer").startup({
 			config = function()
 				require("configs.indent")
 			end,
-			event = { "VimEnter" },
 		})
 
 		use({
@@ -34,93 +33,93 @@ return require("packer").startup({
 				{
 					"nvim-lua/plenary.nvim",
 				},
-				{
-					"nvim-telescope/telescope-file-browser.nvim",
-					event = "VimEnter",
-				},
-				{
-					"nvim-telescope/telescope-symbols.nvim",
-					event = "VimEnter",
-				},
-				{
-					"keyvchan/telescope-find-pickers.nvim",
-					branch = "nested_pickers",
-					event = "VimEnter",
-				},
-				{
-					"keyvchan/telescope-running-commands.nvim",
-					event = "VimEnter",
-				},
-				{
-					"nvim-telescope/telescope-fzf-native.nvim",
-					run = "make",
-					event = "VimEnter",
-				},
 			},
 			config = function()
 				require("telescope-nvim")
 			end,
 			after = {
-				"telescope-fzf-native.nvim",
 				"telescope-file-browser.nvim",
 				"telescope-symbols.nvim",
+				"telescope-fzf-native.nvim",
 				"telescope-find-pickers.nvim",
 				"telescope-running-commands.nvim",
 				"refactoring.nvim",
 			},
 		})
 		use({
+			"nvim-telescope/telescope-file-browser.nvim",
+		})
+		use({
+			"nvim-telescope/telescope-symbols.nvim",
+		})
+		use({
+			"keyvchan/telescope-find-pickers.nvim",
+			branch = "nested_pickers",
+		})
+		use({
+			"keyvchan/telescope-running-commands.nvim",
+		})
+		use({
+			"nvim-telescope/telescope-fzf-native.nvim",
+			run = "make",
+		})
+
+		use({
 			"ThePrimeagen/refactoring.nvim",
-			after = {
-				"nvim-treesitter",
-			},
 			config = function()
 				require("telescope-nvim.refactor")
 			end,
+			after = "nvim-treesitter",
 		})
 		use({
 			"stevearc/dressing.nvim",
-			after = {
-				"telescope.nvim",
-			},
 			config = function()
 				require("configs.dressing")
 			end,
+			after = "telescope.nvim",
 		})
 		-- nvim-lsp
 		use({
 			"neovim/nvim-lspconfig",
-			requires = {
-				{
-					"j-hui/fidget.nvim",
-					config = function()
-						require("lsp.status")
-					end,
-					event = "VimEnter",
-				},
-				{
-					"jose-elias-alvarez/null-ls.nvim",
-					config = function()
-						require("lsp.null-ls")
-					end,
-					event = "VimEnter",
-				},
-				{
-					"williamboman/mason.nvim",
-					config = function()
-						require("lsp.installer")
-					end,
-					event = "VimEnter",
-					requires = {
-						{
-							"williamboman/mason-lspconfig.nvim",
-						},
-					},
-				},
-			},
 			config = function()
 				require("lsp")
 			end,
+			after = {
+				"null-ls.nvim",
+				"mason.nvim",
+				"mason-lspconfig.nvim",
+				"cmp-nvim-lsp",
+			},
+		})
+		use({
+			"j-hui/fidget.nvim",
+			config = function()
+				require("lsp.status")
+			end,
+			after = "nvim-lspconfig",
+		})
+		use({
+			"jose-elias-alvarez/null-ls.nvim",
+			config = function()
+				require("lsp.null-ls")
+			end,
+		})
+		use({
+			"williamboman/mason.nvim",
+			config = function()
+				local mason = require("mason")
+				mason.setup({
+					ui = {
+						keymaps = {
+							apply_language_filter = "/",
+						},
+					},
+				})
+			end,
+		})
+		use({
+			"williamboman/mason-lspconfig.nvim",
+			after = "mason.nvim",
 		})
 		-- dap
 		use({
@@ -138,42 +137,36 @@ return require("packer").startup({
 
 		use({
 			"hrsh7th/nvim-cmp",
-			requires = {
-				{
-					"hrsh7th/cmp-nvim-lsp",
-				},
-				{
-					"hrsh7th/cmp-buffer",
-					after = "nvim-cmp",
-				},
-				{
-					"hrsh7th/cmp-path",
-					after = "nvim-cmp",
-				},
-				{
-					"hrsh7th/cmp-cmdline",
-					after = "nvim-cmp",
-				},
-				{
-					"hrsh7th/cmp-nvim-lua",
-					after = "nvim-cmp",
-				},
-				{
-					"hrsh7th/cmp-nvim-lsp-signature-help",
-					after = "nvim-cmp",
-				},
-				{
-					"onsails/lspkind.nvim",
-					event = { "VimEnter" },
-				},
-			},
 			config = function()
 				require("lsp.nvim_cmp")
 			end,
-			event = {
-				"InsertEnter",
-				"CmdlineEnter",
-			},
+		})
+		use({
+			"hrsh7th/cmp-nvim-lsp",
+			after = { "nvim-cmp" },
+		})
+		use({
+			"hrsh7th/cmp-buffer",
+			after = "nvim-cmp",
+		})
+		use({
+			"hrsh7th/cmp-path",
+			after = "nvim-cmp",
+		})
+		use({
+			"hrsh7th/cmp-cmdline",
+			after = "nvim-cmp",
+		})
+		use({
+			"hrsh7th/cmp-nvim-lua",
+			after = "nvim-cmp",
+		})
+		use({
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+			after = "nvim-cmp",
+		})
+		use({
+			"onsails/lspkind.nvim",
 		})
 
 		use({
@@ -181,7 +174,7 @@ return require("packer").startup({
 			config = function()
 				require("lsp.outline")
 			end,
-			event = { "VimEnter" },
+			after = { "nvim-lspconfig", "nvim-treesitter" },
 		})
 
 		-- icons
@@ -193,6 +186,8 @@ return require("packer").startup({
 		})
 
 		use("keyvchan/monokai.nvim")
+
+		use("navarasu/onedark.nvim")
 		use({
 			"nvim-treesitter/nvim-treesitter",
 			requires = {
@@ -210,16 +205,15 @@ return require("packer").startup({
 				},
 				{
 					"keyvchan/virt_context.nvim",
-					after = "nvim-treesitter",
 					config = function()
 						require("treesitter.context")
 					end,
+					after = "nvim-treesitter",
 				},
 			},
 			config = function()
 				require("treesitter")
 			end,
-			event = "VimEnter",
 		})
 
 		use({
@@ -233,24 +227,17 @@ return require("packer").startup({
 			config = function()
 				require("configs.copilot")
 			end,
-			-- commit = "c2e75a3a7519c126c6fdb35984976df9ae13f564",
-			-- lock = true,
 		})
 		use({
 			"nvim-neorg/neorg",
-			requires = {
-				{
-					"nvim-neorg/neorg-telescope",
-				},
-			},
 			config = function()
 				require("org")
 			end,
-			after = {
-				"nvim-treesitter",
-				"nvim-cmp",
-				"telescope.nvim",
-			},
+			after = { "neorg-telescope", "nvim-cmp" },
+		})
+		use({
+			"nvim-neorg/neorg-telescope",
+			after = "telescope.nvim",
 		})
 
 		use({
@@ -267,15 +254,6 @@ return require("packer").startup({
 			config = function()
 				require("configs.git")
 			end,
-			event = "VimEnter",
-		})
-
-		use({
-			"numToStr/FTerm.nvim",
-			config = function()
-				require("configs.terminal")
-			end,
-			event = "VimEnter",
 		})
 	end,
 

@@ -1,14 +1,6 @@
-local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 local lspconfig = require("lspconfig")
 
-mason.setup({
-	ui = {
-		keymaps = {
-			apply_language_filter = "/",
-		},
-	},
-})
 mason_lspconfig.setup({})
 
 lspconfig.rust_analyzer.setup({
@@ -115,6 +107,17 @@ lspconfig.jdtls.setup({
 	on_attach = require("lsp.capabilities").on_attach,
 	capabilities = require("lsp.capabilities").capabilities,
 })
+lspconfig.zls.setup({
+	on_attach = require("lsp.capabilities").on_attach,
+	capabilities = require("lsp.capabilities").capabilities,
+})
+-- lspconfig.sourcery.setup({
+-- 	init_options = {
+-- 		token = "user_7Tv1LR2ajLCZUe_Mu4frLJ34t_9m3ZxC0HTsnMYjLjyHCqVs_yReWheQe4s",
+-- 	},
+-- 	on_attach = require("lsp.capabilities").on_attach,
+-- 	capabilities = require("lsp.capabilities").capabilities,
+-- })
 lspconfig.ltex.setup({
 	filetypes = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex" },
 	on_attach = require("lsp.capabilities").on_attach,

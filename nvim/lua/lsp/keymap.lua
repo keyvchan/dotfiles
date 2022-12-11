@@ -11,5 +11,3 @@ vim.keymap.set("n", "K", vim.lsp.buf.hover)
 
 -- rename
 vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
-
--- vim.keymap.set("n", "K", require("lspsaga.hover").render_hover_doc)

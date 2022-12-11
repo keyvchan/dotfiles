@@ -18,6 +18,7 @@ require("null-ls").setup({
 		null_ls.builtins.formatting.swiftformat,
 
 		null_ls.builtins.formatting.goimports,
+		null_ls.builtins.formatting.zigfmt,
 
 		-- diagnostics
 		null_ls.builtins.diagnostics.golangci_lint,

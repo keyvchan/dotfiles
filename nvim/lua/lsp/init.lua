@@ -1,10 +1,8 @@
+require("lsp.installer")
 require("lsp.keymap")
 require("lsp.appearance")
 
 require("lsp.formatter")
-
-local util = require("lspconfig.util")
-local configs = require("lspconfig.configs")
 
 -- configs.tsls = {
 -- 	default_config = {
@@ -16,5 +14,3 @@ local configs = require("lspconfig.configs")
 -- 	},
 -- }
 -- require("lspconfig").tsls.setup({})
-
-require("lsp.formatter")

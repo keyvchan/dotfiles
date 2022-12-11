@@ -24,10 +24,9 @@ neorg.setup({
 			config = {
 				workspaces = {
 					learning = "~/Documents/learning",
-					journal = "~/Documents/journal",
-					gtd = "~/Workspace/gtd",
 					leetcode = "~/Codebases/GolandProjects/leetcode",
 					memo = "~/Documents/memo",
+					blog = "~/Documents/blog",
 				},
 				autochdir = false,
 			},
@@ -38,25 +37,9 @@ neorg.setup({
 				use_folder = true,
 			},
 		},
-		["core.gtd.base"] = {
-			config = {
-				workspace = "gtd",
-				displayers = {
-					projects = {
-						show_completed_projects = true,
-						show_projects_without_tasks = false,
-					},
-				},
-			},
-		},
-		["core.gtd.ui"] = {},
 		["core.integrations.telescope"] = {},
 		["core.queries.native"] = {},
 		["core.export"] = {},
-		["core.export.markdown"] = {
-			--   config = {
-			--     extensions = "todo-items-basic",
-			--   },
-		},
+		["core.export.markdown"] = {},
 	},
 })
