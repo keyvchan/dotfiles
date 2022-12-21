@@ -12,6 +12,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 
 M.on_attach = function(client, bufnr)
 	-- require("aerial").on_attach(client, bufnr)
+	client.server_capabilities.semanticTokensProvider = nil
 	-- client.resolved_capabilities.document_formatting = false
 	-- client.resolved_capabilities.document_range_formatting = false
 end

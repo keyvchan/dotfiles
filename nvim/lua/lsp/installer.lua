@@ -123,3 +123,7 @@ lspconfig.ltex.setup({
 	on_attach = require("lsp.capabilities").on_attach,
 	capabilities = require("lsp.capabilities").capabilities,
 })
+lspconfig.taplo.setup({
+	on_attach = require("lsp.capabilities").on_attach,
+	capabilities = require("lsp.capabilities").capabilities,
+})

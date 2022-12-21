@@ -179,7 +179,7 @@ return require("packer").startup({
 
 		-- icons
 		use({
-			"kyazdani42/nvim-web-devicons",
+			"nvim-tree/nvim-web-devicons",
 			config = function()
 				require("configs.icons")
 			end,
@@ -253,6 +253,18 @@ return require("packer").startup({
 			},
 			config = function()
 				require("configs.git")
+			end,
+		})
+		use({
+			"nvim-neo-tree/neo-tree.nvim",
+			branch = "v2.x",
+			requires = {
+				"nvim-lua/plenary.nvim",
+				"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+				"MunifTanjim/nui.nvim",
+			},
+			config = function()
+				require("configs.tree")
 			end,
 		})
 	end,

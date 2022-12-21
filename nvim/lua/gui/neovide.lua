@@ -9,3 +9,5 @@ vim.opt.winblend = 20
 
 vim.keymap.set({ "i", "n" }, "<D-v>", "<C-R>+", { noremap = true, silent = true })
 require("configs.theme")
+
+vim.keymap.set({ "i", "n" }, "<D-b>", "<cmd>Neotree toggle<cr>", { noremap = true, silent = true })
