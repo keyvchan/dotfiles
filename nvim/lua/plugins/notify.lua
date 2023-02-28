@@ -1,13 +1,23 @@
 local M = {
-	"rcarriga/nvim-notify",
-	lazy = false,
+  "rcarriga/nvim-notify",
+  -- event = "VeryLazy",
+
+  lock = false,
+  -- branch = "feat/disable-animation",
 }
 
 function M.config()
-	require("notify").setup({
-		background_colour = "#000000",
-	})
-	vim.notify = require("notify")
+  require("notify").setup({
+    timeout = 3000,
+    level = vim.log.levels.INFO,
+    fps = 20,
+    max_height = function()
+      return math.floor(vim.o.lines * 0.75)
+    end,
+    max_width = function()
+      return math.floor(vim.o.columns * 0.75)
+    end,
+  })
 end
 
 return M

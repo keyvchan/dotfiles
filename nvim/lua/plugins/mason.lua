@@ -7,7 +7,13 @@ local M = {
 }
 
 function M.config()
-	require("mason").setup()
+	require("mason").setup({
+		ui = {
+			keymaps = {
+				apply_language_filter = "/",
+			},
+		},
+	})
 	require("mason-lspconfig").setup()
 end
 

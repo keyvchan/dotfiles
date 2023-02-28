@@ -21,6 +21,11 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.laststatus = 3
 vim.opt.foldenable = false
+
+-- spell
+vim.opt.spelllang = "en_us"
+vim.opt.spell = true
+
 require("configs.lazy")
 
 vim.g.loaded_node_provider = 0
@@ -30,3 +35,10 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+
+vim.keymap.set({ "n", "i" }, "<C-s>", function()
+	vim.api.nvim_command("write!")
+end, { noremap = true, silent = true })

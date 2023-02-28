@@ -1,5 +1,5 @@
 local M = {
-	"feline-nvim/feline.nvim",
+	"freddiehaddad/feline.nvim",
 	lazy = false,
 }
 
@@ -89,7 +89,7 @@ function M.config()
 		},
 		left_arrow_file_type = {
 			provider = function()
-				return "\u{e0b2}"
+				return "\u{e0c2} "
 			end,
 			hl = {
 				fg = u.colors.purple,

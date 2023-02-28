@@ -6,6 +6,11 @@ return {
 		require("neorg").setup({
 			load = {
 				["core.defaults"] = {},
+				["core.norg.journal"] = {
+					config = {
+						workspace = "journal",
+					},
+				},
 				["core.norg.concealer"] = {},
 				["core.norg.dirman"] = {
 					config = {
@@ -13,6 +18,7 @@ return {
 							learning = "/Users/keyv/Documents/learning",
 							memo = "/Users/keyv/Documents/memo",
 							leetcode = "/Users/keyv/Codebases/GolandProjects/leetcode",
+							journal = "/Users/keyv/Documents/journal",
 						},
 					},
 				},
