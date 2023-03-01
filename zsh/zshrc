@@ -7,9 +7,8 @@ fi
 
 setopt auto_cd
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=${HOME}/bin:${PATH}
 export PATH=${GOBIN}:${PATH}
-export PATH=/usr/local/sbin:${PATH}
 export PATH=${HOME}/.ghcup/bin:${PATH}
 . "$HOME/.cargo/env"
 
@@ -56,3 +55,6 @@ source "${ZSH_MODULES_ROOT}/custom/upgrade.zsh"
 source "${HOME}/.iterm2_shell_integration.zsh"
 
 alias interviews="cd ~/OneDrive/Documents/Interviews"
+alias memo="nvim /Users/keyv/Documents/memo/"
+
+add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea
