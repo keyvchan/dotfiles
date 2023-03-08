@@ -78,20 +78,4 @@ function M.config()
 	end
 end
 
--- - `DapBreakpoint` for breakpoints (default: `B`)
--- - `DapBreakpointCondition` for conditional breakpoints (default: `C`)
--- - `DapLogPoint` for log points (default: `L`)
--- - `DapStopped` to indicate where the debugee is stopped (default: `→`)
--- - `DapBreakpointRejected` to indicate breakpoints rejected by the debug
---   adapter (default: `R`)
---
--- You can customize the signs by setting them with the |sign_define()| function.
--- For example:
---
--- >
---     lua << EOF
---     vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
---     EOF
--- <
-
 return M

@@ -22,10 +22,6 @@ vim.opt.relativenumber = true
 vim.opt.laststatus = 3
 vim.opt.foldenable = false
 
--- spell
-vim.opt.spelllang = "en_us"
-vim.opt.spell = true
-
 require("configs.lazy")
 
 vim.g.loaded_node_provider = 0
