@@ -32,8 +32,8 @@ local TablineFileFlags = {
 		condition = function(self)
 			return vim.api.nvim_buf_get_option(self.bufnr, "modified")
 		end,
-		provider = "[+]",
-		hl = { fg = "green" },
+		provider = " " .. "\u{ea71}",
+		hl = { fg = u.colors.magenta },
 	},
 	{
 		condition = function(self)
@@ -143,5 +143,7 @@ M.BufferLine = {
 	),
 	common.align,
 }
+
+require("plugins.lines.tabline.keymap")
 
 return M

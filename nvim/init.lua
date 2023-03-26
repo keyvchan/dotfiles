@@ -1,26 +1,25 @@
 vim.g.mapleader = ","
-vim.opt.termguicolors = true
-vim.opt.scrolloff = 5
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.ignorecase = true
-vim.opt.conceallevel = 2
-vim.opt.mouse = "a"
-vim.opt.pumheight = 10
-vim.opt.cmdheight = 2
-vim.opt.backup = false
-vim.opt.updatetime = 250
-vim.opt.expandtab = true
-vim.opt.undofile = true
+vim.o.termguicolors = true
+vim.o.scrolloff = 5
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.ignorecase = true
+vim.o.conceallevel = 2
+vim.o.mouse = "a"
+vim.o.pumheight = 10
+vim.o.cmdheight = 2
+vim.o.updatetime = 250
+vim.o.expandtab = true
+vim.o.undofile = true
 
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.signcolumn = "yes:2"
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.laststatus = 3
-vim.opt.foldenable = false
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
+vim.o.signcolumn = "yes:2"
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.laststatus = 3
+vim.o.foldenable = false
 
 require("configs.lazy")
 

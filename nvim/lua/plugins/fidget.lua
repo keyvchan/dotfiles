@@ -1,6 +1,7 @@
 local M = {
 	"j-hui/fidget.nvim",
-	lazy = false,
+	-- lazy = false,
+	event = "VeryLazy",
 }
 
 function M.config()

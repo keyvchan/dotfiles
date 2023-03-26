@@ -127,8 +127,8 @@ function M.config()
 		enable = true,
 		position = "eol",
 	})
-	vim.opt.foldmethod = "expr"
-	vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+	vim.o.foldmethod = "expr"
+	vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 end
 
 return M
