@@ -1,7 +1,7 @@
 export EDITOR='nvim'
 export PAGER='bat'
 export MANROFFOPT="-c"
-export MANPAGER="sh -c 'col -bx | bat -plman'"
+# export MANPAGER="sh -c 'col -bx | bat -plman'"
 
 export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
 #

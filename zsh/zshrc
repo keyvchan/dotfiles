@@ -43,7 +43,7 @@ source "${ZSH_MODULES_ROOT}/plugins/powerlevel10k/powerlevel10k.zsh-theme"
 source ~/.p10k.zsh
 
 fpath=(${ZSH_MODULES_ROOT}/completions/zsh-completions/src $fpath)
-fpath=(${ZSH_MODULES_DIR}/completions/custom, $fpath)
+fpath=(${ZSH_MODULES_ROOT}/completions/custom $fpath)
 
 source "${ZSH_MODULES_ROOT}/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "${ZSH_MODULES_ROOT}/plugins/F-Sy-H/F-Sy-H.plugin.zsh"
@@ -58,3 +58,4 @@ alias interviews="cd ~/OneDrive/Documents/Interviews"
 alias memo="nvim /Users/keyv/Documents/memo/"
 
 add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea
+
