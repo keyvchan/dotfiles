@@ -4,12 +4,12 @@ local utils = require("heirline.utils")
 local u = require("plugins.lines.utils.colors")
 local common = require("plugins.lines.utils.common")
 
-local TablineBufnr = {
-	provider = function(self)
-		return tostring(self.bufnr) .. "."
-	end,
-	hl = "Comment",
-}
+-- local TablineBufnr = {
+-- 	provider = function(self)
+-- 		return tostring(self.bufnr) .. "."
+-- 	end,
+-- 	hl = "Comment",
+-- }
 
 -- we redefine the filename component, as we probably only want the tail and not the relative path
 local TablineFileName = {
@@ -76,7 +76,7 @@ local TablineFileNameBlock = {
 		end,
 		name = "heirline_tabline_buffer_callback",
 	},
-	TablineBufnr,
+	-- TablineBufnr,
 	file_info.file_icon, -- turns out the version defined in #crash-course-part-ii-filename-and-friends can be reutilized as is here!
 	TablineFileName,
 	TablineFileFlags,
