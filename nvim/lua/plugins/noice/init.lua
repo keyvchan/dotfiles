@@ -2,7 +2,6 @@ local M = {
 	"folke/noice.nvim",
 
 	dependencies = {
-		"rcarriga/nvim-dap-ui",
 		"rcarriga/nvim-notify",
 	},
 

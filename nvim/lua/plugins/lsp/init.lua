@@ -11,7 +11,7 @@ function M.config()
 	require("plugins.lsp.formatter")
 
 	local function on_attach(client, bufnr)
-		client.server_capabilities.semanticTokensProvider = nil
+		-- client.server_capabilities.semanticTokensProvider = vim.NIL
 	end
 
 	local runtime_path = vim.split(package.path, ";")
@@ -22,7 +22,7 @@ function M.config()
 		ansiblels = {},
 		bashls = {},
 		clangd = {
-			cmd = { "clangd", "--clang-tidy" },
+			cmd = { "clangd", "--clang-tidy", "--offset-encoding=utf-16" },
 		},
 		dockerls = {},
 		tsserver = {},

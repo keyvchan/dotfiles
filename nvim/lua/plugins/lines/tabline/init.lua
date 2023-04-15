@@ -44,7 +44,7 @@ local TablineFileFlags = {
 			if vim.api.nvim_buf_get_option(self.bufnr, "buftype") == "terminal" then
 				return "  "
 			else
-				return ""
+				return " "
 			end
 		end,
 		hl = { fg = "orange" },

@@ -7,10 +7,10 @@ M.diagnostics = {
 	condition = conditions.has_diagnostics,
 
 	static = {
-		error_icon = "\u{2717}",
-		warn_icon = "\u{f071}",
-		info_icon = "\u{fbe7}",
-		hint_icon = "\u{f449}",
+		error_icon = "\u{2717}" .. " ",
+		warn_icon = "\u{f071}" .. " ",
+		info_icon = "\u{fbe7}" .. " ",
+		hint_icon = "\u{f449}" .. " ",
 	},
 
 	init = function(self)

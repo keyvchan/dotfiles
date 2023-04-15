@@ -19,8 +19,8 @@ function M.config()
 				filetypes = { "cpp", "c" },
 			}),
 			null_ls.builtins.formatting.stylua,
-			null_ls.builtins.formatting.prettier.with({
-				extra_filetypes = { "markdown", "toml" },
+			null_ls.builtins.formatting.prettierd.with({
+				extra_filetypes = { "toml" },
 			}),
 			null_ls.builtins.formatting.shfmt.with({
 				extra_filetypes = { "zsh" },
