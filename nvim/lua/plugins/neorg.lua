@@ -6,13 +6,19 @@ return {
 		require("neorg").setup({
 			load = {
 				["core.defaults"] = {},
-				["core.norg.journal"] = {
+				["core.journal"] = {
 					config = {
 						workspace = "journal",
 					},
 				},
-				["core.norg.concealer"] = {},
-				["core.norg.dirman"] = {
+				["core.concealer"] = {
+					config = {
+						dim_code_blocks = {
+							enabled = false,
+						},
+					},
+				},
+				["core.dirman"] = {
 					config = {
 						workspaces = {
 							learning = "/Users/keyv/Documents/learning",
@@ -22,12 +28,13 @@ return {
 						},
 					},
 				},
-				["core.norg.completion"] = {
+				["core.completion"] = {
 					config = { engine = "nvim-cmp" },
 				},
 				["core.integrations.nvim-cmp"] = {},
 				["core.export"] = {},
 				["core.integrations.telescope"] = {},
+				["core.summary"] = {},
 			},
 		})
 	end,

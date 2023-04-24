@@ -28,6 +28,7 @@ function M.config()
 		tsserver = {},
 		svelte = {},
 		eslint = {},
+		ltex = {},
 		html = {},
 		jsonls = {
 			settings = {
@@ -73,6 +74,7 @@ function M.config()
 				},
 			},
 		},
+		sourcekit = {},
 		yamlls = {},
 		lua_ls = {
 			single_file_support = true,
