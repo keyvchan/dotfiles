@@ -11,7 +11,7 @@ function M.config()
 	require("plugins.lsp.formatter")
 
 	local function on_attach(client, bufnr)
-		-- client.server_capabilities.semanticTokensProvider = vim.NIL
+		client.server_capabilities.semanticTokensProvider = nil
 	end
 
 	local runtime_path = vim.split(package.path, ";")
@@ -25,11 +25,15 @@ function M.config()
 			cmd = { "clangd", "--clang-tidy", "--offset-encoding=utf-16" },
 		},
 		dockerls = {},
-		tsserver = {},
 		svelte = {},
 		eslint = {},
 		ltex = {},
 		html = {},
+		denols = {
+			init_options = {
+				unstable = true,
+			},
+		},
 		jsonls = {
 			settings = {
 				json = {
@@ -74,7 +78,6 @@ function M.config()
 				},
 			},
 		},
-		sourcekit = {},
 		yamlls = {},
 		lua_ls = {
 			single_file_support = true,

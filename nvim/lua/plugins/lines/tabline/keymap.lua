@@ -18,9 +18,3 @@ vim.keymap.set({ "n", "i" }, "<C-Tab>", function()
 		end
 	end
 end)
-
--- <C-x> to close the current buffer
-vim.keymap.set({ "n", "i" }, "<C-x>", function()
-	-- 0 stands for the current buffer
-	vim.api.nvim_buf_delete(0, { force = false })
-end)

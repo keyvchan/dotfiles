@@ -56,7 +56,7 @@ function M.config()
 		sorting = {
 			comparators = {
 				compare.score,
-				compare.locality,
+				-- compare.locality,
 				compare.sort_text,
 				compare.socpe,
 				compare.recent_used,

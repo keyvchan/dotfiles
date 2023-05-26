@@ -44,7 +44,7 @@ local TablineFileFlags = {
 			if vim.api.nvim_buf_get_option(self.bufnr, "buftype") == "terminal" then
 				return "  "
 			else
-				return " "
+				return ""
 			end
 		end,
 		hl = { fg = "orange" },
@@ -115,8 +115,6 @@ local TabLineOffset = {
 		if vim.bo[bufnr].filetype == "neo-tree" then
 			self.title = "neo-tree"
 			return true
-			-- elseif vim.bo[bufnr].filetype == "TagBar" then
-			--     ...
 		end
 	end,
 

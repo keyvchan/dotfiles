@@ -1,4 +1,3 @@
-vim.loader.enable()
 vim.g.mapleader = ","
 vim.o.termguicolors = true
 vim.o.scrolloff = 5
@@ -12,6 +11,7 @@ vim.o.cmdheight = 0
 vim.o.updatetime = 250
 vim.o.expandtab = true
 vim.o.undofile = true
+vim.o.smoothscroll = true
 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
