@@ -3,6 +3,14 @@ local M = {}
 M.signs = { Error = "✗ ", Warn = " ", Hint = "ﯧ ", Info = " " }
 
 function M.setup()
+	-- diagnostic keymap
+	vim.keymap.set("n", "<C-p>", function()
+		vim.diagnostic.goto_prev({ float = { show_header = true } })
+	end)
+	vim.keymap.set("n", "<C-n>", function()
+		vim.diagnostic.goto_next({ float = { show_header = true } })
+	end)
+
 	-- Automatically update diagnostics
 	vim.diagnostic.config({
 		underline = true,

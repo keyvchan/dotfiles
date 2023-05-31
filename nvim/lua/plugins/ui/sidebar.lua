@@ -12,7 +12,13 @@ return {
 				use_libuv_file_watcher = true,
 			},
 			hijack_netrw_behavior = "open_default",
+			source_selector = {
+				winbar = true,
+			},
 		})
+		vim.keymap.set({ "n", "i" }, "<M-b>", function()
+			require("neo-tree.command")._command("toggle")
+		end, { noremap = true, silent = true })
 	end,
 	dependencies = {
 		"MunifTanjim/nui.nvim",

@@ -1,8 +1,6 @@
 return {
 	"nvim-lua/plenary.nvim",
 
-	-- LSP
-
 	-- Theme: icons
 	{
 		"nvim-tree/nvim-web-devicons",

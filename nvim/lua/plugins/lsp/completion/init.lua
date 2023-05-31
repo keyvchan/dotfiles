@@ -67,7 +67,6 @@ function M.config()
 		formatting = {
 			format = require("lspkind").cmp_format({
 				mode = "symbol",
-				-- symbols = "codicons",
 				preset = "codicons",
 				menu = {},
 			}),

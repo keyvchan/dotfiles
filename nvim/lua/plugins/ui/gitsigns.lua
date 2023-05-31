@@ -1,6 +1,6 @@
 local M = {
 	"lewis6991/gitsigns.nvim",
-	event = "UiEnter",
+	event = "UIEnter",
 }
 
 function M.config()
