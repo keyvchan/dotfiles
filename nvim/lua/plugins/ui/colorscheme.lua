@@ -1,9 +1,56 @@
 local M = {
-  "keyvchan/monokai.nvim",
-  lazy = false,
-  config = function() 
-    vim.cmd.colorscheme("monokai")
-  end
+	{
+		"keyvchan/monokai.nvim",
+		lazy = true,
+		config = function()
+			-- vim.cmd.colorscheme("monokai")
+		end,
+	},
+	{
+		"rebelot/kanagawa.nvim",
+		lazy = false,
+		config = function()
+			require("kanagawa").setup({
+				compile = false, -- enable compiling the colorscheme
+				transparent = true, -- do not set background color
+				theme = "wave", -- Load "wave" theme when 'background' option is not set
+				overrides = function(colors)
+					local theme = colors.theme
+					return {
+						NormalFloat = { bg = "none" },
+						FloatBorder = { bg = "none" },
+						FloatTitle = { bg = "none" },
+						SignColumn = { bg = "none" },
+						LineNr = { fg = theme.ui.special, bg = "none" },
+						NoiceCmdLineBorder = { bg = "none" },
+						NoiceCmdlinePopupBorder = { bg = "none" },
+
+						NormalDark = { fg = theme.ui.fg_dim },
+
+						LazyNormal = { fg = theme.ui.fg_dim },
+						MasonNormal = { fg = theme.ui.fg_dim },
+
+						TelescopeTitle = { fg = theme.ui.special, bold = true },
+						TelescopePromptBorder = { fg = theme.ui.bg_p1 },
+						TelescopeResultsNormal = { fg = theme.ui.fg_dim },
+						TelescopeResultsBorder = { fg = theme.ui.bg_m1 },
+						TelescopePreviewBorder = { fg = theme.ui.bg_dim },
+
+						Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
+						PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
+						PmenuSbar = { bg = theme.ui.bg_m1 },
+						PmenuThumb = { bg = theme.ui.bg_p2 },
+
+						DiagnosticSignInfo = { bg = "none" },
+						DiagnosticSignWarn = { bg = "none" },
+						DiagnosticSignError = { bg = "none" },
+						DiagnosticSignHint = { bg = "none" },
+					}
+				end,
+			})
+			vim.cmd.colorscheme("kanagawa")
+		end,
+	},
 }
 
 return M
