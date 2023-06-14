@@ -28,7 +28,7 @@ local vimode = {
 		bold = true,
 	},
 	{
-		provider = "\u{e0c0}",
+		provider = "\u{e0c4}",
 		hl = {
 			fg = u.colors.purple,
 			bg = u.colors.darkblue,

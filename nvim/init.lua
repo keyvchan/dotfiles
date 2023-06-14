@@ -12,6 +12,7 @@ vim.o.updatetime = 250
 vim.o.expandtab = true
 vim.o.undofile = true
 vim.o.smoothscroll = true
+vim.o.mousemoveevent = true
 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
@@ -21,7 +22,6 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.laststatus = 3
 vim.o.foldenable = false
-vim.o.pumblend = 15
 
 require("configs.lazy")
 

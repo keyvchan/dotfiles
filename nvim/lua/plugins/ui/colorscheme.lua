@@ -8,10 +8,10 @@ local M = {
 	},
 	{
 		"rebelot/kanagawa.nvim",
-		lazy = false,
+		event = "UIEnter",
 		config = function()
 			require("kanagawa").setup({
-				compile = false, -- enable compiling the colorscheme
+				compile = true, -- enable compiling the colorscheme
 				transparent = true, -- do not set background color
 				theme = "wave", -- Load "wave" theme when 'background' option is not set
 				overrides = function(colors)
@@ -27,14 +27,16 @@ local M = {
 
 						NormalDark = { fg = theme.ui.fg_dim },
 
+						WinSeparator = { fg = theme.ui.special },
+
 						LazyNormal = { fg = theme.ui.fg_dim },
 						MasonNormal = { fg = theme.ui.fg_dim },
 
 						TelescopeTitle = { fg = theme.ui.special, bold = true },
-						TelescopePromptBorder = { fg = theme.ui.bg_p1 },
-						TelescopeResultsNormal = { fg = theme.ui.fg_dim },
-						TelescopeResultsBorder = { fg = theme.ui.bg_m1 },
-						TelescopePreviewBorder = { fg = theme.ui.bg_dim },
+						TelescopePromptBorder = { fg = theme.ui.special },
+						TelescopeResultsNormal = { fg = theme.ui.special },
+						TelescopeResultsBorder = { fg = theme.ui.special },
+						TelescopePreviewBorder = { fg = theme.ui.special },
 
 						Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
 						PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
