@@ -1,12 +1,12 @@
 local M = {
 	"nvim-treesitter/nvim-treesitter",
-	dev = false,
 	event = "BufReadPost",
 
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		"nvim-treesitter/nvim-treesitter-refactor",
 		"keyvchan/virt_context.nvim",
+		"stsewd/tree-sitter-comment",
 		{ "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
 	},
 }
@@ -127,6 +127,7 @@ function M.config()
 		enable = true,
 		position = "eol",
 	})
+
 	vim.o.foldmethod = "expr"
 	vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 end

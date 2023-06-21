@@ -6,7 +6,7 @@ local u = require("plugins.lines.utils.colors")
 
 local right_arrow = {
 	provider = function()
-		return "\u{e0c0}"
+		return "\u{e0c4}"
 	end,
 	hl = {
 		fg = u.colors.darkblue,

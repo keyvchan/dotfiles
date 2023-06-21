@@ -1,25 +1,22 @@
 local M = {
 	"neovim/nvim-lspconfig",
-	priority = 10000,
-	event = "VeryLazy",
+	lazy = false,
 	dependencies = { "hrsh7th/cmp-nvim-lsp" },
 }
 
-function M.config()
-	require("plugins.lsp.diagnostic").setup()
+local function on_attach(client, bufnr)
+	vim.lsp.buf.inlay_hint(bufnr, true)
 	require("plugins.lsp.config.keymap")
+	require("plugins.lsp.diagnostic").setup()
+end
 
-	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
-	vim.keymap.set("n", "K", vim.lsp.buf.hover)
-
-	local function on_attach(client, bufnr)
-		client.server_capabilities.semanticTokensProvider = nil
-	end
+function M.config()
+	-- inlay_hints
+	-- require("plugins.lsp.inlay_hints")
 
 	local runtime_path = vim.split(package.path, ";")
 	table.insert(runtime_path, "lua/?.lua")
 	table.insert(runtime_path, "lua/?/init.lua")
-
 	local servers = {
 		ansiblels = {},
 		bashls = {},
@@ -29,7 +26,6 @@ function M.config()
 		dockerls = {},
 		svelte = {},
 		eslint = {},
-		ltex = {},
 		html = {},
 		denols = {
 			init_options = {
@@ -89,8 +85,8 @@ function M.config()
 						version = "LuaJIT",
 						path = runtime_path,
 					},
-					completion = {
-						workspaceWord = true,
+					hint = {
+						enable = true,
 					},
 					diagnostics = {
 						globals = { "vim" },
