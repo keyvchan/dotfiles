@@ -45,6 +45,7 @@ local default_line = {
 	require("plugins.lines.statusline.file_name"),
 	require("plugins.lines.statusline.git").git,
 	require("plugins.lines.statusline.lsp").diagnostics,
+	require("plugins.lines.statusline.lsp").progress,
 	common.right_arrow_fire,
 	common.align,
 

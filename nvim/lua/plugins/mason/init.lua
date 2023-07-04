@@ -14,8 +14,7 @@ local M = {
 		})
 		require("mason-lspconfig").setup()
 	end,
-  event = "VeryLazy"
-	-- lazy = false,
+	lazy = false,
 }
 
 return M

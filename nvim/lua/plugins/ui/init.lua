@@ -23,6 +23,9 @@ local M = {
 
 	-- git indicator
 	require("plugins.ui.gitsigns"),
+
+	-- scroll bar
+	require("plugins.ui.scrollbar"),
 }
 
 return M

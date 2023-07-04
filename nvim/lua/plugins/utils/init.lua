@@ -7,6 +7,8 @@ local M = {
 	require("plugins.utils.treesitter"),
 
 	require("plugins.utils.neorg"),
+
+	require("plugins.utils.remote"),
 }
 
 return M

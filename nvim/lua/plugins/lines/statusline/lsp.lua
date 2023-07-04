@@ -49,4 +49,32 @@ M.diagnostics = {
 	},
 }
 
+M.progress = {
+	update = {
+		"User",
+		pattern = "LspProgressStatusUpdated",
+	},
+	{
+		provider = function()
+			return " "
+		end,
+		hl = {
+			fg = u.colors.purple,
+			bg = u.colors.purple,
+		},
+	},
+	{
+		provider = require("lsp-progress").progress,
+		hl = { fg = u.colors.black, bg = u.colors.purple },
+	},
+	{
+		provider = function()
+			return " "
+		end,
+		hl = {
+			fg = u.colors.purple,
+			bg = u.colors.purple,
+		},
+	},
+}
 return M

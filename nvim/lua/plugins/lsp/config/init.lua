@@ -1,16 +1,13 @@
 local M = {
 	"neovim/nvim-lspconfig",
-	priority = 10000,
-	event = "VeryLazy",
+	lazy = false,
 	dependencies = { "hrsh7th/cmp-nvim-lsp" },
 }
 
 local function on_attach(client, bufnr)
-	-- require("vim.lsp._inlay_hint").refresh()
+	vim.lsp.inlay_hint(bufnr, true)
 	require("plugins.lsp.config.keymap")
 	require("plugins.lsp.diagnostic").setup()
-
-	-- register autocmds
 end
 
 function M.config()
@@ -88,8 +85,8 @@ function M.config()
 						version = "LuaJIT",
 						path = runtime_path,
 					},
-					completion = {
-						workspaceWord = true,
+					hint = {
+						enable = true,
 					},
 					diagnostics = {
 						globals = { "vim" },

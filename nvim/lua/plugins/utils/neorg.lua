@@ -35,6 +35,7 @@ return {
 				["core.export"] = {},
 				["core.integrations.telescope"] = {},
 				["core.summary"] = {},
+				["core.ui.calendar"] = {},
 			},
 		})
 	end,

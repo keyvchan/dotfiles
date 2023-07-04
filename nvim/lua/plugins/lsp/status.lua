@@ -1,6 +1,7 @@
 local M = {
 	"j-hui/fidget.nvim",
 	branch = "legacy",
+	enabled = false,
 	event = "VeryLazy",
 }
 
