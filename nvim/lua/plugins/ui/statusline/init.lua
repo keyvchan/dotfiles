@@ -13,7 +13,7 @@ local M = {
 
 function M.config()
 	require("heirline").setup({
-		statusline = require("plugins.lines.statusline.main").statusline,
+		statusline = require("plugins.ui.statusline.main").statusline,
 	})
 end
 

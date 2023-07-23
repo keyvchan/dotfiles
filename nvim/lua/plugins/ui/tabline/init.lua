@@ -29,7 +29,7 @@ function M.config()
 		},
 	})
 
-	require("plugins.lines.tabline.keymap")
+	require("plugins.ui.tabline.keymap")
 end
 
 return M

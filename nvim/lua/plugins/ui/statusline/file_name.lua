@@ -1,8 +1,8 @@
 local M = {}
 
 local utils = require("heirline.utils")
-local file_info = require("plugins.lines.utils.file_info")
-local u = require("plugins.lines.utils.colors")
+local file_info = require("plugins.ui.statusline.utils.file_info")
+local u = require("plugins.ui.statusline.utils.colors")
 
 local right_arrow = {
 	provider = function()

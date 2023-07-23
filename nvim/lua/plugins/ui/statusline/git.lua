@@ -2,7 +2,7 @@ local M = {}
 
 local conditions = require("heirline.conditions")
 local utils = require("heirline.utils")
-local u = require("plugins.lines.utils.colors")
+local u = require("plugins.ui.statusline.utils.colors")
 
 local git_icon = {
 	provider = " \u{e702} ",

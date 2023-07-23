@@ -7,7 +7,7 @@ local M = {
 	require("plugins.ui.notify"),
 
 	-- picker
-	require("plugins.ui.telescope"),
+	require("plugins.ui.picker"),
 
 	-- sidebar
 	require("plugins.ui.sidebar"),
@@ -15,8 +15,8 @@ local M = {
 	-- terminal
 	require("plugins.ui.terminal"),
 
-	-- input
-	require("plugins.ui.dressing"),
+	-- utils
+	require("plugins.ui.utils"),
 
 	-- indent guide
 	require("plugins.ui.indent_guide"),
@@ -26,6 +26,15 @@ local M = {
 
 	-- scroll bar
 	require("plugins.ui.scrollbar"),
+
+	-- statusline
+	require("plugins.ui.statusline"),
+
+	-- tabline
+	require("plugins.ui.tabline"),
+
+	-- winbar
+	require("plugins.ui.winbar"),
 }
 
 return M

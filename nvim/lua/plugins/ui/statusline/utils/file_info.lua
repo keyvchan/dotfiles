@@ -1,7 +1,7 @@
 local M = {}
 
 local conditions = require("heirline.conditions")
-local u = require("plugins.lines.utils.colors")
+local u = require("plugins.ui.statusline.utils.colors")
 
 M.file_encoding = {
 	provider = function()

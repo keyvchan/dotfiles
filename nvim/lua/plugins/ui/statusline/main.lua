@@ -1,7 +1,7 @@
 local M = {}
 
-local common = require("plugins.lines.utils.common")
-local u = require("plugins.lines.utils.colors")
+local common = require("plugins.ui.statusline.utils.common")
+local u = require("plugins.ui.statusline.utils.colors")
 
 local first_item = {
 	provider = function()
@@ -42,18 +42,18 @@ local vimode = {
 local default_line = {
 	first_item,
 	vimode,
-	require("plugins.lines.statusline.file_name"),
-	require("plugins.lines.statusline.git").git,
-	require("plugins.lines.statusline.lsp").diagnostics,
-	require("plugins.lines.statusline.lsp").progress,
+	require("plugins.ui.statusline.file_name"),
+	require("plugins.ui.statusline.git").git,
+	require("plugins.ui.statusline.lsp").diagnostics,
+	require("plugins.ui.statusline.lsp").progress,
 	common.right_arrow_fire,
 	common.align,
 
 	common.left_arrow_fire,
-	require("plugins.lines.utils.file_info").file_type,
-	require("plugins.lines.utils.file_info").file_encoding,
-	require("plugins.lines.utils.file_info").cur_position,
-	require("plugins.lines.utils.file_info").cur_percent,
+	require("plugins.ui.statusline.utils.file_info").file_type,
+	require("plugins.ui.statusline.utils.file_info").file_encoding,
+	require("plugins.ui.statusline.utils.file_info").cur_position,
+	require("plugins.ui.statusline.utils.file_info").cur_percent,
 }
 
 M.statusline = {

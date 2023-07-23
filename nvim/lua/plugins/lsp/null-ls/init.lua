@@ -42,7 +42,7 @@ function M.config()
 		},
 	})
 	require("mason-null-ls").setup()
-	require("plugins.null-ls.formatter")
+	require("plugins.lsp.null-ls.formatter")
 end
 
 return M

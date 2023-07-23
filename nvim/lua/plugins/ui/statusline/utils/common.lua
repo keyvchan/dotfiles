@@ -1,5 +1,5 @@
 local M = {}
-local u = require("plugins.lines.utils.colors")
+local u = require("plugins.ui.statusline.utils.colors")
 
 M.left_arrow_fire = {
 	provider = function()

@@ -1,5 +1,6 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
+	branch = "main",
 	event = "VeryLazy",
 	init = function()
 		vim.g.neo_tree_remove_legacy_commands = 1
@@ -8,7 +9,9 @@ return {
 		require("neo-tree").setup({
 			close_if_last_window = true,
 			filesystem = {
-				follow_current_file = true,
+				follow_current_file = {
+					enabled = true,
+				},
 				use_libuv_file_watcher = true,
 			},
 			hijack_netrw_behavior = "open_default",
