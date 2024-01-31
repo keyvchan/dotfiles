@@ -5,7 +5,7 @@ local M = {
 }
 
 local function on_attach(client, bufnr)
-	vim.lsp.inlay_hint(bufnr, true)
+	-- vim.lsp.inlay_hint(bufnr, true)
 	require("plugins.lsp.config.keymap")
 	require("plugins.lsp.diagnostic").setup()
 end
