@@ -10,7 +10,7 @@ setopt auto_cd
 export PATH=${HOME}/bin:${PATH}
 export PATH=${GOBIN}:${PATH}
 export PATH=${HOME}/.ghcup/bin:${PATH}
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 setopt inc_append_history_time
 setopt extended_history
@@ -48,14 +48,12 @@ fpath=(${ZSH_MODULES_ROOT}/completions/custom $fpath)
 source "${ZSH_MODULES_ROOT}/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "${ZSH_MODULES_ROOT}/plugins/F-Sy-H/F-Sy-H.plugin.zsh"
 
-source "${ZSH_MODULES_ROOT}/custom/completion.zsh"
-source "${ZSH_MODULES_ROOT}/custom/upgrade.zsh"
+source "${ZSH_MODULES_ROOT}/customs/completion.zsh"
+source "${ZSH_MODULES_ROOT}/customs/upgrade.zsh"
 
 
 source "${HOME}/.iterm2_shell_integration.zsh"
 
 alias interviews="cd ~/OneDrive/Documents/Interviews"
 alias memo="nvim /Users/keyv/Documents/memo/"
-
-add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea
 
