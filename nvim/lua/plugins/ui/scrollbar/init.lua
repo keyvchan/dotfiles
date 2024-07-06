@@ -5,7 +5,9 @@ local M = {
 }
 
 M.config = function()
-	require("satellite").setup()
+	require("satellite").setup({
+		winblend = 0,
+	})
 end
 
 return M

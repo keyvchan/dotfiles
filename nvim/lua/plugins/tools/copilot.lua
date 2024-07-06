@@ -1,22 +1,20 @@
 local M = {
-	"github/copilot.vim",
+	"Exafunction/codeium.vim",
 	event = "VeryLazy",
 }
 
 function M.init()
-	-- must source the global variable before loading the plugin
-	vim.g.copilot_no_tab_map = true
-	vim.g.copilot_assume_mapped = true
+	vim.g.codeium_no_map_tab = true
 end
 
 function M.config()
-	vim.keymap.set("i", "<C-e>", "copilot#Accept()", {
+	vim.keymap.set("i", "<C-e>", "codeium#Accept()", {
 		silent = true,
 		expr = true,
 		replace_keycodes = false,
 	})
 
-	vim.g.copilot_filetypes = {
+	vim.g.codeium_filetypes = {
 		["*"] = true,
 	}
 end

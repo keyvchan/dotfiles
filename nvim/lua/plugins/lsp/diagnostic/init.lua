@@ -17,12 +17,27 @@ function M.setup()
 		update_in_insert = true,
 		virtual_text = { spacing = 4, source = "always" },
 		severity_sort = true,
+		signs = {
+			text = {
+				[vim.diagnostic.severity.ERROR] = M.signs.Error,
+				[vim.diagnostic.severity.WARN] = M.signs.Warn,
+				[vim.diagnostic.severity.HINT] = M.signs.Hint,
+				[vim.diagnostic.severity.INFO] = M.signs.Info,
+			},
+			linehl = {
+				[vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
+				[vim.diagnostic.severity.WARN] = "DiagnosticLineWarn",
+				[vim.diagnostic.severity.HINT] = "DiagnosticLineHint",
+				[vim.diagnostic.severity.INFO] = "DiagnosticLineInfo",
+			},
+			numhl = {
+				[vim.diagnostic.severity.ERROR] = "DiagnosticNumberError",
+				[vim.diagnostic.severity.WARN] = "DiagnosticNumberWarn",
+				[vim.diagnostic.severity.HINT] = "DiagnosticNumberHint",
+				[vim.diagnostic.severity.INFO] = "DiagnosticNumberInfo",
+			},
+		},
 	})
-
-	for type, icon in pairs(M.signs) do
-		local hl = "DiagnosticSign" .. type
-		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-	end
 end
 
 return M
