@@ -37,6 +37,7 @@ local M = {
 						FloatTitle = { bg = "none" },
 						SignColumn = { bg = "none" },
 						LineNr = { fg = theme.ui.special, bg = "none" },
+						Visual = { bg = "none" },
 						NoiceCmdLineBorder = { bg = "none" },
 						NoiceCmdlinePopupBorder = { bg = "none" },
 
@@ -53,6 +54,7 @@ local M = {
 						TelescopeResultsBorder = { fg = theme.ui.special },
 						TelescopePreviewBorder = { fg = theme.ui.special },
 
+						BufferLineFill = { fg = theme.ui.shade0, bg = "none" },
 						Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
 						PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
 						PmenuSbar = { bg = theme.ui.bg_m1 },

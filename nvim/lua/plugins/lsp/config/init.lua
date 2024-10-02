@@ -1,6 +1,7 @@
 local M = {
 	"neovim/nvim-lspconfig",
-	lazy = false,
+	-- lazy = false,
+	event = { "BufReadPre", "BufNewFile" },
 	dependencies = { "hrsh7th/cmp-nvim-lsp" },
 }
 

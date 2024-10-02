@@ -1,5 +1,6 @@
 local M = {
 	"akinsho/bufferline.nvim",
+	-- lazy = false,
 	version = "*",
 	dependencies = "nvim-tree/nvim-web-devicons",
 	event = "UIEnter",
