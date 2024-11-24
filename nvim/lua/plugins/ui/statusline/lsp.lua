@@ -53,6 +53,9 @@ M.progress = {
 	update = {
 		"User",
 		pattern = "LspProgressStatusUpdated",
+		callback = vim.schedule_wrap(function()
+			vim.cmd("redrawstatus")
+		end),
 	},
 	{
 		provider = function()
