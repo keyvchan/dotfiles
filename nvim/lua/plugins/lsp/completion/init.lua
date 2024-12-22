@@ -13,6 +13,7 @@ local M = {
 			["<Tab>"] = { "select_next", "fallback" },
 			["<S-Tab>"] = { "select_prev", "fallback" },
 			["<CR>"] = { "fallback" },
+			["<C-e>"] = { "fallback" },
 		},
 
 		appearance = {
