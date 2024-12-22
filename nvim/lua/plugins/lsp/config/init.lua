@@ -2,7 +2,7 @@ local M = {
 	"neovim/nvim-lspconfig",
 	-- lazy = false,
 	event = { "BufReadPre", "BufNewFile" },
-	dependencies = { "hrsh7th/cmp-nvim-lsp" },
+	dependencies = { "saghen/blink.cmp" },
 }
 
 local function on_attach(client, bufnr)
@@ -13,7 +13,7 @@ end
 
 function M.config()
 	-- inlay_hints
-	-- require("plugins.lsp.inlay_hints")
+	require("plugins.lsp.inlay_hints")
 
 	local runtime_path = vim.split(package.path, ";")
 	table.insert(runtime_path, "lua/?.lua")

@@ -1,3 +1,4 @@
+vim.loader.enable(true)
 vim.g.mapleader = ","
 vim.o.termguicolors = true
 vim.o.scrolloff = 5
