@@ -4,10 +4,15 @@ local M = {
 
 	version = "*",
 
-	---@module 'blink.cmp'
-	---@type blink.cmp.Config
 	opts = {
-		completion = { list = { selection = "auto_insert" } },
+		completion = {
+			list = { selection = "auto_insert" },
+			accept = {
+				auto_brackets = {
+					enabled = false,
+				},
+			},
+		},
 		keymap = {
 			preset = "enter",
 			["<Tab>"] = { "select_next", "fallback" },
@@ -23,7 +28,13 @@ local M = {
 
 		sources = {
 			default = { "lsp", "path", "buffer" },
+			providers = {
+				lsp = {
+					fallbacks = {},
+				},
+			},
 		},
+		signature = { enabled = true },
 	},
 	opts_extend = { "sources.default" },
 }
