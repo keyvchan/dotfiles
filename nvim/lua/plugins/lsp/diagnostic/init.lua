@@ -15,7 +15,11 @@ function M.setup()
 	vim.diagnostic.config({
 		underline = true,
 		update_in_insert = true,
-		virtual_text = { spacing = 4, source = "always" },
+		virtual_text = {
+			virt_text_pos = "eol_right_align",
+			spacing = 4,
+			source = "always",
+		},
 		severity_sort = true,
 		signs = {
 			text = {
