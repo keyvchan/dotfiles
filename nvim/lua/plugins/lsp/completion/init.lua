@@ -37,9 +37,31 @@ local M = {
 				lsp = {
 					fallbacks = {},
 				},
+				path = {
+					opts = {
+						trailing_slash = true,
+						label_trailing_slash = true,
+					},
+				},
 			},
 		},
 		signature = { enabled = true },
+		cmdline = {
+			keymap = {
+				preset = "enter",
+				["<Tab>"] = { "select_next", "fallback" },
+				["<S-Tab>"] = { "select_prev", "fallback" },
+			},
+			completion = {
+				list = {
+					selection = {
+						preselect = false,
+						auto_insert = true,
+					},
+				},
+				menu = { auto_show = true },
+			},
+		},
 	},
 	opts_extend = { "sources.default" },
 }
