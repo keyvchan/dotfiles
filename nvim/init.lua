@@ -23,6 +23,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.laststatus = 3
 vim.o.foldenable = false
+vim.o.winborder = "rounded"
 
 require("configs.lazy")
 

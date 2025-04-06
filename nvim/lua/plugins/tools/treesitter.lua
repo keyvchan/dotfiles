@@ -5,7 +5,7 @@ local M = {
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		"nvim-treesitter/nvim-treesitter-refactor",
-		"keyvchan/virt_context.nvim",
+		-- "keyvchan/virt_context.nvim",
 		"stsewd/tree-sitter-comment",
 		{
 			"nvim-treesitter/playground",
@@ -126,10 +126,10 @@ function M.config()
 		},
 	})
 
-	require("virt_context").setup({
-		enable = true,
-		position = "eol",
-	})
+	-- require("virt_context").setup({
+	-- 	enable = true,
+	-- 	position = "eol",
+	-- })
 
 	vim.o.foldmethod = "expr"
 	vim.o.foldexpr = "nvim_treesitter#foldexpr()"
