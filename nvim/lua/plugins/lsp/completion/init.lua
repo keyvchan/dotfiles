@@ -54,6 +54,7 @@ local M = {
 				preset = "enter",
 				["<Tab>"] = { "select_next", "fallback" },
 				["<S-Tab>"] = { "select_prev", "fallback" },
+                ["CR"] = { "fallback" },
 			},
 			completion = {
 				list = {

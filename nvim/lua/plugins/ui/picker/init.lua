@@ -3,6 +3,8 @@ local M = {
 	opts = {
 		picker = {},
 		input = { enabled = true },
+        indent = {},
+        statuscolumn = {}
 	},
 	keys = {
 		-- Top Pickers & Explorer

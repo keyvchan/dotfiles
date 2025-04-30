@@ -19,7 +19,7 @@ local M = {
 	require("plugins.ui.utils"),
 
 	-- indent guide
-	require("plugins.ui.indent_guide"),
+	-- require("plugins.ui.indent_guide"),
 
 	-- git indicator
 	require("plugins.ui.gitsigns"),
