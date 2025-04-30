@@ -15,9 +15,9 @@ vim.o.undofile = true
 vim.o.smoothscroll = true
 vim.o.mousemoveevent = true
 
-vim.o.tabstop = 2
-vim.o.softtabstop = 2
-vim.o.shiftwidth = 2
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
 vim.o.signcolumn = "yes:2"
 vim.o.number = true
 vim.o.relativenumber = true
@@ -39,5 +39,5 @@ vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 
 vim.keymap.set({ "n", "i" }, "<C-s>", function()
-	vim.api.nvim_command("write!")
+  vim.api.nvim_command("write!")
 end, { noremap = true, silent = true })
