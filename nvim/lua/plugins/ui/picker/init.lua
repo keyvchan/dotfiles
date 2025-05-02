@@ -4,7 +4,8 @@ local M = {
 		picker = {},
 		input = { enabled = true },
         indent = {},
-        statuscolumn = {}
+        statuscolumn = {},
+        terminal = {}
 	},
 	keys = {
 		-- Top Pickers & Explorer
@@ -16,7 +17,7 @@ local M = {
 			desc = "Smart Find Files",
 		},
 		{
-			"<leader>,",
+			"<leader>fb",
 			function()
 				Snacks.picker.buffers()
 			end,
@@ -51,20 +52,6 @@ local M = {
 			desc = "File Explorer",
 		},
 		-- find
-		{
-			"<leader>fb",
-			function()
-				Snacks.picker.buffers()
-			end,
-			desc = "Buffers",
-		},
-		{
-			"<leader>fc",
-			function()
-				Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
-			end,
-			desc = "Find Config File",
-		},
 		{
 			"<leader>ff",
 			function()
@@ -280,27 +267,6 @@ local M = {
 			desc = "Marks",
 		},
 		{
-			"<leader>sM",
-			function()
-				Snacks.picker.man()
-			end,
-			desc = "Man Pages",
-		},
-		{
-			"<leader>sp",
-			function()
-				Snacks.picker.lazy()
-			end,
-			desc = "Search for Plugin Spec",
-		},
-		{
-			"<leader>sq",
-			function()
-				Snacks.picker.qflist()
-			end,
-			desc = "Quickfix List",
-		},
-		{
 			"<leader>sR",
 			function()
 				Snacks.picker.resume()
@@ -345,14 +311,14 @@ local M = {
 			desc = "References",
 		},
 		{
-			"gI",
+			"gi",
 			function()
 				Snacks.picker.lsp_implementations()
 			end,
 			desc = "Goto Implementation",
 		},
 		{
-			"gy",
+			"gt",
 			function()
 				Snacks.picker.lsp_type_definitions()
 			end,
@@ -371,6 +337,13 @@ local M = {
 				Snacks.picker.lsp_workspace_symbols()
 			end,
 			desc = "LSP Workspace Symbols",
+		},
+		{
+			"<leader>lca",
+			function()
+                vim.lsp.buf.code_action()
+			end,
+			desc = "LSP Code Action",
 		},
 	},
 }
