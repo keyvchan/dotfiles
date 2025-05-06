@@ -3,7 +3,7 @@ local M = {
 	require("plugins.lsp.completion"),
 
 	-- null
-	-- require("plugins.lsp.null-ls"),
+	require("plugins.lsp.null-ls"),
 }
 
 require("plugins.lsp.config.lsp")

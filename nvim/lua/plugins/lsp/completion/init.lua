@@ -17,9 +17,13 @@ local M = {
 					enabled = false,
 				},
 			},
-      menu = {
-        border = "none",
-      }
+			menu = {
+				border = "none",
+			},
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 100,
+			},
 		},
 		keymap = {
 			preset = "enter",
@@ -54,7 +58,7 @@ local M = {
 				preset = "enter",
 				["<Tab>"] = { "select_next", "fallback" },
 				["<S-Tab>"] = { "select_prev", "fallback" },
-                ["CR"] = { "fallback" },
+				["CR"] = { "fallback" },
 			},
 			completion = {
 				list = {
