@@ -41,3 +41,22 @@ vim.g.copilot_assume_mapped = true
 vim.keymap.set({ "n", "i" }, "<C-s>", function()
   vim.api.nvim_command("write!")
 end, { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd( 'FileType', {
+    pattern = {
+        "c",
+        "cpp",
+        "go",
+        "javascript",
+        "json",
+        "lua",
+        "python",
+        "rust",
+        "typescript",
+        "yaml",
+        "zig"
+    },
+    callback = function(args)
+        vim.treesitter.start()
+    end
+})
