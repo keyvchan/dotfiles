@@ -9,7 +9,7 @@ vim.o.conceallevel = 2
 vim.o.mouse = "a"
 vim.o.pumheight = 10
 vim.o.cmdheight = 0
-vim.o.updatetime = 250
+vim.o.updatetime = 100
 vim.o.expandtab = true
 vim.o.undofile = true
 vim.o.smoothscroll = true
@@ -39,24 +39,16 @@ vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 
 vim.keymap.set({ "n", "i" }, "<C-s>", function()
-  vim.api.nvim_command("write!")
+	vim.api.nvim_command("write!")
 end, { noremap = true, silent = true })
 
-vim.api.nvim_create_autocmd( 'FileType', {
-    pattern = {
-        "c",
-        "cpp",
-        "go",
-        "javascript",
-        "json",
-        "lua",
-        "python",
-        "rust",
-        "typescript",
-        "yaml",
-        "zig"
-    },
-    callback = function(args)
-        vim.treesitter.start()
-    end
-})
+local parsersInstalled = require("nvim-treesitter.config").get_installed("parsers")
+for _, parser in pairs(parsersInstalled) do
+	local filetypes = vim.treesitter.language.get_filetypes(parser)
+	vim.api.nvim_create_autocmd({ "FileType" }, {
+		pattern = filetypes,
+		callback = function()
+			vim.treesitter.start()
+		end,
+	})
+end

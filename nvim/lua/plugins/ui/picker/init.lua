@@ -3,9 +3,12 @@ local M = {
 	opts = {
 		picker = {},
 		input = { enabled = true },
-        indent = {},
-        statuscolumn = {},
-        terminal = {}
+		indent = {},
+		statuscolumn = {},
+		terminal = {},
+		words = {
+			debounce = 100,
+		},
 	},
 	keys = {
 		-- Top Pickers & Explorer
@@ -43,13 +46,6 @@ local M = {
 				Snacks.picker.notifications()
 			end,
 			desc = "Notification History",
-		},
-		{
-			"<leader>e",
-			function()
-				Snacks.explorer()
-			end,
-			desc = "File Explorer",
 		},
 		-- find
 		{
@@ -218,27 +214,6 @@ local M = {
 			desc = "Buffer Diagnostics",
 		},
 		{
-			"<leader>sh",
-			function()
-				Snacks.picker.help()
-			end,
-			desc = "Help Pages",
-		},
-		{
-			"<leader>sH",
-			function()
-				Snacks.picker.highlights()
-			end,
-			desc = "Highlights",
-		},
-		{
-			"<leader>si",
-			function()
-				Snacks.picker.icons()
-			end,
-			desc = "Icons",
-		},
-		{
 			"<leader>sj",
 			function()
 				Snacks.picker.jumps()
@@ -267,7 +242,7 @@ local M = {
 			desc = "Marks",
 		},
 		{
-			"<leader>sR",
+			"<leader>r",
 			function()
 				Snacks.picker.resume()
 			end,
@@ -279,13 +254,6 @@ local M = {
 				Snacks.picker.undo()
 			end,
 			desc = "Undo History",
-		},
-		{
-			"<leader>uC",
-			function()
-				Snacks.picker.colorschemes()
-			end,
-			desc = "Colorschemes",
 		},
 		-- LSP
 		{
@@ -318,7 +286,7 @@ local M = {
 			desc = "Goto Implementation",
 		},
 		{
-			"gt",
+			"td",
 			function()
 				Snacks.picker.lsp_type_definitions()
 			end,
@@ -341,7 +309,7 @@ local M = {
 		{
 			"<leader>lca",
 			function()
-                vim.lsp.buf.code_action()
+				vim.lsp.buf.code_action()
 			end,
 			desc = "LSP Code Action",
 		},

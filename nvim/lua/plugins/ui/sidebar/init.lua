@@ -19,7 +19,7 @@ return {
 				winbar = true,
 			},
 		})
-		vim.keymap.set({ "n", "i" }, "<M-b>", function()
+		vim.keymap.set({ "n", "i" }, "<Leader>e", function()
 			require("neo-tree.command")._command("toggle")
 		end, { noremap = true, silent = true })
 	end,

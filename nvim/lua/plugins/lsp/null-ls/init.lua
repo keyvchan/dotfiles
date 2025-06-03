@@ -1,9 +1,5 @@
 local M = {
-  "jay-babu/mason-null-ls.nvim",
-  dependencies = {
-    "nvimtools/none-ls.nvim",
-    "williamboman/mason.nvim",
-  },
+"nvimtools/none-ls.nvim",
   event = "VeryLazy",
 }
 
@@ -11,12 +7,13 @@ function M.config()
   local null_ls = require("null-ls")
 
   require("null-ls").setup({
+      debug = true,
     sources = {
       -- formatting
       null_ls.builtins.formatting.black,
-      null_ls.builtins.formatting.clang_format.with({
-        filetypes = { "cpp", "c" },
-      }),
+      -- null_ls.builtins.formatting.clang_format.with({
+      --   filetypes = { "cpp", "c" },
+      -- }),
       null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.prettierd.with({
         extra_filetypes = { "toml" },
@@ -38,7 +35,6 @@ function M.config()
       }),
     },
   })
-  require("mason-null-ls").setup()
   require("plugins.lsp.null-ls.formatter")
 end
 
