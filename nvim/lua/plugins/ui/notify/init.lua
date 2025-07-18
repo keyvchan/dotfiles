@@ -9,6 +9,9 @@ function M.config()
 		background_colour = "#000000",
 		timeout = 5000,
 		fps = 60,
+		-- on_open = function(win)
+		-- 	vim.api.nvim_set_option_value("focusable", false, { scope = "local", win = win })
+		-- end,
 	})
 
 	vim.api.nvim_create_autocmd({ "UIEnter" }, {

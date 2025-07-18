@@ -242,9 +242,16 @@ local M = {
 			desc = "Marks",
 		},
 		{
-			"<leader>r",
+			"<leader>rr",
 			function()
 				Snacks.picker.resume()
+			end,
+			desc = "Resume",
+		},
+		{
+			"<leader>r",
+			function()
+				vim.lsp.buf.rename()
 			end,
 			desc = "Resume",
 		},

@@ -1,3 +1,9 @@
+local source_priority = {
+	lsp = 3,
+	path = 2,
+	buffer = 1,
+}
+
 local M = {
 	"saghen/blink.cmp",
 	event = { "InsertEnter", "CmdlineEnter" },
@@ -5,6 +11,19 @@ local M = {
 	version = "*",
 
 	opts = {
+		fuzzy = {
+			sorts = {
+				function(a, b)
+					local a_priority = source_priority[a.source_id]
+					local b_priority = source_priority[b.source_id]
+					if a_priority ~= b_priority then
+						return a_priority > b_priority
+					end
+				end,
+				"score",
+				"sort_text",
+			},
+		},
 		completion = {
 			list = {
 				selection = {
@@ -41,9 +60,6 @@ local M = {
 		sources = {
 			default = { "lsp", "path", "buffer" },
 			providers = {
-				lsp = {
-					fallbacks = {},
-				},
 				path = {
 					opts = {
 						trailing_slash = true,
