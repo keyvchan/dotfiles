@@ -1,27 +1,5 @@
 local M = {
 	{
-		"keyvchan/monokai.nvim",
-		enabled = false,
-		config = function()
-			-- vim.cmd.colorscheme("monokai")
-		end,
-	},
-	{
-		"sainnhe/sonokai",
-		enabled = false,
-		init = function()
-			vim.sonokai_style = "andromeda"
-			vim.g.sonokai_enable_italic = 1
-			vim.g.sonokai_transparent_background = 2
-			vim.g.sonokai_diagnostic_text_highlight = 0
-			vim.g.sonokai_diagnostic_virtual_text = "colored"
-			vim.g.sonokai_better_performance = 1
-		end,
-		config = function()
-			-- vim.cmd.colorscheme("sonokai")
-		end,
-	},
-	{
 		"rebelot/kanagawa.nvim",
 		lazy = false,
 		config = function()

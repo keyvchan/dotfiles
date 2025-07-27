@@ -253,7 +253,7 @@ local M = {
 			function()
 				vim.lsp.buf.rename()
 			end,
-			desc = "Resume",
+			desc = "Rename",
 		},
 		{
 			"<leader>su",

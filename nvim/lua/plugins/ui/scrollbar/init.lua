@@ -4,10 +4,8 @@ local M = {
 	event = "UIEnter",
 }
 
-M.config = function()
-	require("satellite").setup({
-		winblend = 0,
-	})
-end
+M.opts = {
+	winblend = 0,
+}
 
 return M

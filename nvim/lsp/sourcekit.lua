@@ -8,8 +8,8 @@ return {
 	cmd = { "sourcekit-lsp" },
 	filetypes = { "swift", "objc", "objcpp" },
 	root_markers = {
-        "Package.swift",
-    },
+		"Package.swift",
+	},
 	capabilities = {
 		workspace = {
 			didChangeWatchedFiles = {
