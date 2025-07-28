@@ -4,6 +4,13 @@ return {
 	event = "VeryLazy",
 	init = function()
 		vim.g.neo_tree_remove_legacy_commands = 1
+		vim.keymap.set({ "n" }, "\\", function()
+			require("neo-tree.command")._command("toggle")
+		end, { noremap = true, silent = true })
+
+		vim.keymap.set({ "n" }, "|", function()
+			require("neo-tree.command")._command("focus")
+		end, { noremap = true, silent = true })
 	end,
 	dependencies = {
 		"MunifTanjim/nui.nvim",
@@ -24,14 +31,4 @@ return {
 			truncation_character = "…", -- character to use when truncating the tab label
 		},
 	},
-
-	config = function()
-		vim.keymap.set({ "n" }, "\\", function()
-			require("neo-tree.command")._command("toggle")
-		end, { noremap = true, silent = true })
-
-		vim.keymap.set({ "n" }, "|", function()
-			require("neo-tree.command")._command("focus")
-		end, { noremap = true, silent = true })
-	end,
 }

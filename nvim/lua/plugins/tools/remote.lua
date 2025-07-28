@@ -1,7 +1,6 @@
 local M = {
 	"chipsenkbeil/distant.nvim",
-	-- branch = "v0.3",
-	branch = "v0.2",
+	branch = "v0.3",
 	event = "VeryLazy",
 }
 
