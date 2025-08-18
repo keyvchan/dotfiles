@@ -1,16 +1,28 @@
 local M = {
 	"folke/snacks.nvim",
+	lazy = false,
 	opts = {
 		picker = {},
 		input = { enabled = true },
 		indent = {},
-		statuscolumn = {},
+		statuscolumn = {
+			folds = {
+				open = true,
+			},
+		},
 		terminal = {},
 		words = {
 			debounce = 100,
 		},
 	},
 	keys = {
+		{
+			"<leader><leader>",
+			function()
+				Snacks.picker()
+			end,
+			desc = "Pickers",
+		},
 		-- Top Pickers & Explorer
 		{
 			"<leader><space>",

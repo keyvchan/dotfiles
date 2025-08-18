@@ -3,7 +3,6 @@ local M = {
 
 	branch = "main",
 	lazy = false,
-	build = ":TSUpdate",
 }
 
 return M

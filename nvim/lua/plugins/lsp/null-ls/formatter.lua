@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 			vim.lsp.buf.format()
 			-- vim.api.nvim_feedkeys("gg=G", "n", false)
 			-- vim.api.nvim_feedkeys("``", "n", false)
-			-- FIXME: temporary fix for noice.nvim accidentally breaking indent behavior
+			-- [FIXME]: temporary fix for noice.nvim accidentally breaking indent behavior
 			-- vim.cmd("normal! gg=G")
 			-- vim.cmd("normal! ``")
 		end
