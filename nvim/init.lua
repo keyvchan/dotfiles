@@ -22,7 +22,6 @@ vim.o.signcolumn = "yes:2"
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.laststatus = 3
-vim.o.foldenable = false
 vim.o.winborder = "rounded"
 
 vim.opt.foldlevel = 99
