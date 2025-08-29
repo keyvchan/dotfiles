@@ -27,6 +27,8 @@ vim.o.winborder = "rounded"
 vim.opt.foldlevel = 99
 
 vim.o.foldmethod = "expr"
+vim.o.foldtext = ""
+vim.opt.fillchars:append({ fold = " " })
 -- Default to treesitter folding
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- Prefer LSP folding if client supports it
