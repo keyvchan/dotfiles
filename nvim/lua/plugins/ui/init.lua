@@ -18,9 +18,6 @@ local M = {
 	-- utils
 	require("plugins.ui.utils"),
 
-	-- indent guide
-	-- require("plugins.ui.indent_guide"),
-
 	-- git indicator
 	require("plugins.ui.gitsigns"),
 
@@ -35,6 +32,9 @@ local M = {
 
 	-- winbar
 	require("plugins.ui.winbar"),
+
+	-- fold
+	require("plugins.ui.fold"),
 }
 
 return M
