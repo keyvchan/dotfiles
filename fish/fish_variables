@@ -1,5 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export EDITOR:nvim
 SETUVAR --export STARSHIP_CONFIG:/Users/keyv/\x2econfig/starship/starship\x2etoml
 SETUVAR __fish_initialized:3800
 SETUVAR fish_color_autosuggestion:brblack
