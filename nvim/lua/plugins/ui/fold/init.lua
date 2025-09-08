@@ -2,7 +2,7 @@ local M = {
 	"chrisgrieser/nvim-origami",
 	event = "VeryLazy",
 	opts = {
-		autofold = {
+		autoFold = {
 			enabled = false,
 		},
 		foldKeymaps = {
