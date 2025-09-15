@@ -28,7 +28,7 @@ local M = {
 	require("plugins.ui.statusline"),
 
 	-- tabline
-	require("plugins.ui.tabline"),
+	-- require("plugins.ui.tabline"),
 
 	-- winbar
 	require("plugins.ui.winbar"),

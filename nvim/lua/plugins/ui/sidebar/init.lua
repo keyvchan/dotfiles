@@ -1,7 +1,7 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "main",
-	event = "VeryLazy",
+	lazy = false,
 	init = function()
 		vim.g.neo_tree_remove_legacy_commands = 1
 		vim.keymap.set({ "n" }, "\\", function()
@@ -29,6 +29,12 @@ return {
 			winbar = true,
 			content_layout = "center",
 			truncation_character = "…", -- character to use when truncating the tab label
+		},
+		sources = {
+			"filesystem",
+			"buffers",
+			"git_status",
+			"document_symbols",
 		},
 	},
 }
