@@ -24,8 +24,6 @@ vim.o.relativenumber = true
 vim.o.laststatus = 3
 vim.o.winborder = "rounded"
 
-require("configs.lazy")
-
 vim.g.loaded_node_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_python_provider = 0
@@ -39,13 +37,6 @@ vim.keymap.set({ "n", "i" }, "<C-s>", function()
 	vim.api.nvim_command("write!")
 end, { noremap = true, silent = true })
 
-local parsersInstalled = require("nvim-treesitter.config").get_installed("parsers")
-for _, parser in pairs(parsersInstalled) do
-	local filetypes = vim.treesitter.language.get_filetypes(parser)
-	vim.api.nvim_create_autocmd({ "FileType" }, {
-		pattern = filetypes,
-		callback = function()
-			vim.treesitter.start()
-		end,
-	})
-end
+require("plugins")
+
+require("configs.lsp")
