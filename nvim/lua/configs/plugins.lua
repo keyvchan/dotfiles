@@ -27,6 +27,7 @@ vim.pack.add({
 	"https://github.com/windwp/nvim-autopairs",
 	"https://github.com/chrisgrieser/nvim-origami",
 	"https://github.com/lewis6991/satellite.nvim",
+	"https://github.com/NMAC427/guess-indent.nvim",
 })
 
 -- register PackUpdate to update plugins
@@ -41,6 +42,7 @@ require("plugins.git")
 require("plugins.pairs")
 require("plugins.fold")
 require("plugins.scrollbar")
+require("plugins.indent")
 
 require("plugins.treesitter")
 require("plugins.snacks")
