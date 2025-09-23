@@ -6,6 +6,10 @@ vim.lsp.enable({ "gopls", "clangd", "luals", "rust-analyzer", "sourcekit" })
 
 vim.lsp.inlay_hint.enable(true)
 
+vim.keymap.set({ "n" }, "<leader>lca", function()
+	vim.lsp.buf.code_action()
+end, { noremap = true, silent = true })
+
 -- diagnostic keymap
 vim.keymap.set("n", "<C-p>", function()
 	vim.diagnostic.jump({
@@ -15,6 +19,7 @@ vim.keymap.set("n", "<C-p>", function()
 		},
 	})
 end)
+
 vim.keymap.set("n", "<C-n>", function()
 	vim.diagnostic.jump({
 		count = 1,
@@ -40,17 +45,17 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.HINT] = signs.Hint,
 			[vim.diagnostic.severity.INFO] = signs.Info,
 		},
-		linehl = {
-			[vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
-			[vim.diagnostic.severity.WARN] = "DiagnosticLineWarn",
-			[vim.diagnostic.severity.HINT] = "DiagnosticLineHint",
-			[vim.diagnostic.severity.INFO] = "DiagnosticLineInfo",
-		},
-		numhl = {
-			[vim.diagnostic.severity.ERROR] = "DiagnosticNumberError",
-			[vim.diagnostic.severity.WARN] = "DiagnosticNumberWarn",
-			[vim.diagnostic.severity.HINT] = "DiagnosticNumberHint",
-			[vim.diagnostic.severity.INFO] = "DiagnosticNumberInfo",
-		},
+		-- linehl = {
+		-- 	[vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
+		-- 	[vim.diagnostic.severity.WARN] = "DiagnosticLineWarn",
+		-- 	[vim.diagnostic.severity.HINT] = "DiagnosticLineHint",
+		-- 	[vim.diagnostic.severity.INFO] = "DiagnosticLineInfo",
+		-- },
+		-- numhl = {
+		-- 	[vim.diagnostic.severity.ERROR] = "DiagnosticNumberError",
+		-- 	[vim.diagnostic.severity.WARN] = "DiagnosticNumberWarn",
+		-- 	[vim.diagnostic.severity.HINT] = "DiagnosticNumberHint",
+		-- 	[vim.diagnostic.severity.INFO] = "DiagnosticNumberInfo",
+		-- },
 	},
 })

@@ -29,6 +29,11 @@ vim.pack.add({
 	"https://github.com/lewis6991/satellite.nvim",
 })
 
+-- register PackUpdate to update plugins
+vim.api.nvim_create_user_command("PackUpdate", function()
+	vim.pack.update()
+end, {})
+
 require("plugins.colorscheme")
 require("plugins.statusline")
 require("plugins.copilot")
