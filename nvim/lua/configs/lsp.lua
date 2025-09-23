@@ -45,17 +45,5 @@ vim.diagnostic.config({
 			[vim.diagnostic.severity.HINT] = signs.Hint,
 			[vim.diagnostic.severity.INFO] = signs.Info,
 		},
-		-- linehl = {
-		-- 	[vim.diagnostic.severity.ERROR] = "DiagnosticLineError",
-		-- 	[vim.diagnostic.severity.WARN] = "DiagnosticLineWarn",
-		-- 	[vim.diagnostic.severity.HINT] = "DiagnosticLineHint",
-		-- 	[vim.diagnostic.severity.INFO] = "DiagnosticLineInfo",
-		-- },
-		-- numhl = {
-		-- 	[vim.diagnostic.severity.ERROR] = "DiagnosticNumberError",
-		-- 	[vim.diagnostic.severity.WARN] = "DiagnosticNumberWarn",
-		-- 	[vim.diagnostic.severity.HINT] = "DiagnosticNumberHint",
-		-- 	[vim.diagnostic.severity.INFO] = "DiagnosticNumberInfo",
-		-- },
 	},
 })

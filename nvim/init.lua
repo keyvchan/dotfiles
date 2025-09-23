@@ -30,13 +30,10 @@ vim.g.loaded_python_provider = 0
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_perl_provider = 0
 
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_assume_mapped = true
-
 vim.keymap.set({ "n", "i" }, "<C-s>", function()
 	vim.api.nvim_command("write!")
 end, { noremap = true, silent = true })
 
-require("plugins")
+require("configs.plugins")
 
 require("configs.lsp")
