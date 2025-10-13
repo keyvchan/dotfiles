@@ -17,7 +17,6 @@ vim.pack.add({
 	"https://github.com/rebelot/heirline.nvim",
 	"https://github.com/linrongbin16/lsp-progress.nvim",
 	"https://github.com/nvim-tree/nvim-web-devicons",
-	"https://github.com/nvimtools/none-ls.nvim",
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/Exafunction/windsurf.vim",
 	"https://github.com/folke/noice.nvim",
@@ -28,6 +27,7 @@ vim.pack.add({
 	"https://github.com/chrisgrieser/nvim-origami",
 	"https://github.com/lewis6991/satellite.nvim",
 	"https://github.com/NMAC427/guess-indent.nvim",
+	"https://github.com/stevearc/conform.nvim",
 })
 
 -- register PackUpdate to update plugins
@@ -47,8 +47,8 @@ require("plugins.indent")
 require("plugins.treesitter")
 require("plugins.snacks")
 require("plugins.blink")
-require("plugins.nonels")
 require("plugins.noice")
 require("plugins.notify")
 require("plugins.dropbar")
 require("plugins.neotree")
+require("plugins.format")

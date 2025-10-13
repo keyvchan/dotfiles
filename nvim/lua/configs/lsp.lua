@@ -4,7 +4,8 @@ vim.lsp.config("*", {
 
 vim.lsp.enable({ "gopls", "clangd", "luals", "rust-analyzer", "sourcekit" })
 
-vim.lsp.inlay_hint.enable(true)
+vim.lsp.inlay_hint.enable()
+vim.lsp.on_type_formatting.enable()
 
 vim.keymap.set({ "n" }, "<leader>lca", function()
 	vim.lsp.buf.code_action()
