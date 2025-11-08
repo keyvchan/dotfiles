@@ -18,7 +18,7 @@ vim.pack.add({
 	"https://github.com/linrongbin16/lsp-progress.nvim",
 	"https://github.com/nvim-tree/nvim-web-devicons",
 	"https://github.com/nvim-lua/plenary.nvim",
-	"https://github.com/Exafunction/windsurf.vim",
+	"https://github.com/milanglacier/minuet-ai.nvim",
 	"https://github.com/folke/noice.nvim",
 	"https://github.com/rcarriga/nvim-notify",
 	"https://github.com/Bekaboo/dropbar.nvim",
@@ -37,7 +37,7 @@ end, {})
 
 require("plugins.colorscheme")
 require("plugins.statusline")
-require("plugins.copilot")
+require("plugins.ai")
 require("plugins.git")
 require("plugins.pairs")
 require("plugins.fold")
