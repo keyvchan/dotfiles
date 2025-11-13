@@ -1,7 +1,7 @@
 require("snacks").setup({
 	picker = {},
 	input = { enabled = true },
-	indent = {},
+	-- indent = {},
 	statuscolumn = {
 		folds = {
 			open = true,

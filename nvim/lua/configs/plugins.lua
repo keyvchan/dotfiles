@@ -11,6 +11,7 @@ vim.pack.add({
 		src = "https://github.com/saghen/blink.cmp",
 		version = vim.version.range("*"),
 	},
+	"https://github.com/saghen/blink.indent",
 	"https://github.com/rebelot/kanagawa.nvim",
 	"https://github.com/folke/snacks.nvim",
 	"https://github.com/MunifTanjim/nui.nvim",
