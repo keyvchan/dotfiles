@@ -64,6 +64,9 @@ require("blink.cmp").setup({
 				},
 			},
 		},
+		per_filetype = {
+			codecompanion = { "codecompanion" },
+		},
 	},
 	signature = { enabled = true },
 	cmdline = {
