@@ -6,12 +6,12 @@ usage() {
 Usage: ./setup.sh [--dry-run] [--copy] [--force]
                   [--skip-neovim-install] [--skip-zsh-install]
                   [--skip-python-install]
-                  [--skip-agent-toolbox-install]
+                  [--install-agent-toolbox]
 
 Installs the currently maintained dotfiles.
 
 By default this installs Neovim HEAD/nightly, Zsh tooling, uv with a
-user-level Python, Agent Toolbox for Codex, and links:
+user-level Python, and links:
   ~/.config/nvim       -> <repo>/nvim
   ~/.zshenv            -> <repo>/zsh/zshenv
   ~/.zprofile          -> <repo>/zsh/zprofile
@@ -34,11 +34,12 @@ Options:
   --skip-neovim-install  Only install/link configs; do not install or update Neovim.
   --skip-zsh-install     Only install/link configs; do not install or update Zsh tooling.
   --skip-python-install  Do not install uv or the uv-managed user-level Python.
-  --skip-agent-toolbox-install
-                         Do not install or update the Agent Toolbox Codex plugin.
+  --install-agent-toolbox
+                         Install or update the Agent Toolbox Codex plugin.
   -h, --help             Show this help.
 
-Only Neovim, Zsh, Starship, ShellCheck, uv, user-level Python, and Agent Toolbox are installed.
+Only Neovim, Zsh, Starship, ShellCheck, uv, and user-level Python are installed by default.
+Agent Toolbox installation is opt-in.
 EOF
 }
 
@@ -48,7 +49,7 @@ force=0
 skip_neovim_install=0
 skip_zsh_install=0
 skip_python_install=0
-skip_agent_toolbox_install=0
+install_agent_toolbox_requested=0
 
 while [ "$#" -gt 0 ]; do
 	case "$1" in
@@ -70,8 +71,8 @@ while [ "$#" -gt 0 ]; do
 		--skip-python-install)
 			skip_python_install=1
 			;;
-		--skip-agent-toolbox-install)
-			skip_agent_toolbox_install=1
+		--install-agent-toolbox)
+			install_agent_toolbox_requested=1
 			;;
 		-h | --help)
 			usage
@@ -486,8 +487,8 @@ install_agent_toolbox() {
 			return
 		fi
 
-		echo "Codex CLI is required to install Agent Toolbox." >&2
-		echo "Install Codex or rerun with --skip-agent-toolbox-install." >&2
+		echo "Codex CLI is required when --install-agent-toolbox is used." >&2
+		echo "Install Codex or rerun without --install-agent-toolbox." >&2
 		exit 1
 	fi
 
@@ -529,7 +530,7 @@ if [ "$skip_python_install" -eq 0 ]; then
 	install_user_python
 fi
 
-if [ "$skip_agent_toolbox_install" -eq 0 ]; then
+if [ "$install_agent_toolbox_requested" -eq 1 ]; then
 	install_agent_toolbox
 fi
 
