@@ -22,6 +22,7 @@ vim.pack.add({
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/nvim-tree/nvim-web-devicons",
 	"https://github.com/nvim-lua/plenary.nvim",
+	"https://github.com/kawre/leetcode.nvim",
 	"https://github.com/folke/noice.nvim",
 	"https://github.com/rcarriga/nvim-notify",
 	"https://github.com/Bekaboo/dropbar.nvim",
@@ -53,6 +54,7 @@ require("plugins.indent")
 
 require("plugins.treesitter")
 require("plugins.snacks")
+require("plugins.leetcode")
 require("plugins.statuscolumn")
 require("plugins.blink")
 require("plugins.noice")
