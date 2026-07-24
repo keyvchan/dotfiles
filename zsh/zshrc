@@ -119,3 +119,5 @@ fi
 bindkey -e
 
 (( $+commands[starship] )) && eval "$(starship init zsh)"
+
+[[ -r "$HOME/.iterm2_shell_integration.zsh" ]] && source "$HOME/.iterm2_shell_integration.zsh"
