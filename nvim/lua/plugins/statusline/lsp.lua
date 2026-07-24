@@ -51,8 +51,7 @@ M.diagnostics = {
 
 M.progress = {
 	update = {
-		"User",
-		pattern = "LspProgressStatusUpdated",
+		"LspProgress",
 		callback = vim.schedule_wrap(function()
 			vim.cmd("redrawstatus")
 		end),
@@ -67,7 +66,9 @@ M.progress = {
 		},
 	},
 	{
-		provider = require("lsp-progress").progress,
+		provider = function()
+			return vim.lsp.status():gsub("%%", "%%%%")
+		end,
 		hl = { fg = u.colors.black, bg = u.colors.purple },
 	},
 	{
