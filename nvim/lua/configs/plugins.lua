@@ -37,10 +37,21 @@ vim.pack.add({ "https://github.com/olimorris/codecompanion.nvim" }, {
 	load = function() end,
 })
 
--- register PackUpdate to update plugins
-vim.api.nvim_create_user_command("PackUpdate", function()
-	vim.pack.update()
-end, {})
+vim.api.nvim_create_user_command("PackSync", function()
+	local stale = {}
+	for _, plugin in ipairs(vim.pack.get(nil, { info = false })) do
+		if not plugin.active then
+			stale[#stale + 1] = plugin.spec.name
+		end
+	end
+
+	if #stale == 0 then
+		vim.notify("Plugins are already synchronized")
+		return
+	end
+
+	vim.pack.del(stale)
+end, { desc = "Remove plugins no longer declared in the configuration" })
 
 require("plugins.colorscheme")
 require("plugins.statusline")
