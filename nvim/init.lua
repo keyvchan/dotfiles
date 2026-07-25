@@ -31,6 +31,8 @@ vim.o.relativenumber = true
 vim.o.laststatus = 3
 vim.o.winborder = "rounded"
 
+require("configs.ui")
+
 vim.g.loaded_node_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_python_provider = 0

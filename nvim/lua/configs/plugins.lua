@@ -22,7 +22,6 @@ vim.pack.add({
 	"https://github.com/nvim-tree/nvim-web-devicons",
 	"https://github.com/nvim-lua/plenary.nvim",
 	"https://github.com/kawre/leetcode.nvim",
-	"https://github.com/folke/noice.nvim",
 	"https://github.com/rcarriga/nvim-notify",
 	"https://github.com/Bekaboo/dropbar.nvim",
 	"https://github.com/lewis6991/gitsigns.nvim",
@@ -62,7 +61,6 @@ require("plugins.snacks")
 require("plugins.leetcode")
 require("plugins.statuscolumn")
 require("plugins.blink")
-require("plugins.noice")
 require("plugins.notify")
 require("plugins.dropbar")
 require("plugins.neotree")

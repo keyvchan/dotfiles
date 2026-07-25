@@ -4,6 +4,19 @@ local source_priority = {
 	path = 2,
 	buffer = 1,
 }
+local ui = require("configs.ui")
+
+local function cmdline_position()
+	local position = ui.cmdline_cursor_position()
+	local ok, menu = pcall(require, "blink.cmp.completion.windows.menu")
+	if not ok or menu.context == nil or menu.renderer == nil then
+		return position
+	end
+
+	position[2] = position[2] - menu.context.bounds.start_col + menu.renderer:get_alignment_start_col()
+	return position
+end
+
 require("blink.cmp").setup({
 	fuzzy = {
 		sorts = {
@@ -36,6 +49,7 @@ require("blink.cmp").setup({
 		},
 		menu = {
 			border = "none",
+			cmdline_position = cmdline_position,
 		},
 		documentation = {
 			auto_show = true,
