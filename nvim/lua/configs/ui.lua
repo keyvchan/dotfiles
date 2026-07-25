@@ -100,7 +100,11 @@ vim.api.nvim_create_autocmd({ "CmdlineEnter", "VimResized" }, {
 	end,
 })
 
-ui.enable()
+ui.enable({
+	msg = {
+		targets = "msg",
+	},
+})
 
 if ui.cmd then
 	local cmdline_show = ui.cmd.cmdline_show
