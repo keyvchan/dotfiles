@@ -1,4 +1,5 @@
 local kanagawa = require("kanagawa.colors").setup({ theme = "wave" })
+local diagnostic_icons = require("configs.icons").diagnostics
 
 local colors = {
 	black = "#272822",
@@ -158,12 +159,7 @@ require("lualine").setup({
 				sections = { "error", "warn", "info", "hint" },
 				colored = false,
 				color = bubble,
-				symbols = {
-					error = "✗ ",
-					warn = " ",
-					info = "ﯧ ",
-					hint = " ",
-				},
+				symbols = diagnostic_icons,
 			},
 			{
 				lsp_status,

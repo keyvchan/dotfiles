@@ -21,7 +21,7 @@ require("gitsigns").setup({
 	},
 	current_line_blame = true,
 	current_line_blame_opts = {
-		delay = 100,
+		delay = 500,
 	},
 	on_attach = function(bufnr)
 		local gs = package.loaded.gitsigns
@@ -41,7 +41,7 @@ require("gitsigns").setup({
 				return "]h"
 			end
 			vim.schedule(function()
-				gs.next_hunk()
+				gs.nav_hunk("next")
 			end)
 			return "<Ignore>"
 		end, { expr = true, desc = "Next Hunk" })
@@ -51,7 +51,7 @@ require("gitsigns").setup({
 				return "[h"
 			end
 			vim.schedule(function()
-				gs.prev_hunk()
+				gs.nav_hunk("prev")
 			end)
 			return "<Ignore>"
 		end, { expr = true, desc = "Prev Hunk" })

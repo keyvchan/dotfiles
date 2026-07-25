@@ -1,4 +1,5 @@
-local signs = { Error = "✗ ", Warn = " ", Hint = " ", Info = " " }
+local icons = require("configs.icons").diagnostics
+
 -- Automatically update diagnostics
 vim.diagnostic.config({
 	underline = true,
@@ -11,10 +12,10 @@ vim.diagnostic.config({
 	severity_sort = true,
 	signs = {
 		text = {
-			[vim.diagnostic.severity.ERROR] = signs.Error,
-			[vim.diagnostic.severity.WARN] = signs.Warn,
-			[vim.diagnostic.severity.HINT] = signs.Hint,
-			[vim.diagnostic.severity.INFO] = signs.Info,
+			[vim.diagnostic.severity.ERROR] = icons.error,
+			[vim.diagnostic.severity.WARN] = icons.warn,
+			[vim.diagnostic.severity.HINT] = icons.hint,
+			[vim.diagnostic.severity.INFO] = icons.info,
 		},
 	},
 })

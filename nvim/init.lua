@@ -39,7 +39,7 @@ vim.g.loaded_perl_provider = 0
 
 vim.keymap.set({ "n", "i" }, "<C-s>", function()
 	vim.api.nvim_command("write!")
-end, { noremap = true, silent = true })
+end, { noremap = true, silent = true, desc = "Save file" })
 
 require("configs.plugins")
 

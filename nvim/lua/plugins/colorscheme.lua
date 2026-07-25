@@ -20,13 +20,6 @@ require("kanagawa").setup({
 
 			WinSeparator = { fg = theme.ui.special },
 
-			TelescopeTitle = { fg = theme.ui.special, bold = true },
-			TelescopePromptBorder = { fg = theme.ui.special },
-			TelescopeResultsNormal = { fg = theme.ui.special },
-			TelescopeResultsBorder = { fg = theme.ui.special },
-			TelescopePreviewBorder = { fg = theme.ui.special },
-
-			BufferLineFill = { bg = "none" },
 			TabLineFill = { bg = "none" },
 			Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
 			PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },

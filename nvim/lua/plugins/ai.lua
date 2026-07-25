@@ -32,7 +32,7 @@ local commands = {
 function M.setup()
 	require("codecompanion").setup({
 		opts = {
-			log_level = "DEBUG", -- or "TRACE"
+			log_level = "ERROR",
 		},
 		interactions = {
 			chat = {
