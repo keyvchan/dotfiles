@@ -1,7 +1,6 @@
 local source_priority = {
 	lsp = 3,
 	cmdline = 3,
-	codecompanion = 3,
 	path = 2,
 	buffer = 1,
 }
@@ -64,9 +63,6 @@ require("blink.cmp").setup({
 					label_trailing_slash = true,
 				},
 			},
-		},
-		per_filetype = {
-			codecompanion = { "codecompanion" },
 		},
 	},
 	signature = { enabled = true },

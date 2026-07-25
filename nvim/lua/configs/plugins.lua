@@ -33,10 +33,6 @@ vim.pack.add({
 	"https://github.com/stevearc/conform.nvim",
 })
 
-vim.pack.add({ "https://github.com/olimorris/codecompanion.nvim" }, {
-	load = function() end,
-})
-
 vim.api.nvim_create_user_command("PackSync", function()
 	local stale = {}
 	for _, plugin in ipairs(vim.pack.get(nil, { info = false })) do
@@ -55,7 +51,6 @@ end, { desc = "Remove plugins no longer declared in the configuration" })
 
 require("plugins.colorscheme")
 require("plugins.statusline")
-require("plugins.ai")
 require("plugins.git")
 require("plugins.pairs")
 require("plugins.fold")
