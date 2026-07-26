@@ -8,6 +8,8 @@ done
 [[ -r "$HOME/.orbstack/shell/init.zsh" ]] && source "$HOME/.orbstack/shell/init.zsh"
 [[ -r "$HOME/.swiftly/env.sh" ]] && source "$HOME/.swiftly/env.sh"
 
-# Keep user-level tools, including uv-managed Python, ahead of package-manager binaries.
+# Keep user-level tools, including uv-managed Python and OrbStack's CLI shims,
+# ahead of package-manager binaries.
 typeset -U path PATH
+[[ -d "$HOME/.orbstack/bin" ]] && path=("$HOME/.orbstack/bin" $path)
 [[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)
