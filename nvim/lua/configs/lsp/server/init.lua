@@ -6,6 +6,29 @@ vim.lsp.config("sourcekit", {
 	filetypes = { "swift" },
 })
 
-vim.lsp.enable({ "gopls", "clangd", "lua_ls", "rust_analyzer", "sourcekit", "ty" })
+vim.lsp.config("ruff", {
+	on_attach = function(client)
+		-- Keep ty as the Python hover and type-information provider.
+		client.server_capabilities.hoverProvider = false
+	end,
+})
+
+vim.lsp.enable({
+	"bashls",
+	"clangd",
+	"cssls",
+	"gopls",
+	"html",
+	"jsonls",
+	"lua_ls",
+	"marksman",
+	"ruff",
+	"rust_analyzer",
+	"sourcekit",
+	"taplo",
+	"tsgo",
+	"ty",
+	"yamlls",
+})
 
 require("configs.lsp.server.lua_ls")

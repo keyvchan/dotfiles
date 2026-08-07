@@ -8,8 +8,17 @@ done
 [[ -r "$HOME/.orbstack/shell/init.zsh" ]] && source "$HOME/.orbstack/shell/init.zsh"
 [[ -r "$HOME/.swiftly/env.sh" ]] && source "$HOME/.swiftly/env.sh"
 
-# Keep user-level tools, including uv-managed Python and OrbStack's CLI shims,
-# ahead of package-manager binaries.
+if [[ -z "${PNPM_HOME:-}" ]]; then
+	if [[ "$OSTYPE" == darwin* ]]; then
+		export PNPM_HOME="$HOME/Library/pnpm"
+	else
+		export PNPM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/pnpm"
+	fi
+fi
+
+# Keep user-level tools, including uv-managed Python, OrbStack's CLI shims,
+# and pnpm-managed executables, ahead of package-manager binaries.
 typeset -U path PATH
+path=("$PNPM_HOME/bin" "$PNPM_HOME" $path)
 [[ -d "$HOME/.orbstack/bin" ]] && path=("$HOME/.orbstack/bin" $path)
 [[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)
