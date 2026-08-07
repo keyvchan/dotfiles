@@ -5,13 +5,13 @@ usage() {
 	cat <<'EOF'
 Usage: ./setup.sh [--dry-run] [--copy] [--force]
                   [--skip-neovim-install] [--skip-zsh-install]
-                  [--skip-python-install]
+                  [--skip-python-install] [--skip-node-install]
                   [--install-agent-toolbox]
 
 Installs the currently maintained dotfiles.
 
 By default this installs Neovim HEAD/nightly, Zsh tooling, uv with a
-user-level Python, and links:
+user-level Python, Node.js with pnpm, and links:
   ~/.config/nvim       -> <repo>/nvim
   ~/.zshenv            -> <repo>/zsh/zshenv
   ~/.zprofile          -> <repo>/zsh/zprofile
@@ -34,11 +34,12 @@ Options:
   --skip-neovim-install  Only install/link configs; do not install or update Neovim.
   --skip-zsh-install     Only install/link configs; do not install or update Zsh tooling.
   --skip-python-install  Do not install uv or the uv-managed user-level Python.
+  --skip-node-install    Do not install Node.js or pnpm.
   --install-agent-toolbox
                          Install or update the Agent Toolbox Codex plugin.
   -h, --help             Show this help.
 
-Only Neovim, Zsh, Starship, ShellCheck, uv, and user-level Python are installed by default.
+Only Neovim, Zsh, Starship, ShellCheck, uv, user-level Python, Node.js, and pnpm are installed by default.
 Agent Toolbox installation is opt-in.
 EOF
 }
@@ -49,6 +50,7 @@ force=0
 skip_neovim_install=0
 skip_zsh_install=0
 skip_python_install=0
+skip_node_install=0
 install_agent_toolbox_requested=0
 
 while [ "$#" -gt 0 ]; do
@@ -70,6 +72,9 @@ while [ "$#" -gt 0 ]; do
 			;;
 		--skip-python-install)
 			skip_python_install=1
+			;;
+		--skip-node-install)
+			skip_node_install=1
 			;;
 		--install-agent-toolbox)
 			install_agent_toolbox_requested=1
@@ -105,6 +110,8 @@ agent_toolbox_selector="${agent_toolbox_marketplace}@${agent_toolbox_marketplace
 user_python_version="3.14"
 zsh_tools_homebrew=(zsh antidote starship fzf zoxide atuin bat lsd fd ripgrep shellcheck)
 zsh_tools_arch=(zsh zsh-antidote starship fzf zoxide atuin bat lsd fd ripgrep shellcheck)
+node_tools_homebrew=(node pnpm)
+node_tools_arch=(nodejs pnpm)
 
 target_nvim="${target_config}/nvim"
 target_zsh_dir="${target_config}/zsh"
@@ -465,6 +472,35 @@ install_user_python() {
 	run uv python install "$user_python_version" --default
 }
 
+install_node_tools_homebrew() {
+	ensure_homebrew
+	run env HOMEBREW_NO_AUTO_UPDATE=1 brew install "${node_tools_homebrew[@]}"
+}
+
+install_node_tools_arch() {
+	ensure_paru
+	run paru -S --needed --noconfirm "${node_tools_arch[@]}"
+}
+
+install_node_tools() {
+	case "$(uname -s)" in
+		Darwin)
+			install_node_tools_homebrew
+			;;
+		Linux)
+			if is_arch_linux; then
+				install_node_tools_arch
+			else
+				install_node_tools_homebrew
+			fi
+			;;
+		*)
+			echo "Unsupported OS: $(uname -s). Install Node.js and pnpm manually, then rerun this script." >&2
+			exit 1
+			;;
+	esac
+}
+
 has_agent_toolbox_marketplace() {
 	codex plugin marketplace list 2>/dev/null |
 		awk -v name="$agent_toolbox_marketplace" \
@@ -528,6 +564,10 @@ fi
 
 if [ "$skip_python_install" -eq 0 ]; then
 	install_user_python
+fi
+
+if [ "$skip_node_install" -eq 0 ]; then
+	install_node_tools
 fi
 
 if [ "$install_agent_toolbox_requested" -eq 1 ]; then
