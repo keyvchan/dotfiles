@@ -2,6 +2,7 @@ vim.loader.enable(true)
 vim.g.mapleader = ","
 vim.o.termguicolors = true
 vim.o.scrolloff = 5
+vim.o.scrolloffpad = 1
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.ignorecase = true
@@ -14,6 +15,7 @@ vim.o.expandtab = true
 vim.o.undofile = true
 vim.o.smoothscroll = true
 vim.o.mousemoveevent = true
+vim.opt.shortmess:append("u")
 
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
@@ -30,6 +32,15 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.laststatus = 3
 vim.o.winborder = "rounded"
+
+local highlight_group = vim.api.nvim_create_augroup("DotfilesHighlightOps", { clear = true })
+vim.api.nvim_create_autocmd({ "TextYankPost", "TextPutPost" }, {
+	group = highlight_group,
+	callback = function()
+		vim.hl.hl_op({ higroup = "Visual", timeout = 150 })
+	end,
+	desc = "Briefly highlight yanked and pasted text",
+})
 
 require("configs.ui")
 
