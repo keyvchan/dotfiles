@@ -102,7 +102,15 @@ vim.api.nvim_create_autocmd({ "CmdlineEnter", "VimResized" }, {
 
 ui.enable({
 	msg = {
-		targets = "msg",
+		targets = {
+			default = "msg",
+			progress = "msg",
+			list_cmd = "pager",
+			shell_cmd = "pager",
+			shell_err = "pager",
+			shell_out = "pager",
+			shell_ret = "pager",
+		},
 	},
 })
 

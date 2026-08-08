@@ -63,12 +63,15 @@ local function left_cap()
 	return " "
 end
 
-local function lsp_status()
-	return vim.lsp.status()
-end
-
-local function has_lsp_status()
-	return vim.lsp.status() ~= ""
+local function activity_status()
+	local statuses = {}
+	for _, status in ipairs({ vim.lsp.status(), vim.ui.progress_status() }) do
+		status = vim.trim(status or "")
+		if status ~= "" then
+			statuses[#statuses + 1] = status
+		end
+	end
+	return table.concat(statuses, " ")
 end
 
 require("lualine").setup({
@@ -96,6 +99,7 @@ require("lualine").setup({
 				"ModeChanged",
 				"DiagnosticChanged",
 				"LspProgress",
+				"Progress",
 			},
 		},
 	},
@@ -162,8 +166,7 @@ require("lualine").setup({
 				symbols = diagnostic_icons,
 			},
 			{
-				lsp_status,
-				cond = has_lsp_status,
+				activity_status,
 				color = bubble,
 			},
 			{ bubble_space, color = bubble, padding = 0 },
