@@ -7,25 +7,23 @@ Configurations of my daily utils.
 - Neovim
 - Zsh
 - SkillHub CLI
-- Surge agent skill when bundled with the installed macOS app
-- Optional Agent Toolbox setup for Codex
+- Declared Codex plugins and standalone skills
 - ShellCheck validation
 - Offline bundle builder for GitHub Actions artifacts
 
 ## Setup
 
 This repo currently maintains Neovim and Zsh configs, uv-managed user-level Python, Node.js with
-pnpm, SkillHub CLI setup, plus optional Agent Toolbox setup for Codex.
+pnpm, SkillHub CLI setup, and declarative Codex plugin and skill lists.
 
 ```sh
 ./setup.sh
 ```
 
 The script installs Neovim nightly, Zsh tooling, uv with Python 3.14 as the user-level default,
-Node.js with pnpm for JavaScript dependencies, the SkillHub CLI, and backs up existing config files
-before replacing them with links to this repo. It is safe to rerun; existing links and installed
-tools are detected and skipped. Agent Toolbox is not installed or updated unless explicitly
-requested.
+Node.js with pnpm for JavaScript dependencies, the SkillHub CLI, the plugins and skills declared in
+`codex-packages.json`, and backs up existing config files before replacing them with links to this
+repo. It is safe to rerun; existing links, plugins, skills, and tools are detected and skipped.
 
 - Arch Linux: bootstraps `paru` when needed, then installs `neovim-git`.
 - macOS and other Linux distributions: uses Homebrew to install Neovim HEAD.
@@ -35,14 +33,23 @@ requested.
   and `python3` through `~/.local/bin`. The operating system Python remains unchanged.
 - Node.js: installs Node.js and pnpm through Homebrew or `paru`; use pnpm for project dependency
   installation and lockfiles.
-- SkillHub: installs the CLI through the upstream `--cli-only` bootstrap. It does not change which
-  skill source agents prefer or install OpenClaw-specific default skills.
+- SkillHub: installs the CLI through the upstream `--cli-only` bootstrap. Skills using the
+  `skillhub` installer are installed into `~/.agents/skills`.
+- Codex plugins: installs `PLUGIN@MARKETPLACE` selectors from the `plugins` array. Bundled and
+  runtime marketplaces are supplied by Codex; setup adds the Agent Toolbox Git marketplace when
+  needed.
+- Standalone skills: the `skills` array records each skill's name, installer, and any required
+  revision or reference. Local-only entries are inventoried but cannot be recreated when their
+  source directory is absent.
+- Agent Reach: installs the pinned upstream revision, then reapplies
+  `patches/agent-reach-xiaohongshu-only.patch` on every setup so only explicit Xiaohongshu access
+  triggers the skill. Setup stops instead of forcing the patch if a future upstream revision no
+  longer matches it.
 - Shell scripts: installs ShellCheck for local validation.
-- Surge: when `/Applications/Surge.app/Contents/Resources/Skills/surge` is available, links it to
+- Surge: when selected and `/Applications/Surge.app/Contents/Resources/Skills/surge` is available,
+  links it to
   `$CODEX_HOME/skills/surge` (or `~/.codex/skills/surge` by default) so the skill stays current with
   Surge app updates.
-- Agent Toolbox: pass `--install-agent-toolbox` to add the
-  `chenkeyv/agent-toolbox` marketplace and install `agent-toolbox@agent-toolbox`.
 
 ## Offline Bundle
 
@@ -90,7 +97,8 @@ Install only the config links and skip install/update work:
 
 ```sh
 ./setup.sh --skip-neovim-install --skip-zsh-install --skip-python-install \
-  --skip-node-install --skip-skillhub-install
+  --skip-node-install --skip-skillhub-install --skip-skill-install \
+  --skip-plugin-install
 ```
 
 Skip uv and user-level Python installation:
@@ -111,17 +119,58 @@ Skip SkillHub CLI installation:
 ./setup.sh --skip-skillhub-install
 ```
 
-Install a SkillHub skill into Codex's user skill directory, then restart Codex:
+Choose the Codex plugins and standalone skills installed by normal setup in the single
+`codex-packages.json` file:
 
-```sh
-skillhub install <skill-name> --dir "${CODEX_HOME:-$HOME/.codex}/skills"
+```json
+{
+  "version": 1,
+  "plugins": [
+    "browser@openai-bundled"
+  ],
+  "skills": [
+    {
+      "name": "example-skill",
+      "installer": "skillhub",
+      "reference": "@example-team/example-skill"
+    },
+    {
+      "name": "agent-reach",
+      "installer": "uv-tool",
+      "revision": "GIT_REVISION"
+    },
+    {
+      "name": "surge",
+      "installer": "app"
+    }
+  ]
+}
 ```
 
-Install or update Agent Toolbox explicitly:
+The schema version is currently `1`. Plugin entries use `PLUGIN@MARKETPLACE`. Skill installers are
+`skillhub`, the pinned `uv-tool` form used for Agent Reach, `app` for Surge, and `local` for an
+inventory-only skill already available on a machine. A string skill entry is shorthand for a
+SkillHub reference.
+
+Use `--packages-file` to select a different JSON file. You can also add entries for one setup run by
+repeating `--skill` or `--plugin`:
 
 ```sh
-./setup.sh --install-agent-toolbox
+./setup.sh --packages-file ~/.config/dotfiles/codex-packages.json
+./setup.sh --skill example-skill --plugin browser@openai-bundled
 ```
+
+Setup skips skills already present in `~/.agents/skills`, the legacy `$CODEX_HOME/skills` directory,
+or SkillHub's install record. The checked-in JSON reflects the plugins and standalone skills
+currently enabled on this machine. To skip either category for one setup run:
+
+```sh
+./setup.sh --skip-skill-install
+./setup.sh --skip-plugin-install
+```
+
+`--install-agent-toolbox` remains as a compatibility alias that adds Agent Toolbox to the requested
+plugin set.
 
 ## Validation
 
@@ -129,6 +178,8 @@ Install or update Agent Toolbox explicitly:
 bash -n setup.sh
 bash -n scripts/fetch-tools.sh
 shellcheck setup.sh scripts/fetch-tools.sh
+python3 -m json.tool codex-packages.json >/dev/null
+git apply --numstat patches/agent-reach-xiaohongshu-only.patch >/dev/null
 go test ./...
 CGO_ENABLED=0 go build -trimpath -o /tmp/dotfiles ./cmd/dotfiles
 /tmp/dotfiles pack -o cmd/dotfiles/payload
