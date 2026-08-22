@@ -6,12 +6,13 @@ usage() {
 Usage: ./setup.sh [--dry-run] [--copy] [--force]
                   [--skip-neovim-install] [--skip-zsh-install]
                   [--skip-python-install] [--skip-node-install]
+                  [--skip-skillhub-install]
                   [--install-agent-toolbox]
 
 Installs the currently maintained dotfiles.
 
 By default this installs Neovim HEAD/nightly, Zsh tooling, uv with a
-user-level Python, Node.js with pnpm, and links:
+user-level Python, Node.js with pnpm, the SkillHub CLI, and links:
   ~/.config/nvim       -> <repo>/nvim
   ~/.zshenv            -> <repo>/zsh/zshenv
   ~/.zprofile          -> <repo>/zsh/zprofile
@@ -38,12 +39,15 @@ Options:
   --skip-zsh-install     Only install/link configs; do not install or update Zsh tooling.
   --skip-python-install  Do not install uv or the uv-managed user-level Python.
   --skip-node-install    Do not install Node.js or pnpm.
+  --skip-skillhub-install
+                         Do not install the SkillHub CLI.
   --install-agent-toolbox
                          Install or update the Agent Toolbox Codex plugin.
   -h, --help             Show this help.
 
-Only Neovim, Zsh, Starship, ShellCheck, uv, user-level Python, Node.js, pnpm, and
-the bundled Surge skill when available are installed by default. Agent Toolbox installation is opt-in.
+Only Neovim, Zsh, Starship, ShellCheck, uv, user-level Python, Node.js, pnpm,
+the SkillHub CLI, and the bundled Surge skill when available are installed by
+default. Agent Toolbox installation is opt-in.
 EOF
 }
 
@@ -54,6 +58,7 @@ skip_neovim_install=0
 skip_zsh_install=0
 skip_python_install=0
 skip_node_install=0
+skip_skillhub_install=0
 install_agent_toolbox_requested=0
 
 while [ "$#" -gt 0 ]; do
@@ -78,6 +83,9 @@ while [ "$#" -gt 0 ]; do
 			;;
 		--skip-node-install)
 			skip_node_install=1
+			;;
+		--skip-skillhub-install)
+			skip_skillhub_install=1
 			;;
 		--install-agent-toolbox)
 			install_agent_toolbox_requested=1
@@ -111,6 +119,7 @@ source_surge_skill="/Applications/Surge.app/Contents/Resources/Skills/surge"
 agent_toolbox_marketplace="agent-toolbox"
 agent_toolbox_source="chenkeyv/agent-toolbox"
 agent_toolbox_selector="${agent_toolbox_marketplace}@${agent_toolbox_marketplace}"
+skillhub_installer_url="https://skillhub-1388575217.cos.ap-guangzhou.myqcloud.com/install/install.sh"
 user_python_version="3.14"
 zsh_tools_homebrew=(zsh antidote starship fzf zoxide atuin bat lsd fd ripgrep shellcheck)
 zsh_tools_arch=(zsh zsh-antidote starship fzf zoxide atuin bat lsd fd ripgrep shellcheck)
@@ -129,6 +138,7 @@ target_zsh_plugins="${target_zsh_dir}/plugins.txt"
 target_zsh_plugins_late="${target_zsh_dir}/plugins-late.txt"
 target_starship="${target_config}/starship.toml"
 target_surge_skill="${CODEX_HOME:-${HOME}/.codex}/skills/surge"
+skillhub_cli_target="${HOME}/.local/bin/skillhub"
 
 run() {
 	printf '+'
@@ -506,6 +516,43 @@ install_node_tools() {
 	esac
 }
 
+find_skillhub_cli() {
+	if command -v skillhub >/dev/null 2>&1; then
+		command -v skillhub
+	elif [ -x "$skillhub_cli_target" ]; then
+		printf '%s\n' "$skillhub_cli_target"
+	else
+		return 1
+	fi
+}
+
+has_skillhub_cli() {
+	local executable version
+
+	executable="$(find_skillhub_cli)" || return 1
+	version="$("$executable" --version 2>/dev/null)" || return 1
+	echo "SkillHub CLI already installed: $version"
+}
+
+install_skillhub_cli() {
+	if has_skillhub_cli; then
+		return
+	fi
+
+	run bash -o pipefail -c \
+		"curl -fsSL \"\$1\" | bash -s -- --cli-only" \
+		bash \
+		"$skillhub_installer_url"
+
+	if [ "$dry_run" -eq 0 ]; then
+		hash -r
+		if ! has_skillhub_cli; then
+			echo "SkillHub installer completed, but a working CLI was not found." >&2
+			exit 1
+		fi
+	fi
+}
+
 has_agent_toolbox_marketplace() {
 	codex plugin marketplace list 2>/dev/null |
 		awk -v name="$agent_toolbox_marketplace" \
@@ -582,6 +629,10 @@ fi
 
 if [ "$skip_node_install" -eq 0 ]; then
 	install_node_tools
+fi
+
+if [ "$skip_skillhub_install" -eq 0 ]; then
+	install_skillhub_cli
 fi
 
 if [ "$install_agent_toolbox_requested" -eq 1 ]; then

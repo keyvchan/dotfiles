@@ -6,6 +6,7 @@ Configurations of my daily utils.
 
 - Neovim
 - Zsh
+- SkillHub CLI
 - Surge agent skill when bundled with the installed macOS app
 - Optional Agent Toolbox setup for Codex
 - ShellCheck validation
@@ -14,16 +15,17 @@ Configurations of my daily utils.
 ## Setup
 
 This repo currently maintains Neovim and Zsh configs, uv-managed user-level Python, Node.js with
-pnpm, plus optional Agent Toolbox setup for Codex.
+pnpm, SkillHub CLI setup, plus optional Agent Toolbox setup for Codex.
 
 ```sh
 ./setup.sh
 ```
 
 The script installs Neovim nightly, Zsh tooling, uv with Python 3.14 as the user-level default,
-Node.js with pnpm for JavaScript dependencies, and backs up existing config files before replacing
-them with links to this repo. It is safe to rerun; existing links and uv-managed Python are detected
-and skipped. Agent Toolbox is not installed or updated unless explicitly requested.
+Node.js with pnpm for JavaScript dependencies, the SkillHub CLI, and backs up existing config files
+before replacing them with links to this repo. It is safe to rerun; existing links and installed
+tools are detected and skipped. Agent Toolbox is not installed or updated unless explicitly
+requested.
 
 - Arch Linux: bootstraps `paru` when needed, then installs `neovim-git`.
 - macOS and other Linux distributions: uses Homebrew to install Neovim HEAD.
@@ -33,6 +35,8 @@ and skipped. Agent Toolbox is not installed or updated unless explicitly request
   and `python3` through `~/.local/bin`. The operating system Python remains unchanged.
 - Node.js: installs Node.js and pnpm through Homebrew or `paru`; use pnpm for project dependency
   installation and lockfiles.
+- SkillHub: installs the CLI through the upstream `--cli-only` bootstrap. It does not change which
+  skill source agents prefer or install OpenClaw-specific default skills.
 - Shell scripts: installs ShellCheck for local validation.
 - Surge: when `/Applications/Surge.app/Contents/Resources/Skills/surge` is available, links it to
   `$CODEX_HOME/skills/surge` (or `~/.codex/skills/surge` by default) so the skill stays current with
@@ -85,7 +89,8 @@ Preview changes without writing:
 Install only the config links and skip install/update work:
 
 ```sh
-./setup.sh --skip-neovim-install --skip-zsh-install --skip-python-install --skip-node-install
+./setup.sh --skip-neovim-install --skip-zsh-install --skip-python-install \
+  --skip-node-install --skip-skillhub-install
 ```
 
 Skip uv and user-level Python installation:
@@ -98,6 +103,18 @@ Skip Node.js and pnpm installation:
 
 ```sh
 ./setup.sh --skip-node-install
+```
+
+Skip SkillHub CLI installation:
+
+```sh
+./setup.sh --skip-skillhub-install
+```
+
+Install a SkillHub skill into Codex's user skill directory, then restart Codex:
+
+```sh
+skillhub install <skill-name> --dir "${CODEX_HOME:-$HOME/.codex}/skills"
 ```
 
 Install or update Agent Toolbox explicitly:
