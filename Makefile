@@ -4,6 +4,8 @@ validate:
 	bash -n setup.sh
 	bash -n scripts/fetch-tools.sh
 	shellcheck setup.sh scripts/fetch-tools.sh
+	python3 -m json.tool codex-packages.json >/dev/null
+	git apply --numstat patches/agent-reach-xiaohongshu-only.patch >/dev/null
 	go test ./...
 	CGO_ENABLED=0 go build -trimpath -o /tmp/dotfiles ./cmd/dotfiles
 	set -e; payload=cmd/dotfiles/payload; trap 'rm -rf "$$payload"' EXIT; /tmp/dotfiles pack -o "$$payload"; CGO_ENABLED=0 go build -tags embedded -trimpath -o /tmp/dotfiles-embedded ./cmd/dotfiles; /tmp/dotfiles-embedded list >/dev/null
