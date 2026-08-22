@@ -172,6 +172,11 @@ currently enabled on this machine. To skip either category for one setup run:
 `--install-agent-toolbox` remains as a compatibility alias that adds Agent Toolbox to the requested
 plugin set.
 
+## Tooling Decisions
+
+- [agnix evaluation](docs/decisions/agnix.md): keep the dependency out of the managed setup for
+  now; reconsider a pinned CLI-only trial if its diagnostics become necessary.
+
 ## Validation
 
 ```sh
