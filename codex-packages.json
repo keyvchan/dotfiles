@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "plugins": [
+    "agent-toolbox@agent-toolbox",
+    "documents@openai-primary-runtime",
+    "pdf@openai-primary-runtime",
+    "spreadsheets@openai-primary-runtime",
+    "presentations@openai-primary-runtime",
+    "template-creator@openai-primary-runtime",
+    "codex-app-tools@openai-bundled",
+    "sites@openai-bundled",
+    "browser@openai-bundled",
+    "chrome@openai-bundled",
+    "computer-use@openai-bundled",
+    "record-and-replay@openai-bundled",
+    "visualize@openai-bundled",
+    "build-ios-apps@openai-curated",
+    "build-macos-apps@openai-curated",
+    "build-web-apps@openai-curated",
+    "build-web-data-visualization@openai-curated"
+  ],
+  "skills": [
+    {
+      "name": "agent-reach",
+      "installer": "uv-tool",
+      "revision": "93ae1d18c37b707dec053c7c4f9d91cd8ef8943d"
+    },
+    {
+      "name": "surge",
+      "installer": "app"
+    }
+  ]
+}
