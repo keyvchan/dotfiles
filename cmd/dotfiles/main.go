@@ -184,6 +184,8 @@ func dotfilesBundleInputs(repoRoot string) []string {
 		"README.md",
 		"AGENTS.md",
 		"Makefile",
+		"codex-packages.json",
+		"patches",
 	})
 }
 
