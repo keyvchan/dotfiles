@@ -6,6 +6,7 @@ Configurations of my daily utils.
 
 - Neovim
 - Zsh
+- Surge agent skill when bundled with the installed macOS app
 - Optional Agent Toolbox setup for Codex
 - ShellCheck validation
 - Offline bundle builder for GitHub Actions artifacts
@@ -33,6 +34,9 @@ and skipped. Agent Toolbox is not installed or updated unless explicitly request
 - Node.js: installs Node.js and pnpm through Homebrew or `paru`; use pnpm for project dependency
   installation and lockfiles.
 - Shell scripts: installs ShellCheck for local validation.
+- Surge: when `/Applications/Surge.app/Contents/Resources/Skills/surge` is available, links it to
+  `$CODEX_HOME/skills/surge` (or `~/.codex/skills/surge` by default) so the skill stays current with
+  Surge app updates.
 - Agent Toolbox: pass `--install-agent-toolbox` to add the
   `chenkeyv/agent-toolbox` marketplace and install `agent-toolbox@agent-toolbox`.
 

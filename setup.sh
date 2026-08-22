@@ -23,6 +23,9 @@ user-level Python, Node.js with pnpm, and links:
   ~/.config/zsh/plugins-late.txt -> <repo>/zsh/plugins-late.txt
   ~/.config/starship.toml -> <repo>/starship/starship.toml
 
+When Surge's bundled agent skill is available on macOS, this also links:
+  ~/.codex/skills/surge -> /Applications/Surge.app/Contents/Resources/Skills/surge
+
 On Arch Linux, this bootstraps paru when needed and installs neovim-git.
 On macOS and other Linux distributions, this installs Homebrew when needed and
 uses it to install Neovim HEAD.
@@ -39,8 +42,8 @@ Options:
                          Install or update the Agent Toolbox Codex plugin.
   -h, --help             Show this help.
 
-Only Neovim, Zsh, Starship, ShellCheck, uv, user-level Python, Node.js, and pnpm are installed by default.
-Agent Toolbox installation is opt-in.
+Only Neovim, Zsh, Starship, ShellCheck, uv, user-level Python, Node.js, pnpm, and
+the bundled Surge skill when available are installed by default. Agent Toolbox installation is opt-in.
 EOF
 }
 
@@ -104,6 +107,7 @@ source_zshrc="${script_dir}/zsh/zshrc"
 source_zsh_plugins="${script_dir}/zsh/plugins.txt"
 source_zsh_plugins_late="${script_dir}/zsh/plugins-late.txt"
 source_starship="${script_dir}/starship/starship.toml"
+source_surge_skill="/Applications/Surge.app/Contents/Resources/Skills/surge"
 agent_toolbox_marketplace="agent-toolbox"
 agent_toolbox_source="chenkeyv/agent-toolbox"
 agent_toolbox_selector="${agent_toolbox_marketplace}@${agent_toolbox_marketplace}"
@@ -124,6 +128,7 @@ target_zshrc="${target_zsh_dir}/.zshrc"
 target_zsh_plugins="${target_zsh_dir}/plugins.txt"
 target_zsh_plugins_late="${target_zsh_dir}/plugins-late.txt"
 target_starship="${target_config}/starship.toml"
+target_surge_skill="${CODEX_HOME:-${HOME}/.codex}/skills/surge"
 
 run() {
 	printf '+'
@@ -541,6 +546,15 @@ install_agent_toolbox() {
 	fi
 }
 
+install_surge_skill() {
+	if [ ! -d "$source_surge_skill" ]; then
+		echo "Surge agent skill not available; skipping."
+		return
+	fi
+
+	link_file "$source_surge_skill" "$target_surge_skill" "codex-skill-surge"
+}
+
 install_configs() {
 	install_dir "$source_nvim" "$target_nvim" "nvim"
 	link_file "$source_zshenv" "$target_zshenv" "zshenv"
@@ -574,6 +588,7 @@ if [ "$install_agent_toolbox_requested" -eq 1 ]; then
 	install_agent_toolbox
 fi
 
+install_surge_skill
 install_configs
 
 if [ "$dry_run" -eq 1 ]; then
