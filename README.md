@@ -36,15 +36,16 @@ repo. It is safe to rerun; existing links, plugins, skills, and tools are detect
 - SkillHub: installs the CLI through the upstream `--cli-only` bootstrap. Skills using the
   `skillhub` installer are installed into `~/.agents/skills`.
 - Codex plugins: installs `PLUGIN@MARKETPLACE` selectors from the `plugins` array. Bundled and
-  runtime marketplaces are supplied by Codex; setup adds the Agent Toolbox Git marketplace when
-  needed.
+  runtime marketplaces are supplied by Codex. For Agent Toolbox, setup preserves unrelated entries
+  in `~/.agents/plugins/marketplace.json` and adds a Git-backed entry to the personal marketplace.
 - Standalone skills: the `skills` array records each skill's name, installer, and any required
   revision or reference. Local-only entries are inventoried but cannot be recreated when their
   source directory is absent.
-- Agent Reach: installs the pinned upstream revision, then reapplies
-  `patches/agent-reach-xiaohongshu-only.patch` on every setup so only explicit Xiaohongshu access
-  triggers the skill. Setup stops instead of forcing the patch if a future upstream revision no
-  longer matches it.
+- Agent Reach: verifies the uv tool's installed Git commit, reinstalls the pinned upstream revision
+  when needed, registers its skill non-interactively, then reapplies
+  `patches/agent-reach-xiaohongshu-only.patch` so only explicit Xiaohongshu access triggers the
+  skill. Setup stops instead of forcing the patch if a future upstream revision no longer matches
+  it.
 - Shell scripts: installs ShellCheck for local validation.
 - Surge: when selected and `/Applications/Surge.app/Contents/Resources/Skills/surge` is available,
   links it to
@@ -160,9 +161,11 @@ repeating `--skill` or `--plugin`:
 ./setup.sh --skill example-skill --plugin browser@openai-bundled
 ```
 
-Setup skips skills already present in `~/.agents/skills`, the legacy `$CODEX_HOME/skills` directory,
-or SkillHub's install record. The checked-in JSON reflects the plugins and standalone skills
-currently enabled on this machine. To skip either category for one setup run:
+Setup skips valid SkillHub skills already present in `~/.agents/skills`, the legacy
+`$CODEX_HOME/skills` directory, or SkillHub's install record. Agent Reach is checked against its
+declared Git revision, and Surge is checked against the authoritative application-bundle symlink.
+The checked-in JSON reflects the plugins and standalone skills currently enabled on this machine.
+To skip either category for one setup run:
 
 ```sh
 ./setup.sh --skip-skill-install
@@ -185,6 +188,7 @@ bash -n scripts/fetch-tools.sh
 shellcheck setup.sh scripts/fetch-tools.sh
 python3 -m json.tool codex-packages.json >/dev/null
 git apply --numstat patches/agent-reach-xiaohongshu-only.patch >/dev/null
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests
 go test ./...
 CGO_ENABLED=0 go build -trimpath -o /tmp/dotfiles ./cmd/dotfiles
 /tmp/dotfiles pack -o cmd/dotfiles/payload

@@ -166,11 +166,13 @@ source_zshrc="${script_dir}/zsh/zshrc"
 source_zsh_plugins="${script_dir}/zsh/plugins.txt"
 source_zsh_plugins_late="${script_dir}/zsh/plugins-late.txt"
 source_starship="${script_dir}/starship/starship.toml"
-source_surge_skill="/Applications/Surge.app/Contents/Resources/Skills/surge"
+source_surge_skill="${DOTFILES_SURGE_SKILL_SOURCE:-/Applications/Surge.app/Contents/Resources/Skills/surge}"
 source_agent_reach_patch="${script_dir}/patches/agent-reach-xiaohongshu-only.patch"
-agent_toolbox_marketplace="agent-toolbox"
-agent_toolbox_source="chenkeyv/agent-toolbox"
-agent_toolbox_selector="${agent_toolbox_marketplace}@${agent_toolbox_marketplace}"
+source_personal_marketplace_helper="${script_dir}/scripts/ensure-personal-codex-marketplace.py"
+agent_toolbox_name="agent-toolbox"
+agent_toolbox_marketplace="personal"
+agent_toolbox_source_url="https://github.com/chenkeyv/agent-toolbox.git"
+agent_toolbox_selector="${agent_toolbox_name}@${agent_toolbox_marketplace}"
 skillhub_installer_url="https://skillhub-1388575217.cos.ap-guangzhou.myqcloud.com/install/install.sh"
 user_python_version="3.14"
 zsh_tools_homebrew=(zsh antidote starship fzf zoxide atuin bat lsd fd ripgrep shellcheck)
@@ -192,7 +194,9 @@ target_starship="${target_config}/starship.toml"
 target_surge_skill="${CODEX_HOME:-${HOME}/.codex}/skills/surge"
 target_agent_skills="${HOME}/.agents/skills"
 target_legacy_codex_skills="${CODEX_HOME:-${HOME}/.codex}/skills"
+target_personal_marketplace="${HOME}/.agents/plugins/marketplace.json"
 skillhub_cli_target="${HOME}/.local/bin/skillhub"
+agent_toolbox_marketplace_changed=0
 
 run() {
 	printf '+'
@@ -523,6 +527,48 @@ has_user_python() {
 	echo "uv-managed Python ${user_python_version} already installed as the user default."
 }
 
+activate_user_python() {
+	local python_bin_dir
+
+	python_bin_dir="$(uv python dir --bin 2>/dev/null)" || return 1
+	case ":${PATH}:" in
+		*":${python_bin_dir}:"*)
+			;;
+		*)
+			PATH="${python_bin_dir}:${PATH}"
+			export PATH
+			;;
+	esac
+	hash -r
+}
+
+find_python3() {
+	local managed_python
+
+	if command -v python3 >/dev/null 2>&1; then
+		command -v python3
+		return
+	fi
+
+	if command -v uv >/dev/null 2>&1; then
+		managed_python="$(
+			uv python find --managed-python --no-python-downloads --no-project \
+				"$user_python_version" 2>/dev/null
+		)" || true
+		if [ -n "$managed_python" ] && [ -x "$managed_python" ]; then
+			printf '%s\n' "$managed_python"
+			return
+		fi
+	fi
+
+	if [ -x "${HOME}/.local/bin/python3" ]; then
+		printf '%s\n' "${HOME}/.local/bin/python3"
+		return
+	fi
+
+	return 1
+}
+
 install_user_python() {
 	install_uv
 
@@ -534,11 +580,15 @@ install_user_python() {
 		fi
 
 		if has_user_python; then
+			activate_user_python
 			return
 		fi
 	fi
 
 	run uv python install "$user_python_version" --default
+	if [ "$dry_run" -eq 0 ]; then
+		activate_user_python
+	fi
 }
 
 install_node_tools_homebrew() {
@@ -649,8 +699,8 @@ is_configured_skill_installed() {
 	local skill_name="$1"
 	local executable
 
-	if [ -d "${target_agent_skills}/${skill_name}" ] ||
-		[ -d "${target_legacy_codex_skills}/${skill_name}" ]
+	if [ -f "${target_agent_skills}/${skill_name}/SKILL.md" ] ||
+		[ -f "${target_legacy_codex_skills}/${skill_name}/SKILL.md" ]
 	then
 		return 0
 	fi
@@ -680,27 +730,31 @@ append_skill() {
 	fi
 	validate_skill_entry "$skill"
 
-	for existing in "${requested_skills[@]}"; do
-		if [ "$existing" = "$skill" ]; then
-			return
-		fi
-	done
+	if [ "${#requested_skills[@]}" -gt 0 ]; then
+		for existing in "${requested_skills[@]}"; do
+			if [ "$existing" = "$skill" ]; then
+				return
+			fi
+		done
+	fi
 	requested_skills+=("$skill")
 }
 
 read_package_entries() {
 	local key="$1"
+	local python_executable
 
 	if [ ! -f "$packages_file" ]; then
 		echo "Codex packages file not found: $packages_file" >&2
 		return 1
 	fi
-	if ! command -v python3 >/dev/null 2>&1; then
+	python_executable="$(find_python3)" || true
+	if [ -z "$python_executable" ]; then
 		echo "Python 3 is required to read $packages_file." >&2
 		return 1
 	fi
 
-	python3 - "$packages_file" "$key" <<'PY'
+	"$python_executable" - "$packages_file" "$key" <<'PY'
 import json
 import sys
 from pathlib import Path
@@ -765,9 +819,11 @@ load_configured_skills() {
 		append_skill "$line"
 	done <<<"$entries"
 
-	for line in "${requested_skills[@]}"; do
-		validate_skill_entry "$line"
-	done
+	if [ "${#requested_skills[@]}" -gt 0 ]; then
+		for line in "${requested_skills[@]}"; do
+			validate_skill_entry "$line"
+		done
+	fi
 }
 
 install_skillhub_ref() {
@@ -787,27 +843,101 @@ install_skillhub_ref() {
 	run "$executable" --skip-self-upgrade install "$skill_ref" --dir "$target_agent_skills"
 }
 
+find_agent_reach_cli() {
+	local tool_bin_dir
+
+	if command -v uv >/dev/null 2>&1; then
+		tool_bin_dir="$(uv tool dir --bin 2>/dev/null)" || true
+		if [ -n "$tool_bin_dir" ] && [ -x "${tool_bin_dir}/agent-reach" ]; then
+			printf '%s\n' "${tool_bin_dir}/agent-reach"
+			return
+		fi
+	fi
+
+	if command -v agent-reach >/dev/null 2>&1; then
+		command -v agent-reach
+		return
+	fi
+
+	return 1
+}
+
+has_agent_reach_revision() {
+	local revision="$1"
+	local python_executable tool_dir
+
+	find_agent_reach_cli >/dev/null || return 1
+	command -v uv >/dev/null 2>&1 || return 1
+	python_executable="$(find_python3)" || return 1
+	tool_dir="$(uv tool dir 2>/dev/null)" || return 1
+
+	"$python_executable" - "$tool_dir" "$revision" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+tool_dir = Path(sys.argv[1]) / "agent-reach"
+expected_revision = sys.argv[2]
+
+for direct_url in tool_dir.glob(
+    "lib/python*/site-packages/agent_reach-*.dist-info/direct_url.json"
+):
+    try:
+        data = json.loads(direct_url.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        continue
+    vcs_info = data.get("vcs_info")
+    if isinstance(vcs_info, dict) and vcs_info.get("commit_id") == expected_revision:
+        raise SystemExit(0)
+
+raise SystemExit(1)
+PY
+}
+
+has_agent_reach_skill() {
+	[ -f "${target_agent_skills}/agent-reach/SKILL.md" ] ||
+		[ -f "${target_legacy_codex_skills}/agent-reach/SKILL.md" ]
+}
+
 install_agent_reach_skill() {
 	local revision="$1"
-	local executable source
+	local executable source tool_bin_dir
+	local refresh_skill=0
 
 	if [ -z "$revision" ]; then
 		echo "Agent Reach skill entry requires a Git revision." >&2
 		exit 2
 	fi
 
-	executable="$(command -v agent-reach 2>/dev/null)" || true
-	if [ -z "$executable" ]; then
+	if has_agent_reach_revision "$revision"; then
+		echo "Agent Reach tool already installed at configured revision: $revision"
+	else
 		if ! command -v uv >/dev/null 2>&1 && [ "$dry_run" -eq 0 ]; then
 			echo "uv is required to install the Agent Reach skill." >&2
 			exit 1
 		fi
 		source="git+https://github.com/Panniantong/Agent-Reach.git@${revision}"
-		run uv tool install --from "$source" agent-reach
-		executable="${HOME}/.local/bin/agent-reach"
+		run uv tool install --force --from "$source" agent-reach
+		refresh_skill=1
 	fi
 
-	run "$executable" setup
+	if [ "$dry_run" -eq 0 ]; then
+		hash -r
+		executable="$(find_agent_reach_cli)" || {
+			echo "Agent Reach was installed, but its executable was not found." >&2
+			exit 1
+		}
+	else
+		executable="$(find_agent_reach_cli)" || true
+		if [ -z "$executable" ]; then
+			tool_bin_dir="$(uv tool dir --bin 2>/dev/null)" || true
+			executable="${tool_bin_dir:-${HOME}/.local/bin}/agent-reach"
+		fi
+	fi
+
+	if [ "$refresh_skill" -eq 1 ] || ! has_agent_reach_skill; then
+		run "$executable" skill --install
+	fi
 }
 
 agent_reach_patch_applies() {
@@ -886,31 +1016,34 @@ install_configured_skills() {
 
 	for skill in "${requested_skills[@]}"; do
 		skill_name="$(configured_skill_name "$skill")"
-		if is_configured_skill_installed "$skill_name"; then
-			echo "Codex skill already installed: $skill_name"
-		else
-			case "$skill" in
-				skillhub:*)
-					install_skillhub_ref "${skill#skillhub:}"
-					;;
-				uv-tool:agent-reach@*)
-					install_agent_reach_skill "${skill#uv-tool:agent-reach@}"
-					;;
-				app:surge)
-					install_surge_skill
-					;;
-				local:*)
-					echo "Local-only Codex skill is not available on this machine: $skill_name" >&2
-					;;
-				*)
-					install_skillhub_ref "$skill"
-					;;
-			esac
-		fi
-
 		case "$skill" in
 			uv-tool:agent-reach@*)
+				install_agent_reach_skill "${skill#uv-tool:agent-reach@}"
 				apply_agent_reach_patch
+				;;
+			app:surge)
+				install_surge_skill
+				;;
+			local:*)
+				if is_configured_skill_installed "$skill_name"; then
+					echo "Codex skill already installed: $skill_name"
+				else
+					echo "Local-only Codex skill is not available on this machine: $skill_name" >&2
+				fi
+				;;
+			skillhub:*)
+				if is_configured_skill_installed "$skill_name"; then
+					echo "Codex skill already installed: $skill_name"
+				else
+					install_skillhub_ref "${skill#skillhub:}"
+				fi
+				;;
+			*)
+				if is_configured_skill_installed "$skill_name"; then
+					echo "Codex skill already installed: $skill_name"
+				else
+					install_skillhub_ref "$skill"
+				fi
 				;;
 		esac
 	done
@@ -944,11 +1077,13 @@ append_plugin() {
 	fi
 	validate_plugin_selector "$plugin"
 
-	for existing in "${requested_plugins[@]}"; do
-		if [ "$existing" = "$plugin" ]; then
-			return
-		fi
-	done
+	if [ "${#requested_plugins[@]}" -gt 0 ]; then
+		for existing in "${requested_plugins[@]}"; do
+			if [ "$existing" = "$plugin" ]; then
+				return
+			fi
+		done
+	fi
 	requested_plugins+=("$plugin")
 }
 
@@ -964,29 +1099,74 @@ load_configured_plugins() {
 		append_plugin "$agent_toolbox_selector"
 	fi
 
-	for line in "${requested_plugins[@]}"; do
-		validate_plugin_selector "$line"
-	done
-}
-
-has_agent_toolbox_marketplace() {
-	codex plugin marketplace list 2>/dev/null |
-		awk -v name="$agent_toolbox_marketplace" \
-			'$1 == name { found = 1 } END { exit found ? 0 : 1 }'
+	if [ "${#requested_plugins[@]}" -gt 0 ]; then
+		for line in "${requested_plugins[@]}"; do
+			validate_plugin_selector "$line"
+		done
+	fi
 }
 
 has_codex_plugin() {
-	local plugin_name="$1"
+	local plugin_selector="$1"
+	local payload python_executable
 
-	codex plugin list 2>/dev/null |
-		awk -v name="$plugin_name" \
-			'{ split($1, selector, "@"); }
-			selector[1] == name && $2 == "installed," && $3 == "enabled" { found = 1 }
-			END { exit found ? 0 : 1 }'
+	payload="$(codex plugin list --json 2>/dev/null)" || return 1
+	python_executable="$(find_python3)" || return 1
+	"$python_executable" - "$plugin_selector" "$payload" <<'PY'
+import json
+import sys
+
+selector = sys.argv[1]
+try:
+    data = json.loads(sys.argv[2])
+except json.JSONDecodeError:
+    raise SystemExit(1)
+
+installed = data.get("installed", []) if isinstance(data, dict) else []
+for plugin in installed:
+    if not isinstance(plugin, dict):
+        continue
+    if (
+        plugin.get("pluginId") == selector
+        and plugin.get("installed") is True
+        and plugin.get("enabled") is True
+    ):
+        raise SystemExit(0)
+
+raise SystemExit(1)
+PY
+}
+
+ensure_agent_toolbox_marketplace() {
+	local python_executable status
+
+	ensure_source "$source_personal_marketplace_helper"
+	python_executable="$(find_python3)" || {
+		echo "Python 3 is required to configure the personal Codex marketplace." >&2
+		exit 1
+	}
+
+	if "$python_executable" "$source_personal_marketplace_helper" --check \
+		"$target_personal_marketplace" "$agent_toolbox_source_url"
+	then
+		echo "Agent Toolbox personal marketplace already configured."
+		agent_toolbox_marketplace_changed=0
+		return
+	else
+		status=$?
+		if [ "$status" -ne 1 ]; then
+			exit "$status"
+		fi
+	fi
+
+	echo "Configuring Agent Toolbox in the personal Codex marketplace."
+	agent_toolbox_marketplace_changed=1
+	run "$python_executable" "$source_personal_marketplace_helper" \
+		"$target_personal_marketplace" "$agent_toolbox_source_url"
 }
 
 install_configured_plugins() {
-	local plugin plugin_name
+	local plugin
 
 	load_configured_plugins
 	if [ "${#requested_plugins[@]}" -eq 0 ]; then
@@ -1003,15 +1183,19 @@ install_configured_plugins() {
 	fi
 
 	for plugin in "${requested_plugins[@]}"; do
-		plugin_name="${plugin%%@*}"
-		if command -v codex >/dev/null 2>&1 && has_codex_plugin "$plugin_name"; then
-			echo "Codex plugin already installed and enabled: $plugin_name"
+		agent_toolbox_marketplace_changed=0
+		if [ "$plugin" = "$agent_toolbox_selector" ]; then
+			ensure_agent_toolbox_marketplace
+		fi
+
+		if command -v codex >/dev/null 2>&1 &&
+			has_codex_plugin "$plugin" &&
+			[ "$agent_toolbox_marketplace_changed" -eq 0 ]
+		then
+			echo "Codex plugin already installed and enabled: $plugin"
 			continue
 		fi
 
-		if [ "$plugin_name" = "agent-toolbox" ] && ! has_agent_toolbox_marketplace; then
-			run codex plugin marketplace add "$agent_toolbox_source" --ref main
-		fi
 		run codex plugin add "$plugin"
 	done
 }

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "plugins": [
-    "agent-toolbox@agent-toolbox",
+    "agent-toolbox@personal",
     "documents@openai-primary-runtime",
     "pdf@openai-primary-runtime",
     "spreadsheets@openai-primary-runtime",
