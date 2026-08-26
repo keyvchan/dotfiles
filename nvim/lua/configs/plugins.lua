@@ -18,6 +18,10 @@ vim.pack.add({
 	"https://github.com/luukvbaal/statuscol.nvim",
 	"https://github.com/MunifTanjim/nui.nvim",
 	"https://github.com/nvim-lualine/lualine.nvim",
+	{
+		src = "https://github.com/akinsho/bufferline.nvim",
+		version = vim.version.range("*"),
+	},
 	"https://github.com/neovim/nvim-lspconfig",
 	"https://github.com/nvim-tree/nvim-web-devicons",
 	"https://github.com/nvim-lua/plenary.nvim",
@@ -35,6 +39,7 @@ vim.pack.add({
 require("configs.acp_dev")
 
 require("plugins.colorscheme")
+require("plugins.bufferline")
 require("plugins.statusline")
 require("plugins.git")
 require("plugins.pairs")
