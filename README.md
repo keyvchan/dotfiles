@@ -6,6 +6,7 @@ Configurations of my daily utils.
 
 - Neovim
 - Zsh
+- Ghostty
 - SkillHub CLI
 - Declared Codex plugins and standalone skills
 - ShellCheck validation
@@ -13,7 +14,7 @@ Configurations of my daily utils.
 
 ## Setup
 
-This repo currently maintains Neovim and Zsh configs, uv-managed user-level Python, Node.js with
+This repo currently maintains Neovim, Zsh, and Ghostty configs, uv-managed user-level Python, Node.js with
 pnpm, SkillHub CLI setup, and declarative Codex plugin and skill lists.
 
 ```sh
@@ -29,6 +30,10 @@ repo. It is safe to rerun; existing links, plugins, skills, and tools are detect
 - macOS and other Linux distributions: uses Homebrew to install Neovim HEAD.
 - Zsh: uses Starship for the prompt, Antidote for plugin management, and F-Sy-H for syntax
   highlighting.
+- Ghostty: links `ghostty/config` to `${XDG_CONFIG_HOME:-~/.config}/ghostty/config`, backing up an
+  existing config before replacing it. Install Ghostty 1.3+ and the Maple Mono NF font separately.
+  The config uses a transparent background, command-finished notifications, and a bottom Quick
+  Terminal opened with `Alt+Space` on the display under the mouse pointer.
 - Python: installs uv through Homebrew or `paru`, then exposes uv-managed Python 3.14 as `python`
   and `python3` through `~/.local/bin`. The operating system Python remains unchanged.
 - Node.js: installs Node.js and pnpm through Homebrew or `paru`; use pnpm for project dependency
@@ -73,6 +78,7 @@ does not require `tar`, `base64`, network access, or sudo on the target host. Da
 builds publish native artifacts for `linux-amd64`, `darwin-arm64`, and `darwin-amd64`. Each artifact
 includes the dotfiles payload plus portable user-space tools downloaded by `scripts/fetch-tools.sh`,
 including the latest Neovim nightly for that platform from the daily workflow run.
+The payload includes the Ghostty config, and `apply` installs it alongside the shell and editor configs.
 
 On an offline host:
 

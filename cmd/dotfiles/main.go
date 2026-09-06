@@ -179,6 +179,7 @@ func dotfilesBundleInputs(repoRoot string) []string {
 		"nvim",
 		"zsh",
 		"starship",
+		"ghostty",
 		"cmd",
 		"setup.sh",
 		"README.md",
@@ -565,6 +566,7 @@ func applyCommand(args []string) error {
 	rules := []installRule{
 		{src: filepath.Join(temp, "nvim"), dst: filepath.Join(configHome, "nvim")},
 		{src: filepath.Join(temp, "starship", "starship.toml"), dst: filepath.Join(configHome, "starship.toml")},
+		{src: filepath.Join(temp, "ghostty", "config"), dst: filepath.Join(configHome, "ghostty", "config")},
 		{src: filepath.Join(temp, "zsh", "zshenv"), dst: filepath.Join(home, ".zshenv")},
 		{src: filepath.Join(temp, "zsh", "zprofile"), dst: filepath.Join(home, ".zprofile")},
 		{src: filepath.Join(temp, "zsh", "zshrc"), dst: filepath.Join(home, ".zshrc")},

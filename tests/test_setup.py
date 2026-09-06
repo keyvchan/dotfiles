@@ -56,12 +56,13 @@ class SetupTests(unittest.TestCase):
         *,
         skip_skills: bool = False,
         skip_plugins: bool = False,
+        dry_run: bool = True,
+        force: bool = False,
         env_updates: dict[str, str] | None = None,
     ) -> subprocess.CompletedProcess[str]:
         args = [
             "/bin/bash",
             str(SETUP),
-            "--dry-run",
             "--skip-neovim-install",
             "--skip-zsh-install",
             "--skip-python-install",
@@ -70,6 +71,10 @@ class SetupTests(unittest.TestCase):
             "--packages-file",
             str(packages),
         ]
+        if dry_run:
+            args.append("--dry-run")
+        if force:
+            args.append("--force")
         if skip_skills:
             args.append("--skip-skill-install")
         if skip_plugins:
@@ -94,6 +99,44 @@ class SetupTests(unittest.TestCase):
             capture_output=True,
             text=True,
         )
+
+    def test_ghostty_config_backup_dry_run_and_idempotency(self) -> None:
+        config_home = self.temp_path / "custom config"
+        target = config_home / "ghostty" / "config"
+        target.parent.mkdir(parents=True)
+        original = "font-size = 12\n"
+        target.write_text(original, encoding="utf-8")
+        sibling = target.parent / "local-theme"
+        sibling.write_text("background = #112233\n", encoding="utf-8")
+        packages = self.write_packages()
+        options = {
+            "skip_skills": True,
+            "skip_plugins": True,
+            "env_updates": {"XDG_CONFIG_HOME": str(config_home)},
+        }
+
+        preview = self.run_setup(packages, **options)
+        self.assertEqual(preview.returncode, 0, preview.stderr)
+        self.assertEqual(target.read_text(encoding="utf-8"), original)
+        self.assertFalse(target.is_symlink())
+        self.assertFalse((config_home / "dotfiles-backups").exists())
+
+        installed = self.run_setup(packages, dry_run=False, force=True, **options)
+        self.assertEqual(installed.returncode, 0, installed.stderr)
+        self.assertTrue(target.is_symlink())
+        self.assertEqual(target.resolve(), ROOT / "ghostty" / "config")
+        backups = list((config_home / "dotfiles-backups").glob("ghostty-config.*"))
+        self.assertEqual(len(backups), 1)
+        self.assertEqual(backups[0].read_text(encoding="utf-8"), original)
+
+        repeated = self.run_setup(packages, dry_run=False, **options)
+        self.assertEqual(repeated.returncode, 0, repeated.stderr)
+        self.assertIn(f"Already linked: {target}", repeated.stdout)
+        self.assertEqual(
+            list((config_home / "dotfiles-backups").glob("ghostty-config.*")), backups
+        )
+        self.assertEqual(sibling.read_text(encoding="utf-8"), "background = #112233\n")
+        self.assertFalse((self.home / ".config" / "ghostty").exists())
 
     def configure_personal_marketplace(self) -> Path:
         marketplace = self.home / ".agents" / "plugins" / "marketplace.json"

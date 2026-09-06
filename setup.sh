@@ -28,6 +28,9 @@ user-level Python, Node.js with pnpm, the SkillHub CLI, and links:
   ~/.config/zsh/plugins.txt -> <repo>/zsh/plugins.txt
   ~/.config/zsh/plugins-late.txt -> <repo>/zsh/plugins-late.txt
   ~/.config/starship.toml -> <repo>/starship/starship.toml
+  ~/.config/ghostty/config -> <repo>/ghostty/config
+
+Ghostty and its configured Maple Mono NF font must be installed separately.
 
 When Surge's bundled agent skill is selected in codex-packages.json and is
 available on macOS, this also links:
@@ -166,6 +169,7 @@ source_zshrc="${script_dir}/zsh/zshrc"
 source_zsh_plugins="${script_dir}/zsh/plugins.txt"
 source_zsh_plugins_late="${script_dir}/zsh/plugins-late.txt"
 source_starship="${script_dir}/starship/starship.toml"
+source_ghostty="${script_dir}/ghostty/config"
 source_surge_skill="${DOTFILES_SURGE_SKILL_SOURCE:-/Applications/Surge.app/Contents/Resources/Skills/surge}"
 source_agent_reach_patch="${script_dir}/patches/agent-reach-xiaohongshu-only.patch"
 source_personal_marketplace_helper="${script_dir}/scripts/ensure-personal-codex-marketplace.py"
@@ -191,6 +195,7 @@ target_zshrc="${target_zsh_dir}/.zshrc"
 target_zsh_plugins="${target_zsh_dir}/plugins.txt"
 target_zsh_plugins_late="${target_zsh_dir}/plugins-late.txt"
 target_starship="${target_config}/starship.toml"
+target_ghostty="${target_config}/ghostty/config"
 target_surge_skill="${CODEX_HOME:-${HOME}/.codex}/skills/surge"
 target_agent_skills="${HOME}/.agents/skills"
 target_legacy_codex_skills="${CODEX_HOME:-${HOME}/.codex}/skills"
@@ -1220,6 +1225,7 @@ install_configs() {
 	link_file "$source_zsh_plugins" "$target_zsh_plugins" "zsh-plugins.txt"
 	link_file "$source_zsh_plugins_late" "$target_zsh_plugins_late" "zsh-plugins-late.txt"
 	link_file "$source_starship" "$target_starship" "starship.toml"
+	link_file "$source_ghostty" "$target_ghostty" "ghostty-config"
 }
 
 if [ "$skip_neovim_install" -eq 0 ]; then
